@@ -102,10 +102,10 @@ def transfer_chart(mobile):
             if key == "dyad":
                 delta = signed(difference(value, row["original"][i]))
                 if mobile:
-                    ax.text(value + 1.2, y + .23, f"({delta} pp)", va="center",
+                    ax.text(value + 1.2, y + .23, f"({delta}%)", va="center",
                             color=BLUE, fontsize=10)
                 else:
-                    label += f"  ({delta} pp)"
+                    label += f"  ({delta}%)"
             ax.text(value + 1.2, y, label, va="center",
                     color=BLUE if key == "dyad" else INK,
                     fontsize=11 if mobile else 12)
@@ -124,7 +124,7 @@ def transfer_chart(mobile):
          "Figure 1. Agent performance beyond the training environment. Qwen3.5-9B "
          "before training and after CodeGym training with GRPO or Dyad-GRPO. "
          "Scores (%) on four other environments without further training. "
-         "Dyad-GRPO annotations are percentage-point gains over the original LLM.")
+         "Dyad-GRPO annotations show absolute gains (%) over the original LLM.")
 
 
 def capabilities_chart(mobile, training):
@@ -149,7 +149,7 @@ def capabilities_chart(mobile, training):
     ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:+.0f}" if x else "0"))
     ax.axvline(0, color="#64748b", linewidth=1, linestyle=(0, (4, 3)))
     ax.set_title(f"Trained on {training}", loc="left", fontsize=12 if mobile else 14, pad=22)
-    ax.set_xlabel("Change vs. original LLM\n(percentage points)", fontsize=10 if mobile else 11, labelpad=11)
+    ax.set_xlabel("Absolute change vs. original LLM\n(%)", fontsize=10 if mobile else 11, labelpad=11)
     style_axis(ax)
     fig.legend(handles=[
         Line2D([], [], marker="o", linestyle="none", markerfacecolor="white", markeredgecolor="#64748b", label="GRPO"),
@@ -159,7 +159,7 @@ def capabilities_chart(mobile, training):
     save(fig, f"capabilities-{training.lower()}", mobile,
          f"Figure 2. General capabilities after agentic training on {training}. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
          "same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), "
-         "and Coding (LiveCodeBench v6). Values are changes in percentage points.")
+         "and Coding (LiveCodeBench v6). Values are absolute score changes (%).")
 
 
 def frozen_table():
@@ -168,10 +168,10 @@ def frozen_table():
         '<table id="table1" class="results-table">',
         '<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> '
         '<strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. '
-        'The LLM stays frozen. Scores are percentages; changes are percentage points.</caption>',
+        'The LLM stays frozen. Scores and absolute gains are shown in %.</caption>',
         '<colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>',
         '<thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th>'
-        '<th scope="col">Frozen Dyad</th><th scope="col">Change (pp)</th></tr></thead><tbody>',
+        '<th scope="col">Frozen Dyad</th><th scope="col">Gain (%)</th></tr></thead><tbody>',
     ]
     for name, base, frozen in zip(ENVIRONMENTS, row["base"], row["frozen"]):
         output.append(

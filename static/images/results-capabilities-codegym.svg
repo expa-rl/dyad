@@ -8,7 +8,7 @@
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title>Qwen3.5-9B: capabilities codegym</dc:title>
-    <dc:description>Figure 2. General capabilities after agentic training on CodeGym. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), and Coding (LiveCodeBench v6). Values are changes in percentage points.</dc:description>
+    <dc:description>Figure 2. General capabilities after agentic training on CodeGym. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), and Coding (LiveCodeBench v6). Values are absolute score changes (%).</dc:description>
     <dc:format>image/svg+xml</dc:format>
     <dc:source>https://arxiv.org/pdf/2609.36116v1</dc:source>
     <dc:creator>
@@ -99,8 +99,8 @@ L 592.904084 55.44
      </g>
     </g>
     <g id="text_6">
-     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(338.749031 227.972031)">Change vs. original LLM</text>
-     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(350.110828 240.289625)">(percentage points)</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(313.779031 227.972031)">Absolute change vs. original LLM</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(394.834422 240.289625)">(%)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">

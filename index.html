@@ -119,9 +119,9 @@
         <div class="result-table-wrapper">
           <!-- results:frozen:start -->
 <table id="table1" class="results-table">
-<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> <strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. The LLM stays frozen. Scores are percentages; changes are percentage points.</caption>
+<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> <strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. The LLM stays frozen. Scores and absolute gains are shown in %.</caption>
 <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
-<thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th><th scope="col">Frozen Dyad</th><th scope="col">Change (pp)</th></tr></thead><tbody>
+<thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th><th scope="col">Frozen Dyad</th><th scope="col">Gain (%)</th></tr></thead><tbody>
 <tr><th scope="row">ALFWorld</th><td>45.66</td><td class="dyad-score"><strong>48.82</strong></td><td>+3.16</td></tr>
 <tr><th scope="row">WebShop</th><td>33.43</td><td class="dyad-score"><strong>35.00</strong></td><td>+1.57</td></tr>
 <tr><th scope="row">τ²-bench</th><td>62.17</td><td class="dyad-score"><strong>64.23</strong></td><td>+2.06</td></tr>
@@ -138,10 +138,10 @@
         <p class="section-copy">Joint optimization allows the LLM and action encoder to learn together from interaction rewards. We train in a single environment, then test in four unseen environments <strong class="key-emphasis">without further training</strong>. <strong class="dyad-name">Dyad</strong> outperforms both the original LLM and conventional RL across all four (<a href="#figure1" class="ref-link">Figure 1</a>). On tool use, it also avoids the regression observed with conventional RL.</p>
         <figure id="figure1" class="result-figure" aria-labelledby="transfer-caption">
           <picture>
-            <source media="(max-width: 640px)" srcset="static/images/results-codegym-transfer.mobile.svg?v=original-deltas">
-            <img src="static/images/results-codegym-transfer.svg?v=original-deltas" width="960" height="460" alt="Qwen3.5-9B scores, original LLM / GRPO / Dyad-GRPO: ALFWorld 45.66 / 51.55 / 55.13; WebShop 33.43 / 36.23 / 38.07; τ²-bench 62.17 / 61.31 / 63.02; SWE-bench Verified 44.56 / 49.40 / 50.62. Dyad-GRPO gains over the original LLM are +9.47, +4.64, +0.85 and +6.06 percentage points, respectively. GRPO and Dyad-GRPO are trained on CodeGym." loading="lazy">
+            <source media="(max-width: 640px)" srcset="static/images/results-codegym-transfer.mobile.svg?v=absolute-percent">
+            <img src="static/images/results-codegym-transfer.svg?v=absolute-percent" width="960" height="460" alt="Qwen3.5-9B scores, original LLM / GRPO / Dyad-GRPO: ALFWorld 45.66 / 51.55 / 55.13; WebShop 33.43 / 36.23 / 38.07; τ²-bench 62.17 / 61.31 / 63.02; SWE-bench Verified 44.56 / 49.40 / 50.62. Dyad-GRPO absolute gains over the original LLM are +9.47%, +4.64%, +0.85% and +6.06%, respectively. GRPO and Dyad-GRPO are trained on CodeGym." loading="lazy">
           </picture>
-          <figcaption id="transfer-caption"><strong>Figure 1. Agent performance beyond the training environment.</strong> <strong>Qwen3.5-9B</strong> before training and after CodeGym training with GRPO or Dyad-GRPO. Scores (%) in four unseen environments; Dyad-GRPO gains are relative to the original LLM, in percentage points.</figcaption>
+          <figcaption id="transfer-caption"><strong>Figure 1. Agent performance beyond the training environment.</strong> <strong>Qwen3.5-9B</strong> before training and after CodeGym training with GRPO or Dyad-GRPO. Scores (%) in four unseen environments; Dyad-GRPO annotations show absolute gains over the original LLM.</figcaption>
         </figure>
         <p class="section-copy">Agentic post-training can also change the LLM’s broader capabilities. We therefore evaluate knowledge, mathematical reasoning, and coding alongside agent performance (<a href="#figure2" class="ref-link">Figure 2</a>). <strong class="dyad-name">Dyad</strong> <strong class="key-emphasis">improves all three capabilities over the original LLM</strong> across both training environments. Where conventional RL causes capability losses, <strong class="dyad-name">Dyad</strong> recovers them; where it already yields improvements, <strong class="dyad-name">Dyad</strong> increases them.</p>
         <figure id="figure2" class="result-figure" aria-labelledby="capabilities-caption">
@@ -153,18 +153,18 @@
             </div>
             <div class="capability-slide" data-environment="CodeGym">
               <picture>
-                <source media="(max-width: 640px)" srcset="static/images/results-capabilities-codegym.mobile.svg?v=environment-switcher">
-                <img src="static/images/results-capabilities-codegym.svg?v=environment-switcher" width="960" height="350" alt="Trained on CodeGym: GRPO / Dyad-GRPO changes relative to the original Qwen3.5-9B, in percentage points. Knowledge +0.15 / +0.75; Mathematical Reasoning +2.27 / +5.66; Coding +3.58 / +3.66." loading="lazy">
+                <source media="(max-width: 640px)" srcset="static/images/results-capabilities-codegym.mobile.svg?v=absolute-percent">
+                <img src="static/images/results-capabilities-codegym.svg?v=absolute-percent" width="960" height="350" alt="Trained on CodeGym: GRPO / Dyad-GRPO absolute score changes (%) from the original Qwen3.5-9B. Knowledge +0.15 / +0.75; Mathematical Reasoning +2.27 / +5.66; Coding +3.58 / +3.66." loading="lazy">
               </picture>
             </div>
             <div class="capability-slide" data-environment="DIVE">
               <picture>
-                <source media="(max-width: 640px)" srcset="static/images/results-capabilities-dive.mobile.svg?v=environment-switcher">
-                <img src="static/images/results-capabilities-dive.svg?v=environment-switcher" width="960" height="350" alt="Trained on DIVE: GRPO / Dyad-GRPO changes relative to the original Qwen3.5-9B, in percentage points. Knowledge −1.32 / +0.09; Mathematical Reasoning −0.23 / +0.69; Coding +0.59 / +2.48." loading="lazy">
+                <source media="(max-width: 640px)" srcset="static/images/results-capabilities-dive.mobile.svg?v=absolute-percent">
+                <img src="static/images/results-capabilities-dive.svg?v=absolute-percent" width="960" height="350" alt="Trained on DIVE: GRPO / Dyad-GRPO absolute score changes (%) from the original Qwen3.5-9B. Knowledge −1.32 / +0.09; Mathematical Reasoning −0.23 / +0.69; Coding +0.59 / +2.48." loading="lazy">
               </picture>
             </div>
           </div>
-          <figcaption id="capabilities-caption"><strong>Figure 2. General capabilities after agentic training.</strong> Changes from the original <strong>Qwen3.5-9B</strong>, in percentage points. Knowledge, mathematical reasoning, and coding use MMLU-Pro, HMMT February 2026, and LiveCodeBench v6, respectively.</figcaption>
+          <figcaption id="capabilities-caption"><strong>Figure 2. General capabilities after agentic training.</strong> Absolute score changes (%) from the original <strong>Qwen3.5-9B</strong>. Knowledge, mathematical reasoning, and coding use MMLU-Pro, HMMT February 2026, and LiveCodeBench v6, respectively.</figcaption>
         </figure>
       </div>
     </section>

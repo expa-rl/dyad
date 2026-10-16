@@ -102,3 +102,5 @@ JevBench 给定状态、指令、判断标准和候选答案，检验独立决�
 - **JevBench**：解释与多步交互评估互补的独立决策比较，并保留有数据支持的差值；不再次概括整个架构贡献。按用户要求，正文用 `absolute gains of 7.08% overall and 12.20% on hard cases` 展示绝对增益；计算仍为两项准确率之差，不改成相对增长率。
 
 措辞依据仍为论文 Abstract、Introduction、Architecture、Learning 和 Experiments。固定动作空间的局限限定为部分已有 LLM 扩展；结果段落由相邻图表限定比较设置，不写成对所有模型或训练环境的无条件保证。必要的术语释义和独立可读的 caption 保留。
+
+页面单位展示补充：所有增益和变化统一使用 `%`，不显示 `pp` 或 `percentage points`。Table 1 列名为 `Gain (%)`，迁移图标注为 `(+9.47%)` 等，能力图横轴与图注注明 `absolute change`。这些变化仍按原始百分制成绩直接相减计算，图注通过 `absolute gains` / `absolute score changes` 保留绝对差值的含义；本文件中以百分点记录的原始差值仍是计算依据。
