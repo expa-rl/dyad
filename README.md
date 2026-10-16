@@ -36,7 +36,8 @@ Open <http://127.0.0.1:8000/>.
    relative to the original LLM. Figure 2 shows capability changes in a manual
    carousel, defaulting to CodeGym with DIVE available through either arrow.
 5. **Approach**: Figure 3 explains Jev-style direct decisions, conventional LLM
-   agents, and Dyad. Figure 4 reserves the MP4 location with architecture fallback.
+   agents, and Dyad. Figure 4 plays the silent architecture walkthrough, with a
+   static architecture fallback.
    Table 2 sits beside two analysis paragraphs on desktop and above them on narrow
    screens. It compares Jev, the original LLM and Dyad on JevBench; LLM-based
    methods use reasoning, specified once in the caption. The analysis highlights
@@ -62,21 +63,18 @@ exact names remain in the evidence captions and chart controls. Dyad is bold in
 prose, with selected key claims highlighted in dark blue at 110% of body size. The header displays six complete institutional identity images in
 a compact two-row layout, without hand-typeset institution names.
 
-## Add the Approach MP4
+## Approach video
 
-The final video has not been supplied. Until configured, this section shows
-the architecture figure with a "Video walkthrough coming soon" label.
+Figure 4 uses the author-supplied screen recording, packaged as
+`static/videos/dyad-approach.mp4`. It contains only H.264 video, with no audio
+track. The video stream was copied without re-encoding; the MP4 is prepared for
+progressive playback. A frame at 16 seconds supplies its poster image,
+`static/images/dyad-approach-poster.jpg`.
 
-1. Save the video as `static/videos/dyad-approach.mp4`.
-2. In `index.html`, set `data-video-src` on `#approach-video`:
-
-   ```html
-   data-video-src="static/videos/dyad-approach.mp4"
-   ```
-
-A hosted MP4 URL also works. Playback uses native controls, supports inline
-mobile playback and does not autoplay. A load error restores the architecture
-fallback. See `static/videos/README.md` for captions setup.
+Playback uses native controls, starts muted, supports inline mobile playback,
+and does not autoplay. The player follows the recording's 2518 × 1166 aspect
+ratio. A load error restores the static architecture fallback. See
+`static/videos/README.md` for asset details and replacement instructions.
 
 ## Update result figures
 

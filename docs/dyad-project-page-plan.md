@@ -8,7 +8,7 @@
 2. 一句话 TL;DR 概括架构贡献；随后的段落只解释共同文本接口的问题、固定动作空间的局限，以及通过动作描述构造决策接口的设计方向。训练方式和实验结论分别留给结果节。
 3. **1. Modular Adaptation with a Frozen LLM**：解释为什么冻结 LLM 仍可改善决策，展示 Table 1。
 4. **2. Stronger Agents with Preserved General Capabilities**：先 Figure 1 展示迁移表现，再 Figure 2 展示通用能力，默认 CodeGym，左右切换 DIVE。
-5. **Approach**：typed decision-making、Jev 和概念 Figure 3 均并入方法部分；Figure 4 为 MP4 位置；末尾介绍 JevBench 并展示 Table 2。
+5. **Approach**：typed decision-making、Jev 和概念 Figure 3 均并入方法部分；Figure 4 展示无音轨的架构动画；末尾介绍 JevBench 并展示 Table 2。
 6. BibTeX 和精简的上游模板、机构标识来源说明；网页页脚不再列出 ExpA / EARL，仓库中保留来源记录。
 
 每个主节只用一个 h2，之后直接进入段落，不使用重复的标签与子标题。正文解释问题、能力和意义；型号与必要设置放在 caption。正文用 single training environment、both training environments 等概括表述，CodeGym / DIVE 的具体名称留在图表、caption 与切换控件中。正文中的 Dyad 一律加粗；少量关键结论采用深蓝色加粗，字号为正文的 110%，包括冻结 LLM、免再次训练和三项能力提升。
@@ -78,7 +78,7 @@ JevBench 给定状态、指令、判断标准和候选答案，检验独立决�
 
 ## 6. Approach 与 caption 规则
 
-**Figure 4. How Dyad reasons and acts.** 保留 MP4 位置和原架构图回退。正文解释独立编码候选动作、语言头与交互 token、环境反馈和两阶段训练，不在图注重述整段机制。
+**Figure 4. How Dyad reasons and acts.** 使用作者 2026-10-16 提供的录屏，封装为无音轨的 H.264 MP4，保持原始视频编码和 2518 × 1166 比例。原生控件、默认静音、不自动播放；封面取动画第 16 秒。原架构图保留为加载失败或未启用 JavaScript 时的回退。正文解释独立编码候选动作、语言头与交互 token、环境反馈和两阶段训练，不在图注重述整段机制。
 
 所有 caption 保留加粗的编号、简短名称，以及理解图表必须知道的型号、训练来源、单位和 benchmark 映射。删除 seed 数、重复图例解释和可留在论文中的评估流程细节。caption 桌面 14px，手机 13.6px，左对齐。
 
@@ -87,7 +87,7 @@ JevBench 给定状态、指令、判断标准和候选答案，检验独立决�
 - 不使用折叠、隐藏表格或只在悬停时可见的数据。用户指定的通用能力轮播每次显示一个完整图；无 JavaScript 或打印时显示两个训练环境。
 - JevBench 和原始基线用独立来源文件核对；验证生成图中的 12 个迁移分数、4 个新增百分点标注、12 个能力变化与 6 个 JevBench 分数。
 - 检查单句 TL;DR、平级标题、Table 1–2 / Figure 1–4 编号与锚点、模型规格留在 caption、桌面与手机无横向溢出。
-- 机构标识使用完整原版图文，不拼写 HTML 缩写，桌面与手机均为两行三列且整体缩小；各 section 交替使用白色和淡蓝背景。较小 caption 字号保留。MP4 尚未提供，真实视频播放在接入文件后检查。
+- 机构标识使用完整原版图文，不拼写 HTML 缩写，桌面与手机均为两行三列且整体缩小；各 section 交替使用白色和淡蓝背景。较小 caption 字号保留。视频接入时检查完整解码、音轨数量、浏览器播放和手机比例。
 - 完整域内实验、多型号/算法结果、训练曲线、消融、超参数和 prompt 留在论文中。
 
 ## 8. 正文各部分的分工与去重

@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
-  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-jevbench-columns">
+  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-approach-video">
   <script defer src="static/js/index.js?v=20261016-page-revision"></script>
 </head>
 <body>
@@ -181,13 +181,12 @@
         </figure>
         <p class="section-copy"><strong class="dyad-name">Dyad</strong> represents <strong>the interaction state and action semantics separately</strong> (<a href="#figure4" class="ref-link">Figure 4</a>). The pretrained LLM encodes the evolving history, while the action encoder embeds candidate descriptions in their environment context, independently and in parallel. Action representations can be reused while their descriptions and environment context remain unchanged; newly encountered actions are encoded as needed.</p>
         <figure id="figure4" class="approach-media" aria-labelledby="approach-video-caption">
-          <!-- When the MP4 is ready, set data-video-src="static/videos/dyad-approach.mp4". -->
-          <video id="approach-video" data-video-src="" controls playsinline preload="metadata" poster="static/images/dyad-architecture.png" aria-label="Dyad architecture video walkthrough" aria-describedby="approach-video-caption" hidden>
+          <video id="approach-video" data-video-src="static/videos/dyad-approach.mp4" width="2518" height="1166" controls muted playsinline preload="metadata" poster="static/images/dyad-approach-poster.jpg" aria-label="Dyad architecture video walkthrough" aria-describedby="approach-video-caption" hidden>
             <source id="approach-video-source" type="video/mp4">
-            Your browser does not support embedded video. <a id="approach-video-link" href="static/pdfs/dyad.pdf">Read the paper</a>.
+            Your browser does not support embedded video. <a id="approach-video-link" href="static/videos/dyad-approach.mp4">Open the MP4 video</a>.
           </video>
           <div id="approach-video-fallback" class="approach-poster">
-            <p id="approach-video-status" class="video-status" role="status">Video walkthrough coming soon</p>
+            <p id="approach-video-status" class="video-status" role="status">Architecture overview</p>
             <a href="static/images/dyad-architecture.png" target="_blank" rel="noopener noreferrer" aria-label="Open the architecture overview at full resolution">
               <img src="static/images/dyad-architecture.png" width="1666" height="650" alt="The LLM state supports language generation through its language head, or typed action selection using independently encoded candidate actions. Environment observations return to the history." loading="lazy">
             </a>
