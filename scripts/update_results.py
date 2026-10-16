@@ -214,15 +214,15 @@ def jevbench_analysis():
     return (
         '<p class="section-copy"><a href="https://github.com/fstandhartinger/jevbench" '
         'target="_blank" rel="noopener noreferrer">JevBench</a> evaluates standalone '
-        'decisions through classification, yes/no judgments, and ratings. It complements '
-        'the multi-step agent tasks above.</p>\n'
+        'decisions through classification, yes/no judgments, and ratings. Here, we compare '
+        'the jointly trained agent with a dedicated System 1 model, complementing '
+        'the multi-step evaluations above.</p>\n'
         '<p class="section-copy"><strong class="dyad-name">Dyad</strong> improves over '
         'the original LLM by '
         f'<strong class="key-emphasis">{overall:.2f} percentage points overall</strong> and '
         f'<strong class="key-emphasis">{hard:.2f} points on hard cases</strong>. '
         'It also slightly exceeds Jev on both metrics '
-        '(<a href="#table2" class="ref-link">Table 2</a>). These results support '
-        'combining language reasoning with direct action selection.</p>'
+        '(<a href="#table2" class="ref-link">Table 2</a>).</p>'
     )
 
 
