@@ -58,3 +58,14 @@ The HKUST(GZ) mark comes from the unaltered logo shown on the “4.3.2 Combinati
 - Cropped PDF SHA-256: `a1c89b12a314424c4f9d138c321ec15ae2fd04800f3b8e556824bec1561919ce`
 
 The original Zhejiang University identity archives were also inspected. Their AI files show a PDF-compatibility placeholder in ordinary PDF readers, so those files were not presented as usable PDF logos. No raster logo has been described as a vector or converted to PDF to imply higher resolution.
+
+## Compact header presentation (2026-10-16)
+
+All six affiliations now share one row. The original source files above and their hashes are unchanged; CSS viewports remove unused canvas space without raster resampling or redrawing marks. Full institution names remain in link titles and accessible labels. ZJU, CSU and HKUST(GZ) are live-text affiliation abbreviations, not newly designed official wordmarks.
+
+- Zhejiang: display the seal within source bounds `(66, 43, 243, 220)` instead of the full 318 × 253 white canvas.
+- CSU and SAP: retain the existing artwork and reduce its display size.
+- HKUST(GZ): show the original emblem within `(9, 8, 45, 67)` of the 304 × 77 vector canvas beside the campus abbreviation. The complete official combination logo and PDF remain retained as source assets.
+- Chalmers: show the primary CHALMERS lettering (top 21.4 of 37 source units); the long university subtitle is outside the display viewport.
+- Microsoft Research: remove outer padding using source bounds `(13, 6, 1271, 358)`. Existing CC BY-SA 3.0 credit remains applicable to this cropped presentation.
+- Narrow screens retain all six institutions in one row, with compact labels underneath the marks.
