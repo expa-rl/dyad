@@ -14,8 +14,12 @@
 .affiliation-sap img { width: 70px; }
 .affiliation-csu img { width: 180px; }
 .affiliation-hkust img { width: 194px; }
-.affiliation-chalmers img { width: 154px; }
-.affiliation-msr img { width: 166px; }
+.affiliation-chalmers .affiliation-lockup { display: flex; align-items: center; gap: 5%; width: 180px; max-width: calc(100% - 14px); }
+.affiliation-chalmers .chalmers-crest { width: 25%; max-width: none; }
+.affiliation-chalmers .chalmers-wordmark { width: 70%; max-width: none; }
+/* Remove only blank canvas around the complete published symbol and lettering. */
+.affiliation-msr .affiliation-lockup { position: relative; display: block; width: 136px; max-width: calc(100% - 14px); aspect-ratio: 701 / 245; overflow: hidden; }
+.affiliation-msr .affiliation-lockup img { position: absolute; width: 114.1227%; max-width: none; max-height: none; left: -5.5635%; top: -20.4082%; }
 .corresponding-author { color: var(--text-secondary); font-size: 0.75rem; margin-bottom: 0.75rem; }
 .corresponding-author sup { margin-right: 0.2em; }
 .affiliation-logo:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 5px; border-radius: 3px; }

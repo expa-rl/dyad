@@ -14,6 +14,6 @@ The Dyad page uses the layout and styling of [ExpA / EARL](https://expa-rl.githu
 
 The original upstream README is saved in `research/template-upstream-readme.md`. Retrieval details and file hashes are in `research/template-provenance.json`.
 
-Institution marks used in the author-affiliation area are documented in [affiliation asset sources and credits](docs/affiliation-assets.md), including the Wikimedia Commons Microsoft Research wordmark attribution (V-gthom; blue edition by LsnIg334, CC BY-SA 3.0). Official marks retain their respective ownership; the template license does not apply to them.
+Institution marks used in the author-affiliation area are documented in [affiliation asset sources and credits](docs/affiliation-assets.md), including attribution for the archived Wikimedia Commons Microsoft Research wordmark (V-gthom; blue edition by LsnIg334, CC BY-SA 3.0). Official marks retain their respective ownership; the template license does not apply to them.
 
 Page Figure 3 uses the unaltered conceptual artwork from `resources/figures/dyad_comparison_no_caption.pdf` in the arXiv source, retained as `static/pdfs/dyad-concept.pdf`. Its desktop SVG is a Poppler rendering. The mobile SVG stacks the same three vector panels without redrawing them. JevBench scores on this page are the paper’s public-subset measurements, not the benchmark maintainer’s current leaderboard.

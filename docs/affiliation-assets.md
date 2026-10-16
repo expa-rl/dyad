@@ -2,7 +2,7 @@
 
 Retrieved and visually checked on 2026-10-16. Marks identify author affiliations and retain their respective ownership; the website-template license does not relicense them.
 
-The header uses a compact three-column, two-row layout with complete identity artwork. Institution names are contained in the image files themselves. No HTML abbreviations, replacement fonts, cropped subtitles or newly assembled wordmarks are used. Full names also appear in accessible link labels and hover titles.
+The header uses a compact three-column, two-row layout with complete identity artwork. Institution names are contained in the image files themselves. No HTML abbreviations, replacement fonts, cropped subtitles or newly drawn lettering are used. The Chalmers crest and wordmark use the same pairing as EARL. Full names also appear in accessible link labels and hover titles.
 
 ## 1. Zhejiang University
 
@@ -38,19 +38,22 @@ The header uses a compact three-column, two-row layout with complete identity ar
 
 ## 5. Chalmers University of Technology
 
-- Web asset: `static/images/affiliations/chalmers.svg`
-- Reference: [Chalmers University of Technology](https://www.chalmers.se/en/)
-- Download/source: https://www.chalmers.se/en/
-- Handling and credit: Official complete university wordmark from the homepage inline SVG. Its inherited currentColor was resolved to the homepage text-purple-700 value rgb(71 45 190). All paths and both lines of lettering are retained. The institution introduced this new visual identity in 2026: https://www.chalmers.se/aktuellt/nyheter/ett-chalmers-ny-gemensam-identitet-for-hela-koncernen/ . No extra emblem or text is invented.
-- Asset SHA-256: `869b77c818e4536edd7e1d4f99b79122090bb811d3e97dd08e2150e8fadef4d1`
+- Web assets: `static/images/affiliations/chalmers-crest.svg` and `static/images/affiliations/chalmers-wordmark.png`
+- Reference: [EARL affiliation header](https://expa-rl.github.io/)
+- Sources: https://expa-rl.github.io/static/images/Chalmers.svg and https://expa-rl.github.io/static/images/Chamlers_Logo.png
+- Handling: Reuse the same crest and wordmark pairing shown in EARL, with both original files unmodified. The crest stays vector; the two-line wordmark stays an image. CSS only scales and places them side by side; no letters are typeset or redrawn.
+- Crest SHA-256: `7328397282a2c5deac3fec8266eecb076b1514d72ff3089d938e89be5e0ebd09`
+- Wordmark SHA-256: `9ce094f523442b1324af021e5ad5c2e99827e21c91a1234246e070dd69ac4e38`
+- The previous `chalmers.svg` remains an archived source. It is the newer purple, text-only homepage wordmark, and is no longer used in the affiliation header. The university described its updated visual identity [here](https://www.chalmers.se/aktuellt/nyheter/ett-chalmers-ny-gemensam-identitet-for-hela-koncernen/).
 
 ## 6. Microsoft Research
 
-- Web asset: `static/images/affiliations/microsoft-research.png`
-- Reference: [Microsoft Research](https://commons.wikimedia.org/wiki/File:Segoe_msr_logo.png)
-- Download/source: https://upload.wikimedia.org/wikipedia/commons/7/7b/Segoe_msr_logo.png
-- Handling and credit: Established research wordmark from Wikimedia Commons, not an official Microsoft download. Credit: V-gthom; blue edition by LsnIg334. CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/ . The complete original artwork is displayed unchanged.
-- Asset SHA-256: `1b1b38d84d9a732b344090fda28bb5ea67f0f590501dcd1134834ea33419c6e7`
+- Web asset: `static/images/affiliations/microsoft-research-complete.jpg`
+- Reference: [Taiting Lu's published affiliation artwork](https://www.taitinglu.com/)
+- Source: https://taiting-website-media.s3.us-east-2.amazonaws.com/microsft-research.jpg
+- Handling: Existing four-colour Microsoft symbol and Microsoft Research lettering in a single published image. This is a researcher-hosted copy, not a direct Microsoft download. File bytes, glyphs, colours and proportions are unchanged. A CSS viewport removes only the white outer canvas, using bounds `(39, 50, 740, 295)` in the original 800 × 397 image.
+- Asset SHA-256: `7777f20d85ba2de9e887c1d948dd87c5979201c2eb0649a9d63ed04a54046b6f`
+- The previous `microsoft-research.png` remains an archived text-only wordmark from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Segoe_msr_logo.png), credited to V-gthom; blue edition by LsnIg334, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). It is no longer used in the header.
 
 ## PDF extraction
 
