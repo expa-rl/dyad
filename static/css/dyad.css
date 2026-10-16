@@ -26,6 +26,8 @@
 .section-copy:last-child { margin-bottom: 0; }
 .section-copy strong { font-weight: 600; }
 .concept-section { padding: 2rem 1.5rem 0; }
+.narrative-intro { margin-bottom: 2rem; }
+.section-discussion { margin-top: 1.75rem; }
 .content-section { padding: 5rem 1.5rem 0; }
 .section-label { margin: 0 0 0.65rem; color: var(--primary-color); text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.11em; }
 .content-section .title.is-3 { font-size: 2rem; line-height: 1.22; letter-spacing: -0.025em; padding-bottom: 0; margin-bottom: 1.15rem !important; }
@@ -85,6 +87,9 @@
 .approach-poster { margin: 0; padding: 1.25rem; background: var(--background-secondary); }
 .video-status { margin-bottom: 1rem; text-align: center; color: var(--text-secondary); font-size: 0.825rem; }
 .training-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+.approach-explanation { margin-top: 2rem; }
+.approach-explanation .title.is-5 { font-size: 1.1rem; margin: 1.6rem 0 0.65rem; line-height: 1.4; }
+.approach-explanation .title.is-5:first-child { margin-top: 0; }
 .training-settings dt { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
 .training-settings dd { margin-top: 0.4rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
 .analysis-copy { padding-bottom: 0.25rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.75; }

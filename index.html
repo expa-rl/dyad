@@ -100,11 +100,15 @@
 
     <section id="native-decisions" class="section concept-section" aria-label="Language reasoning and native decisions">
       <div class="page-column">
+        <div class="reading-column narrative-intro">
+          <p class="section-copy">An agent needs to reason about its goals and choose how to act. A shopping agent, for example, may compare products in language before selecting an operation on the current page. Most LLM agents express both computations through token-by-token generation, including the text that specifies an action. The model therefore predicts vocabulary tokens even when the decision is over a concrete set of available operations.</p>
+          <p class="section-copy">Dyad gives a pretrained LLM a native interface for these decisions. An action encoder maps each candidate description into a representation that the LLM can score directly, while its language head continues to support reasoning. Because the candidates are supplied through descriptions, the decision head can accommodate changing action sets in unfamiliar environments.</p>
+        </div>
         <figure class="paper-figure">
           <a href="static/images/dyad-concept.png" target="_blank" rel="noopener noreferrer" aria-label="Open the conceptual comparison at full resolution">
             <img src="static/images/dyad-concept.png" width="1654" height="516" alt="System 1 selects typed actions directly; System 2 generates reasoning and action text; Dyad combines language reasoning with direct typed action probabilities." fetchpriority="high">
           </a>
-          <figcaption>Language reasoning and typed decisions in one architecture. <a class="ref-link" href="static/pdfs/dyad.pdf#page=2" target="_blank" rel="noopener noreferrer">Paper, Figure 1</a>.</figcaption>
+          <figcaption>Dedicated decision models select typed actions; language agents generate action text. Dyad combines language reasoning with direct probabilities over the available actions.</figcaption>
         </figure>
       </div>
     </section>
@@ -115,7 +119,7 @@
           <div class="frozen-copy">
             <p class="section-label">1. Modular adaptation</p>
             <h2 id="frozen-title" class="title is-3">Improve existing LLMs without updating them</h2>
-            <p class="section-copy">Freeze the pretrained LLM and train only the action encoder. Dyad improves performance in most evaluated settings, with both Qwen models improving on all four unseen environments.</p>
+            <p class="section-copy">Frozen-LLM adaptation asks whether an existing LLM can become a better agent while its parameters stay fixed. Dyad’s action encoder learns to interpret the LLM’s state and connect it to executable choices. We train this encoder through environment rewards while freezing both the pretrained backbone and its language head.</p>
             <p class="supporting-copy">Evaluated across Qwen, Llama and Gemma, after GRPO training on DIVE.</p>
           </div>
           <div class="frozen-evidence">
@@ -128,8 +132,11 @@
 </tbody></table>
 <!-- results:frozen-preview:end -->
             </div>
-            <p class="figure-note">Scores (%) on unseen evaluation environments, with no further training. <a href="static/pdfs/dyad.pdf#page=8" target="_blank" rel="noopener noreferrer">Paper, Table 4</a>.</p>
+            <p class="figure-note">Scores (%) on ALFWorld, WebShop, τ²-bench and SWE-bench Verified, with no further training on these evaluation environments.</p>
           </div>
+        </div>
+        <div class="reading-column section-discussion">
+          <p class="section-copy">After training on DIVE, frozen-LLM adaptation improves both Qwen models on all four unseen environments. The benefits also extend to Llama and Gemma, with gains in most evaluated settings. Joint training generally reaches higher scores, although the gap varies by model and environment. The frozen results demonstrate a modular route to better decisions: learning the added action interface can improve agent performance without updating the LLM itself.</p>
         </div>
         <details class="supplementary full-results">
           <summary>View all four models and training settings</summary>
@@ -164,7 +171,8 @@
         <div class="section-heading reading-column">
           <p class="section-label">2. Joint optimization</p>
           <h2 id="joint-title" class="title is-3">Stronger agents through joint optimization</h2>
-          <p class="section-copy">Training the LLM and action encoder together improves both GRPO and GiGPO in-domain. Across unseen environments, Dyad outperforms the corresponding RL baseline in <strong class="inline-highlight">41 of 48 comparisons</strong>.</p>
+          <p class="section-copy">Dyad also allows reasoning and decision-making to improve together. We jointly optimize the LLM and action encoder with GRPO or GiGPO, comparing each configuration against conventional RL with the same pretrained model and training environment.</p>
+          <p class="section-copy">With Qwen3.5-9B, Dyad improves both algorithms in all four in-domain comparisons on ALFWorld and WebShop. The largest gain is <strong class="inline-highlight">5.89 percentage points</strong> on ALFWorld with GRPO. Dyad also improves the stronger GiGPO baseline, showing that its benefits extend across the two optimization methods.</p>
         </div>
         <div class="joint-results-layout">
           <figure class="result-panel">
@@ -180,7 +188,7 @@
 </tbody></table>
 <!-- results:in-domain:end -->
             </div>
-            <figcaption class="figure-note">Scores (%) after training in each evaluation environment. <a href="static/pdfs/dyad.pdf#page=6" target="_blank" rel="noopener noreferrer">Paper, Table 2</a>.</figcaption>
+            <figcaption class="figure-note">Scores (%) after training and evaluation in the same environment.</figcaption>
           </figure>
           <figure class="result-panel">
             <h3 class="title is-5">Cross-environment performance</h3>
@@ -252,8 +260,11 @@
 <!-- results:cross-environment:end -->
             </div>
             <div class="heatmap-legend" aria-label="Heatmap legend"><span><i class="gain-swatch" aria-hidden="true"></i>Improvement</span><span><i class="loss-swatch" aria-hidden="true"></i>Regression</span></div>
-            <figcaption class="figure-note">All 48 comparisons; no further training on evaluation environments. Three evaluation seeds. <a href="static/pdfs/dyad.pdf#page=6" target="_blank" rel="noopener noreferrer">Paper, Table 3</a>.</figcaption>
+            <figcaption class="figure-note">All 48 comparisons, including regressions. ALF: ALFWorld; Web: WebShop; τ²: τ²-bench; SWE: SWE-bench Verified. Three evaluation seeds.</figcaption>
           </figure>
+        </div>
+        <div class="reading-column section-discussion">
+          <p class="section-copy">To test transfer, we train on DIVE or CodeGym and evaluate on four other environments without further adaptation. These comparisons span Qwen3.5-4B, 9B and 27B. Dyad outperforms the paired RL baseline in <strong class="inline-highlight">41 of 48 comparisons</strong> and the original pretrained model in 47 of 48. The gains therefore extend beyond the environments used for training.</p>
         </div>
       </div>
     </section>
@@ -263,13 +274,14 @@
         <div class="section-heading reading-column">
           <p class="section-label">3. General capabilities</p>
           <h2 id="capabilities-title" class="title is-3">Better retention of general capabilities</h2>
-          <p class="section-copy">The agent gains are accompanied by generally stronger knowledge, mathematical reasoning and coding performance than the corresponding RL baselines. After CodeGym training, both Dyad variants exceed the original models on every general-capability evaluation.</p>
+          <p class="section-copy">Agentic post-training also needs to preserve the knowledge and reasoning skills that make pretrained LLMs useful across tasks. We evaluate knowledge with MMLU-Pro, mathematical reasoning with HMMT February 2026, and coding with LiveCodeBench v6, measuring changes from the original pretrained models.</p>
+          <p class="section-copy">Dyad generally retains more capability than the corresponding GRPO and GiGPO baselines: it recovers losses after DIVE training and amplifies gains after CodeGym training. Both Dyad variants exceed the original models on every CodeGym capability evaluation. These results suggest that a separate route for action adaptation can help reduce interference with pretrained language capabilities.</p>
         </div>
         <figure class="paper-figure">
           <a href="static/images/dyad-general-capabilities.png" target="_blank" rel="noopener noreferrer" aria-label="Open the general-capability results at full resolution">
             <img src="static/images/dyad-general-capabilities.png" width="1654" height="987" alt="Knowledge, mathematical reasoning and coding results across three model scales, GRPO and GiGPO, and DIVE and CodeGym training. Both gains and regressions relative to the pretrained models are shown." loading="lazy">
           </a>
-          <figcaption>Dashed lines mark the original pretrained models; markers show changes after RL training. Three evaluation seeds. <a href="static/pdfs/dyad.pdf#page=7" target="_blank" rel="noopener noreferrer">Paper, Figure 3</a> · <a href="static/images/dyad-general-capabilities.png" target="_blank" rel="noopener noreferrer">Open figure</a>.</figcaption>
+          <figcaption>Dashed lines mark zero change from each original pretrained model. Open markers show conventional RL; filled markers show Dyad. Three evaluation seeds. Select the image to enlarge it.</figcaption>
         </figure>
       </div>
     </section>
@@ -279,13 +291,13 @@
         <div class="section-heading reading-column">
           <p class="section-label">Approach</p>
           <h2 id="approach-title" class="title is-3">How Dyad works</h2>
-          <p class="section-copy">The LLM represents the evolving interaction state, while an environment-conditioned action encoder represents the available actions independently. A dedicated interaction token triggers typed action selection.</p>
+          <p class="section-copy">Dyad separates the evolving interaction state from the meaning of an action in its environment. The LLM computes the state representation; a separate encoder produces compatible action representations. Together, they support language generation and typed action selection within one policy.</p>
         </div>
         <div class="approach-media">
           <!-- When the MP4 is ready, set data-video-src="static/videos/dyad-approach.mp4". -->
           <video id="approach-video" data-video-src="" controls playsinline preload="metadata" poster="static/images/dyad-architecture.png" aria-label="Dyad architecture video walkthrough" aria-describedby="approach-video-caption" hidden>
             <source id="approach-video-source" type="video/mp4">
-            Your browser does not support embedded video. <a id="approach-video-link" href="static/pdfs/dyad.pdf#page=3">Read the architecture in the paper</a>.
+            Your browser does not support embedded video. <a id="approach-video-link" href="static/pdfs/dyad.pdf">Read the paper</a>.
           </video>
           <figure id="approach-video-fallback" class="approach-poster">
             <p id="approach-video-status" class="video-status" role="status">Video walkthrough coming soon</p>
@@ -294,7 +306,15 @@
             </a>
           </figure>
         </div>
-        <p id="approach-video-caption" class="figure-note">State and action representations are computed independently. Action representations can be reused while their descriptions and environment context remain unchanged. <a href="static/pdfs/dyad.pdf#page=3" target="_blank" rel="noopener noreferrer">Paper, Figure 2</a>.</p>
+        <p id="approach-video-caption" class="figure-note">The pretrained LLM and action encoder meet at the decision head. Environment feedback returns to the interaction history to inform the next reasoning or decision step.</p>
+        <div class="reading-column approach-explanation">
+          <h3 class="title is-5">Encode actions independently</h3>
+          <p class="section-copy">The encoder processes each candidate description together with its environment context, independently and in parallel. Unchanged descriptions and context allow these representations to be cached across decisions. When new actions appear, their descriptions can be encoded as needed, giving the decision head a dynamic set of choices.</p>
+          <h3 class="title is-5">Interleave reasoning and decisions</h3>
+          <p class="section-copy">The pretrained language head continues to generate reasoning tokens. When the LLM emits a dedicated interaction token, its current state is scored against the candidate action vectors to produce an action distribution. The selected operation is executed, and the resulting observation is added to the history.</p>
+          <h3 class="title is-5">Learn from environment interaction</h3>
+          <p class="section-copy">Supervised alignment first trains the action projector to connect the two representation spaces, keeping both transformer backbones fixed. Agentic RL then learns from task rewards with GRPO or GiGPO. The same architecture supports two complementary training settings:</p>
+        </div>
         <dl class="training-settings reading-column">
           <div><dt>Frozen-LLM adaptation</dt><dd>Train only the action encoder; keep the pretrained LLM and its language head fixed.</dd></div>
           <div><dt>Joint optimization</dt><dd>Train the LLM and action encoder together through environment interaction.</dd></div>
@@ -302,9 +322,8 @@
         <details class="supplementary reading-column further-analysis">
           <summary>Further analysis</summary>
           <div class="analysis-copy">
-            <p><strong>Learning Dyad.</strong> Supervised alignment initializes the action projector before agentic RL with GRPO or GiGPO. <a href="static/pdfs/dyad.pdf#page=4" target="_blank" rel="noopener noreferrer">Section 3</a>.</p>
-            <p><strong>Training dynamics.</strong> Higher final validation rewards accompany shorter responses and more environment interactions. <a href="static/pdfs/dyad.pdf#page=7" target="_blank" rel="noopener noreferrer">Figure 4</a>.</p>
-            <p><strong>System 1 evaluation and ablations.</strong> Dedicated decision benchmarks and component studies provide additional evidence. <a href="static/pdfs/dyad.pdf#page=8" target="_blank" rel="noopener noreferrer">Sections 5.4–5.5</a>.</p>
+            <p><strong>Training dynamics.</strong> On CodeGym with Qwen3.5-9B, both Dyad variants reach higher final validation rewards than their RL baselines. Their responses become shorter while the number of environment interactions increases.</p>
+            <p><strong>Component studies.</strong> Alignment followed by RL outperforms either alignment alone or RL without alignment in the evaluated training budget. With the LLM trainable in every component-training variant, updating the full action encoder achieves the highest final validation reward.</p>
           </div>
         </details>
       </div>
