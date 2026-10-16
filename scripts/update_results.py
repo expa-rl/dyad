@@ -168,7 +168,7 @@ def frozen_table():
         '<table id="table1" class="results-table">',
         '<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> '
         '<strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. '
-        'The LLM stays frozen. Scores and absolute gains are shown in %.</caption>',
+        'The LLM stays frozen. Scores (%).</caption>',
         '<colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>',
         '<thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th>'
         '<th scope="col">Frozen Dyad</th><th scope="col">Gain (%)</th></tr></thead><tbody>',

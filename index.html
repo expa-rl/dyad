@@ -114,12 +114,11 @@
     <section id="frozen-adaptation" class="section content-section" aria-labelledby="frozen-title">
       <div class="container is-max-desktop">
         <h2 id="frozen-title" class="title is-3">1. Modular Adaptation with a Frozen LLM</h2>
-        <p class="section-copy">Modular adaptation asks how much an agent can improve by learning a new decision interface on top of an existing LLM. We train only <strong class="dyad-name">Dyad</strong>’s action encoder through reinforcement learning, <strong class="key-emphasis">without updating any LLM parameters</strong>.</p>
-        <p class="section-copy">The resulting agent improves over the original LLM in all four unseen environments (<a href="#table1" class="ref-link">Table 1</a>). The largest gain is on household tasks, with improvements also extending to web shopping, tool use, and software engineering.</p>
+        <p class="section-copy">Modular adaptation asks how much an agent can improve by learning a new decision interface on top of an existing LLM. We train only <strong class="dyad-name">Dyad</strong>’s action encoder through reinforcement learning, <strong class="key-emphasis">without updating any LLM parameters</strong>. The resulting agent improves over the original LLM in all four unseen environments (<a href="#table1" class="ref-link">Table 1</a>). The largest gain is on household tasks, with improvements also extending to web shopping, tool use, and software engineering.</p>
         <div class="result-table-wrapper">
           <!-- results:frozen:start -->
 <table id="table1" class="results-table">
-<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> <strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. The LLM stays frozen. Scores and absolute gains are shown in %.</caption>
+<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> <strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. The LLM stays frozen. Scores (%).</caption>
 <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
 <thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th><th scope="col">Frozen Dyad</th><th scope="col">Gain (%)</th></tr></thead><tbody>
 <tr><th scope="row">ALFWorld</th><td>45.66</td><td class="dyad-score"><strong>48.82</strong></td><td>+3.16</td></tr>
