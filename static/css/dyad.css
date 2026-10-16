@@ -22,7 +22,7 @@
 .result-figure { margin: 1.8rem 0 0; }
 .result-figure picture, .result-figure img { display: block; width: 100%; }
 .result-figure img { height: auto; }
-.result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 1rem; line-height: 1.6; color: var(--text-primary); text-align: left; }
+.result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 0.875rem; line-height: 1.6; color: var(--text-primary); text-align: left; }
 .result-figure figcaption, .approach-media figcaption { margin-top: 0.8rem; }
 .result-table-wrapper { margin-top: 1.8rem; }
 .results-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 1rem; }
@@ -74,7 +74,7 @@ section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
   .page-hero .publication-links .button { width: auto; padding: 0.55rem 1rem !important; }
   .section { padding: 2.5rem 1.1rem; }
   .content-section .title.is-3 { font-size: 1.6rem; margin-bottom: 1.5rem !important; padding-bottom: 0; }
-  .result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 0.95rem; }
+  .result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 0.85rem; }
   .results-table { font-size: 0.85rem; }
   .results-table th, .results-table td { padding: 0.7rem 0.45rem; }
   .approach-poster { padding: 0.6rem; }
