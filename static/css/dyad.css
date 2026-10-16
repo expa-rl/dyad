@@ -34,6 +34,7 @@
 .section-copy strong { font-weight: 600; }
 .content-section .title.is-3 { font-size: 2rem; line-height: 1.3; }
 .result-figure { margin: 1.8rem 0 0; }
+.result-figure + .section-copy { margin-top: 1.8rem; }
 .result-figure picture, .result-figure img { display: block; width: 100%; }
 .result-figure img { height: auto; }
 .result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 0.875rem; line-height: 1.6; color: var(--text-primary); text-align: left; }
@@ -104,6 +105,7 @@ section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
   .result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 0.85rem; }
   .results-table { font-size: 0.85rem; }
   .results-table th, .results-table td { padding: 0.7rem 0.45rem; }
+  .jevbench-table th, .jevbench-table td { padding-right: 0.3rem; padding-left: 0.3rem; }
   .approach-poster { padding: 0.6rem; }
   .video-status { font-size: 0.8rem; }
   pre { padding: 0.9rem !important; font-size: 0.75rem !important; }

@@ -338,6 +338,37 @@
           ]
         }
       }
+    ],
+    "source_file": "resources/tables/table_joint_generalization.tex",
+    "source_file_sha256": "2f56e2ce17de67e98b763b85dc4b857e4fed533739ec2bb68cfe81a1d1254acd",
+    "original_models": [
+      {
+        "model": "Qwen3.5-4B",
+        "scores": [
+          23.45,
+          28.54,
+          61.05,
+          43.21
+        ]
+      },
+      {
+        "model": "Qwen3.5-9B",
+        "scores": [
+          45.66,
+          33.43,
+          62.17,
+          44.56
+        ]
+      },
+      {
+        "model": "Qwen3.5-27B",
+        "scores": [
+          68.45,
+          44.56,
+          68.21,
+          66.78
+        ]
+      }
     ]
   },
   "general_capabilities": {
@@ -507,6 +538,47 @@
             78.5
           ]
         }
+      }
+    ]
+  },
+  "jevbench": {
+    "source_file": "resources/tables/table_jevbench_results.tex",
+    "source_file_sha256": "4e3c5afe1f52e62753f0edfc3757d5526a42507158a58e7e2536ae12e93a41c8",
+    "subset": "public",
+    "items": 231,
+    "model": "Qwen3.5-4B",
+    "training_environment": "CodeGym",
+    "algorithm": "GRPO",
+    "rows": [
+      {
+        "method": "Jev 1.13",
+        "reasoning": "—",
+        "overall": 85.01,
+        "hard": 70.88
+      },
+      {
+        "method": "Original LLM",
+        "reasoning": "Off",
+        "overall": 77.89,
+        "hard": 56.32
+      },
+      {
+        "method": "Original LLM",
+        "reasoning": "On",
+        "overall": 79.1,
+        "hard": 59.88
+      },
+      {
+        "method": "Dyad",
+        "reasoning": "Off",
+        "overall": 83.52,
+        "hard": 67.07
+      },
+      {
+        "method": "Dyad",
+        "reasoning": "On",
+        "overall": 86.18,
+        "hard": 72.08
       }
     ]
   }

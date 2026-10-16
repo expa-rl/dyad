@@ -9,6 +9,8 @@ from html import escape
 import json
 from pathlib import Path
 import re
+import copy
+import xml.etree.ElementTree as ET
 
 import matplotlib
 
@@ -78,37 +80,39 @@ def save(fig, name, mobile, description):
 def transfer_chart(mobile):
     row = next(r for r in DATA["cross_environment"]["rows"]
                if r["model"] == MODEL and r["algorithm"] == "GRPO")["CodeGym"]
-    fig, ax = plt.subplots(figsize=(4, 4.5) if mobile else (9.6, 3.8))
-    fig.subplots_adjust(left=.34 if mobile else .23, right=.72 if mobile else .80,
-                        bottom=.19 if mobile else .20, top=.83)
+    row = {**row, "original": model_from(DATA["cross_environment"]["original_models"])["scores"]}
+    fig, ax = plt.subplots(figsize=(4.2, 5.4) if mobile else (9.6, 4.6))
+    fig.subplots_adjust(left=.34 if mobile else .23, right=.87,
+                        bottom=.15, top=.82 if mobile else .84)
     for key, color, offset, label in [
-        ("baseline", GRAY, -.17, "GRPO"),
-        ("dyad", BLUE, .17, "Dyad-GRPO"),
+        ("original", "white", -.25, "Original LLM"),
+        ("baseline", GRAY, 0, "GRPO"),
+        ("dyad", BLUE, .25, "Dyad-GRPO"),
     ]:
         ys = [i + offset for i in range(4)]
-        ax.barh(ys, row[key], height=.25, color=color, label=label, zorder=3)
-        for i, (y, value) in enumerate(zip(ys, row[key])):
-            text = f"{value:.2f}"
-            if key == "dyad":
-                text += f" ({signed(difference(value, row['baseline'][i]))})"
-            ax.text(value + 1.0, y, text, va="center",
-                    color=INK if key == "baseline" else BLUE,
-                    fontsize=10.5 if mobile else 12)
+        ax.barh(ys, row[key], height=.19, color=color, label=label, zorder=3,
+                edgecolor="#94a3b8" if key == "original" else color,
+                linewidth=.8 if key == "original" else 0,
+                hatch="///" if key == "original" else None)
+        for y, value in zip(ys, row[key]):
+            ax.text(value + 1.2, y, f"{value:.2f}", va="center",
+                    color=BLUE if key == "dyad" else INK,
+                    fontsize=11 if mobile else 12)
     ax.set_yticks(range(4), ["ALFWorld", "WebShop", "τ²-bench", "SWE-bench\nVerified"],
                   fontsize=11.5 if mobile else 13)
     ax.invert_yaxis()
-    ax.set_xlim(0, 85)
+    ax.set_xlim(0, 82)
     ax.set_xticks([0, 40, 80] if mobile else [0, 20, 40, 60, 80])
     ax.set_xlabel("Score (%)", labelpad=12, fontsize=11 if mobile else 12)
     style_axis(ax)
     handles, labels = ax.get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(.55, .99),
-               ncol=2, frameon=False, fontsize=11 if mobile else 12,
+    fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(.51, .99),
+               ncol=2 if mobile else 3, frameon=False, fontsize=11 if mobile else 12,
                handlelength=1.1, columnspacing=1.4)
     save(fig, "codegym-transfer", mobile,
-         "Figure 1. Generalization to unseen environments. Qwen3.5-9B trained on CodeGym: "
-         "GRPO versus Dyad-GRPO scores on four other environments. Parentheses show "
-         "percentage-point improvements. Three evaluation seeds, no further adaptation.")
+         "Figure 2. Agent performance beyond the training environment. Qwen3.5-9B "
+         "before training and after CodeGym training with GRPO or Dyad-GRPO. "
+         "Scores (%) on four other environments without further training.")
 
 
 def capabilities_chart(mobile):
@@ -143,20 +147,18 @@ def capabilities_chart(mobile):
     ], loc="upper center", bbox_to_anchor=(.56, .995), ncol=2, frameon=False,
        fontsize=11 if mobile else 12, columnspacing=1.5, handletextpad=.3)
     save(fig, "capabilities", mobile,
-         "Figure 2. Retaining knowledge, reasoning and coding after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
+         "Figure 3. General capabilities after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
          "same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), "
-         "and Coding (LiveCodeBench v6). "
-         "Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.")
+         "and Coding (LiveCodeBench v6). Values are changes in percentage points.")
 
 
 def frozen_table():
     row = model_from(DATA["frozen_adaptation"]["models"])
     output = [
-        '<table id="table1" class="results-table">',
-        '<caption id="frozen-caption"><strong>Table 1. Modular adaptation without updating the LLM.</strong> '
-        'Scores (%) for <strong>Qwen3.5-9B</strong> before and after training the action encoder with GRPO '
-        'on DIVE, while keeping the LLM and language head fixed. Evaluation uses three seeds in four '
-        'other environments, without further training. Changes are in percentage points.</caption>',
+        '<table id="table2" class="results-table">',
+        '<caption id="frozen-caption"><strong>Table 2. Improving decisions with a frozen LLM.</strong> '
+        '<strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. '
+        'The LLM stays frozen. Scores are percentages; changes are percentage points.</caption>',
         '<colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>',
         '<thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th>'
         '<th scope="col">Frozen Dyad</th><th scope="col">Change (pp)</th></tr></thead><tbody>',
@@ -170,18 +172,78 @@ def frozen_table():
     return "\n".join(output + ['</tbody></table>'])
 
 
+def jevbench_table():
+    output = [
+        '<table id="table1" class="results-table jevbench-table">',
+        '<caption id="jevbench-caption"><strong>Table 1. Direct decisions on JevBench.</strong> '
+        'Accuracy (%) on the public subset. The original LLM and Dyad use '
+        '<strong>Qwen3.5-4B</strong>; Dyad is trained on CodeGym with GRPO.</caption>',
+        '<colgroup><col style="width:32%"><col style="width:28%"><col style="width:20%"><col style="width:20%"></colgroup>',
+        '<thead><tr><th scope="col">Method</th><th scope="col">Reasoning</th>'
+        '<th scope="col">Overall</th><th scope="col">Hard</th></tr></thead><tbody>',
+    ]
+    rows = DATA["jevbench"]["rows"]
+    best = {key: max(row[key] for row in rows) for key in ("overall", "hard")}
+    for row in rows:
+        cells = []
+        for key in ("overall", "hard"):
+            text = f'{row[key]:.2f}'
+            if row[key] == best[key]:
+                text = f'<strong>{text}</strong>'
+            css = ' class="dyad-score"' if row["method"] == "Dyad" else ''
+            cells.append(f'<td{css}>{text}</td>')
+        output.append(f'<tr><th scope="row">{escape(row["method"])}</th>'
+                      f'<td>{escape(row["reasoning"])}</td>{"".join(cells)}</tr>')
+    return "\n".join(output + ['</tbody></table>'])
+
+
+def concept_mobile():
+    """Stack the three original vector panels for a readable narrow-screen figure."""
+    namespace = "http://www.w3.org/2000/svg"
+    xlink = "http://www.w3.org/1999/xlink"
+    ET.register_namespace("", namespace)
+    ET.register_namespace("xlink", xlink)
+    tag = lambda name: f"{{{namespace}}}{name}"
+    original = ET.parse(IMAGES / "dyad-concept.svg").getroot()
+    _, _, width, height = map(float, original.get("viewBox").split())
+    panel_width, gap = width / 3, 16
+    total_height = height * 3 + gap * 2
+    result = ET.Element(tag("svg"), {
+        "width": f"{panel_width:g}pt", "height": f"{total_height:g}pt",
+        "viewBox": f"0 0 {panel_width:g} {total_height:g}",
+    })
+    ET.SubElement(result, tag("title")).text = "System 1, System 2, and Dyad"
+    defs = ET.SubElement(result, tag("defs"))
+    artwork = ET.SubElement(defs, tag("g"), {"id": "concept-source"})
+    for child in original:
+        artwork.append(copy.deepcopy(child))
+    for i in range(3):
+        panel = ET.SubElement(result, tag("svg"), {
+            "x": "0", "y": f"{i * (height + gap):g}",
+            "width": f"{panel_width:g}", "height": f"{height:g}",
+            "viewBox": f"{i * panel_width:g} 0 {panel_width:g} {height:g}",
+        })
+        ET.SubElement(panel, tag("use"), {f"{{{xlink}}}href": "#concept-source"})
+    ET.indent(result)
+    ET.ElementTree(result).write(IMAGES / "dyad-concept.mobile.svg", encoding="unicode")
+    with (IMAGES / "dyad-concept.mobile.svg").open("a") as stream:
+        stream.write("\n")
+
+
 def main():
     page = ROOT / "index.html"
     markup = page.read_text()
-    pattern = re.compile(r"(<!-- results:frozen:start -->).*?(<!-- results:frozen:end -->)", re.S)
-    markup, count = pattern.subn(lambda m: f"{m[1]}\n{frozen_table()}\n{m[2]}", markup)
-    if count != 1:
-        raise ValueError(f"Expected one frozen results block, found {count}")
+    for name, render in [("jevbench", jevbench_table), ("frozen", frozen_table)]:
+        pattern = re.compile(rf"(<!-- results:{name}:start -->).*?(<!-- results:{name}:end -->)", re.S)
+        markup, count = pattern.subn(lambda m: f"{m[1]}\n{render()}\n{m[2]}", markup)
+        if count != 1:
+            raise ValueError(f"Expected one {name} results block, found {count}")
     for mobile in (False, True):
         transfer_chart(mobile)
         capabilities_chart(mobile)
+    concept_mobile()
     page.write_text(markup)
-    print("Updated visible Table 1 and four desktop/mobile SVGs for Figures 1 and 2.")
+    print("Updated visible Tables 1–2 and desktop/mobile result SVGs for Figures 2–3.")
 
 
 if __name__ == "__main__":
