@@ -11,7 +11,7 @@
 5. **Approach**：typed decision-making、Jev 和概念 Figure 3 均并入方法部分；Figure 4 为 MP4 位置；末尾介绍 JevBench 并展示 Table 2。
 6. BibTeX 和精简的上游模板、机构标识来源说明；网页页脚不再列出 ExpA / EARL，仓库中保留来源记录。
 
-每个主节只用一个 h2，之后直接进入段落，不使用重复的标签与子标题。正文解释问题、能力和意义；型号与必要设置放在 caption。正文用 single training environment、both training environments 等概括表述，CodeGym / DIVE 的具体名称留在图表、caption 与切换控件中。正文中的 Dyad 一律加粗；少量关键结论采用深蓝色加粗，包括冻结 LLM、免再次训练和三项能力提升。
+每个主节只用一个 h2，之后直接进入段落，不使用重复的标签与子标题。正文解释问题、能力和意义；型号与必要设置放在 caption。正文用 single training environment、both training environments 等概括表述，CodeGym / DIVE 的具体名称留在图表、caption 与切换控件中。正文中的 Dyad 一律加粗；少量关键结论采用深蓝色加粗，字号为正文的 110%，包括冻结 LLM、免再次训练和三项能力提升。
 
 ## 2. 先让 typed decision-making 可理解
 
@@ -61,7 +61,7 @@ JevBench 给定状态、指令、判断标准和候选答案，检验独立决�
 
 三组均来自论文 `resources/tables/table_joint_generalization.tex`；原始模型的分数还与冻结实验基线相互核对。保留原始模型在 τ²-bench 上高于 GRPO 的事实，不把常规 RL 写成在所有环境都提高了原始模型。Dyad 在这里的四个环境中均高于另外两组。此处不扩展为所有型号和算法的结论。
 
-**Figure 2. General capabilities after agentic training.** 保留 DIVE 和 CodeGym 两种训练来源，各自生成一张相同坐标范围的图。默认显示 CodeGym，使用左右按钮或键盘方向键切换，无自动播放。用 Knowledge、Mathematical Reasoning、Coding 三项能力表达；caption 说明对应 MMLU-Pro、HMMT February 2026、LiveCodeBench v6。
+**Figure 2. General capabilities after agentic training.** 保留 DIVE 和 CodeGym 两种训练来源，各自生成一张相同坐标范围的图。默认显示 CodeGym，使用图表左右两侧垂直居中的按钮或键盘方向键切换，无自动播放。移除顶部按钮组和重复的环境标题，当前训练环境仍在图内显示；无障碍 live status 保留切换播报。用 Knowledge、Mathematical Reasoning、Coding 三项能力表达；caption 说明对应 MMLU-Pro、HMMT February 2026、LiveCodeBench v6。
 
 | 训练来源与能力 | GRPO 相对原始模型 | Dyad-GRPO 相对原始模型 |
 |---|---:|---:|

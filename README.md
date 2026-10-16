@@ -49,12 +49,15 @@ The concept figure stacks its three original vector panels on narrow screens.
 Both tables are visible HTML. Every exhibit has its own page number, name and caption;
 there are no hidden data tables or expandable results. The requested capability
 carousel switches between two fully labelled charts; it has no autoplay, supports
-keyboard arrows and shows both charts when JavaScript is unavailable or when printed. Model specifications are
+keyboard arrows and shows both charts when JavaScript is unavailable or when printed.
+The previous/next controls sit at the left and right edges of the chart, vertically
+centered, with no duplicate toolbar above it. The figure names the selected
+training environment; an accessible live status announces changes. Model specifications are
 kept in concise captions, while prose explains the research problems and capability gains.
 Captions omit seed counts and evaluation-procedure detail. Sections alternate white
 and soft blue. Body paragraphs use general training-environment descriptions;
 exact names remain in the evidence captions and chart controls. Dyad is bold in
-prose, with selected key claims highlighted in dark blue. The header displays six complete institutional identity images in
+prose, with selected key claims highlighted in dark blue at 110% of body size. The header displays six complete institutional identity images in
 a compact two-row layout, without hand-typeset institution names.
 
 ## Add the Approach MP4
