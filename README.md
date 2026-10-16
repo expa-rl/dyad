@@ -38,7 +38,7 @@ Open <http://127.0.0.1:8000/>.
 5. **Approach**: Figure 3 explains Jev-style direct decisions, conventional LLM
    agents, and Dyad. Figure 4 plays the silent architecture walkthrough, with a
    static architecture fallback.
-   Table 2 sits beside two analysis paragraphs on desktop and above them on narrow
+   Table 2 sits beside one analysis paragraph on desktop and above it on narrow
    screens. It compares Jev, the original LLM and Dyad on JevBench; LLM-based
    methods use reasoning, specified once in the caption. The analysis highlights
    overall and hard-case gains over the original LLM.
