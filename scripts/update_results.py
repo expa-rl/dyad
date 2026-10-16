@@ -217,10 +217,9 @@ def jevbench_analysis():
         'decisions through classification, yes/no judgments, and ratings. Here, we compare '
         'the jointly trained agent with a dedicated System 1 model, complementing '
         'the multi-step evaluations above.</p>\n'
-        '<p class="section-copy"><strong class="dyad-name">Dyad</strong> improves over '
-        'the original LLM by '
-        f'<strong class="key-emphasis">{overall:.2f} percentage points overall</strong> and '
-        f'<strong class="key-emphasis">{hard:.2f} points on hard cases</strong>. '
+        '<p class="section-copy"><strong class="dyad-name">Dyad</strong> achieves absolute gains of '
+        f'<strong class="key-emphasis">{overall:.2f}% overall</strong> and '
+        f'<strong class="key-emphasis">{hard:.2f}% on hard cases</strong> over the original LLM. '
         'It also slightly exceeds Jev on both metrics '
         '(<a href="#table2" class="ref-link">Table 2</a>).</p>'
     )

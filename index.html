@@ -172,7 +172,7 @@
     <section id="approach" class="section content-section approach-section" aria-labelledby="approach-title">
       <div class="container is-max-desktop">
         <h2 id="approach-title" class="title is-3">Approach</h2>
-        <p class="section-copy">On an unfamiliar web page, operations such as clicking a button, entering text, or selecting an option are executable choices. <strong>Typed decision-making</strong> assigns probabilities directly to those choices. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Jev</a> illustrates a dedicated “System 1” approach to such decisions. <a href="#figure3" class="ref-link">Figure 3</a> contrasts this with conventional LLM agents and shows how <strong class="dyad-name">Dyad</strong> combines direct decisions with language reasoning within a single policy.</p>
+        <p class="section-copy">A shopping agent must reason about a customer’s requirements and compare products, while repeatedly choosing actions to search, inspect items, and complete a purchase. The two computations are analogous to <strong>System 2</strong> reasoning and <strong>System 1</strong> decision-making. Dedicated models such as <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Jev</a> focus on predicting typed decisions directly. <strong class="dyad-name">Dyad</strong> integrates this ability with a pretrained LLM’s language reasoning within a single policy (<a href="#figure3" class="ref-link">Figure 3</a>).</p>
         <figure id="figure3" class="result-figure concept-figure" aria-labelledby="concept-caption">
           <picture>
             <source media="(max-width: 640px)" srcset="static/images/dyad-concept.mobile.svg">
@@ -213,7 +213,7 @@
           <div class="jevbench-analysis">
             <!-- results:jevbench-analysis:start -->
 <p class="section-copy"><a href="https://github.com/fstandhartinger/jevbench" target="_blank" rel="noopener noreferrer">JevBench</a> evaluates standalone decisions through classification, yes/no judgments, and ratings. Here, we compare the jointly trained agent with a dedicated System 1 model, complementing the multi-step evaluations above.</p>
-<p class="section-copy"><strong class="dyad-name">Dyad</strong> improves over the original LLM by <strong class="key-emphasis">7.08 percentage points overall</strong> and <strong class="key-emphasis">12.20 points on hard cases</strong>. It also slightly exceeds Jev on both metrics (<a href="#table2" class="ref-link">Table 2</a>).</p>
+<p class="section-copy"><strong class="dyad-name">Dyad</strong> achieves absolute gains of <strong class="key-emphasis">7.08% overall</strong> and <strong class="key-emphasis">12.20% on hard cases</strong> over the original LLM. It also slightly exceeds Jev on both metrics (<a href="#table2" class="ref-link">Table 2</a>).</p>
 <!-- results:jevbench-analysis:end -->
           </div>
         </div>
