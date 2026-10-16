@@ -95,7 +95,7 @@
     <section class="section hero is-light tldr-section" aria-label="Overview">
       <div class="container is-max-desktop">
         <p class="section-copy"><strong>TL;DR:</strong> We introduce Dyad, an architecture that extends pretrained LLMs with native typed decision-making for more capable agents across environments.</p>
-        <p class="section-copy">LLM agents typically use language generation both to reason and to specify actions, even when an environment provides a concrete set of available operations. This couples language reasoning with environment control. Dyad introduces an <strong>environment-conditioned action encoder</strong> that represents each candidate action independently, allowing the LLM to assign probabilities directly to the available choices while retaining its language reasoning. Because actions are supplied through descriptions, the decision head can accommodate changing action sets in unfamiliar environments. We explore this architecture through frozen-LLM adaptation and joint training, with benefits in three key areas.</p>
+        <p class="section-copy">LLM agents typically express both reasoning and actions as text. Dyad adds an <strong>action encoder</strong> for direct decisions over dynamic action spaces, while retaining language reasoning and supporting both frozen-LLM adaptation and joint training.</p>
       </div>
     </section>
 
@@ -142,10 +142,10 @@
         <p class="section-copy">Dyad recovers the knowledge and mathematics losses seen after DIVE training, while increasing the gains from CodeGym training (<a href="#figure2" class="ref-link">Figure 2</a>). For the CodeGym-trained agent, <strong>all three capabilities improve</strong> over the original pretrained LLM. These results suggest that a separate route for adapting actions can help retain the language capabilities on which an agent’s reasoning depends.</p>
         <figure id="figure2" class="result-figure" aria-labelledby="capabilities-caption">
           <picture>
-            <source media="(max-width: 640px)" srcset="static/images/results-capabilities.mobile.svg">
-            <img src="static/images/results-capabilities.svg" width="960" height="390" alt="Qwen3.5-9B capability changes, GRPO to Dyad-GRPO, in percentage points. DIVE: MMLU-Pro −1.32 to +0.09; HMMT −0.23 to +0.69; LiveCodeBench +0.59 to +2.48. CodeGym: MMLU-Pro +0.15 to +0.75; HMMT +2.27 to +5.66; LiveCodeBench +3.58 to +3.66." loading="lazy">
+            <source media="(max-width: 640px)" srcset="static/images/results-capabilities.mobile.svg?v=capability-labels">
+            <img src="static/images/results-capabilities.svg?v=capability-labels" width="960" height="390" alt="Qwen3.5-9B capability changes, GRPO to Dyad-GRPO, in percentage points. DIVE: Knowledge −1.32 to +0.09; Mathematical Reasoning −0.23 to +0.69; Coding +0.59 to +2.48. CodeGym: Knowledge +0.15 to +0.75; Mathematical Reasoning +2.27 to +5.66; Coding +3.58 to +3.66." loading="lazy">
           </picture>
-          <figcaption id="capabilities-caption"><strong>Figure 2. Retaining knowledge, reasoning, and coding after agentic training.</strong> Changes in <strong>Qwen3.5-9B</strong> performance on MMLU-Pro, HMMT February 2026, and LiveCodeBench v6 after training on DIVE or CodeGym with GRPO or Dyad-GRPO. Zero marks the original pretrained model; hollow and filled markers show GRPO and Dyad-GRPO, respectively. Values are in percentage points; evaluations use three seeds. Connecting lines compare methods, rather than uncertainty intervals.</figcaption>
+          <figcaption id="capabilities-caption"><strong>Figure 2. Retaining knowledge, reasoning, and coding after agentic training.</strong> Changes in <strong>Qwen3.5-9B</strong> after training on DIVE or CodeGym. Knowledge is evaluated with MMLU-Pro, mathematical reasoning with HMMT February 2026, and coding with LiveCodeBench v6. Zero marks the original pretrained model; hollow and filled markers show GRPO and Dyad-GRPO, respectively. Values are in percentage points; evaluations use three seeds. Connecting lines compare methods, rather than uncertainty intervals.</figcaption>
         </figure>
       </div>
     </section>

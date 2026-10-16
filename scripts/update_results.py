@@ -128,7 +128,7 @@ def capabilities_chart(mobile):
                         ha="center", va="bottom", color=BLUE, fontsize=11)
             ax.annotate(signed(b), (b, i), xytext=(0, -10), textcoords="offset points",
                         ha="center", va="top", color="#64748b", fontsize=10.5 if mobile else 10)
-        ax.set_yticks(range(3), ["MMLU-Pro", "HMMT", "LiveCodeBench"], fontsize=11 if mobile else 12)
+        ax.set_yticks(range(3), ["Knowledge", "Mathematical\nReasoning", "Coding"], fontsize=11 if mobile else 12)
         ax.set_ylim(2.5, -.55)
         ax.set_xlim(-2.4, 7.1)
         ax.set_xticks([-2, 0, 2, 4, 6])
@@ -144,7 +144,8 @@ def capabilities_chart(mobile):
        fontsize=11 if mobile else 12, columnspacing=1.5, handletextpad=.3)
     save(fig, "capabilities", mobile,
          "Figure 2. Retaining knowledge, reasoning and coding after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
-         "same original model on MMLU-Pro, HMMT February 2026 and LiveCodeBench v6. "
+         "same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), "
+         "and Coding (LiveCodeBench v6). "
          "Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.")
 
 

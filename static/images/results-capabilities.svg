@@ -8,7 +8,7 @@
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title>Qwen3.5-9B: capabilities</dc:title>
-    <dc:description>Figure 2. Retaining knowledge, reasoning and coding after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the same original model on MMLU-Pro, HMMT February 2026 and LiveCodeBench v6. Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.</dc:description>
+    <dc:description>Figure 2. Retaining knowledge, reasoning and coding after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), and Coding (LiveCodeBench v6). Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.</dc:description>
     <dc:format>image/svg+xml</dc:format>
     <dc:source>https://arxiv.org/pdf/2609.36116v1</dc:source>
     <dc:creator>
@@ -105,19 +105,20 @@ L 298.594571 67.392
     <g id="ytick_1">
      <g id="line2d_11"/>
      <g id="text_7">
-      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="119.328" y="98.281817" transform="rotate(-0 119.328 98.281817)">MMLU-Pro</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="119.328" y="98.281817" transform="rotate(-0 119.328 98.281817)">Knowledge</text>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_12"/>
      <g id="text_8">
-      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="119.328" y="146.155915" transform="rotate(-0 119.328 146.155915)">HMMT</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(37.561125 140.34904)">Mathematical</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(57.03675 153.786415)">Reasoning</text>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_13"/>
      <g id="text_9">
-      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="119.328" y="194.030013" transform="rotate(-0 119.328 194.030013)">LiveCodeBench</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="119.328" y="194.030013" transform="rotate(-0 119.328 194.030013)">Coding</text>
      </g>
     </g>
    </g>
@@ -298,19 +299,20 @@ L 648.560044 67.392
     <g id="ytick_4">
      <g id="line2d_28"/>
      <g id="text_23">
-      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="469.293474" y="98.281817" transform="rotate(-0 469.293474 98.281817)">MMLU-Pro</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="469.293474" y="98.281817" transform="rotate(-0 469.293474 98.281817)">Knowledge</text>
      </g>
     </g>
     <g id="ytick_5">
      <g id="line2d_29"/>
      <g id="text_24">
-      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="469.293474" y="146.155915" transform="rotate(-0 469.293474 146.155915)">HMMT</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(387.526599 140.34904)">Mathematical</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; fill: #1e293b" transform="translate(407.002224 153.786415)">Reasoning</text>
      </g>
     </g>
     <g id="ytick_6">
      <g id="line2d_30"/>
      <g id="text_25">
-      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="469.293474" y="194.030013" transform="rotate(-0 469.293474 194.030013)">LiveCodeBench</text>
+      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1e293b" x="469.293474" y="194.030013" transform="rotate(-0 469.293474 194.030013)">Coding</text>
      </g>
     </g>
    </g>
