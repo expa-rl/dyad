@@ -15,7 +15,7 @@ results the reference page presents, omits or explains through animation.
 [EARL writing and caption analysis](docs/earl-writing-and-captions.md) records the
 one-sentence TL;DR, paragraph structure, emphasis and independent evidence labels.
 [Dyad restructuring plan](docs/dyad-project-page-plan.md) documents the resulting
-content choices, exact source values and English copy used in this revision.
+content choices, exact source values and writing rules used in this revision.
 
 ## Local preview
 
@@ -68,7 +68,7 @@ fallback. See `static/videos/README.md` for captions setup.
 `static/data/results.json` retains Tables 2, 3 and 4 and the general-capability
 scores supplied in the paper's arXiv v1 source. Its metadata records the source
 file and hash. The page consistently selects **Qwen3.5-9B with GRPO** as its main
-example; full-study claims are stated separately in the text.
+example; captions state the training source and evaluation scope of each exhibit.
 
 To regenerate visible Table 1 and the four desktop/mobile SVG assets:
 
