@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = json.loads((ROOT / "static/data/results.json").read_text())
 MODEL = "Qwen3.5-9B"
 ENVIRONMENTS = DATA["environments"]
-CAPABILITY_SOURCES = ("DIVE", "CodeGym")
+CAPABILITY_SOURCES = ("CodeGym", "DIVE")
 BLUE, GRAY, INK = "#2563eb", "#94a3b8", "#1e293b"
 IMAGES = ROOT / "static/images"
 plt.rcParams.update({
@@ -56,6 +56,9 @@ def style_axis(ax):
 
 
 def save(fig, name, mobile, description):
+    fig.patch.set_alpha(0)
+    for ax in fig.axes:
+        ax.set_facecolor("none")
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     canvas = fig.bbox
@@ -81,7 +84,7 @@ def transfer_chart(mobile):
     row = next(r for r in DATA["cross_environment"]["rows"]
                if r["model"] == MODEL and r["algorithm"] == "GRPO")["CodeGym"]
     row = {**row, "original": model_from(DATA["cross_environment"]["original_models"])["scores"]}
-    fig, ax = plt.subplots(figsize=(4.2, 5.4) if mobile else (9.6, 4.6))
+    fig, ax = plt.subplots(figsize=(4.2, 5.8) if mobile else (9.6, 4.6))
     fig.subplots_adjust(left=.34 if mobile else .23, right=.87,
                         bottom=.15, top=.82 if mobile else .84)
     for key, color, offset, label in [
@@ -94,8 +97,16 @@ def transfer_chart(mobile):
                 edgecolor="#94a3b8" if key == "original" else color,
                 linewidth=.8 if key == "original" else 0,
                 hatch="///" if key == "original" else None)
-        for y, value in zip(ys, row[key]):
-            ax.text(value + 1.2, y, f"{value:.2f}", va="center",
+        for i, (y, value) in enumerate(zip(ys, row[key])):
+            label = f"{value:.2f}"
+            if key == "dyad":
+                delta = signed(difference(value, row["original"][i]))
+                if mobile:
+                    ax.text(value + 1.2, y + .23, f"({delta} pp)", va="center",
+                            color=BLUE, fontsize=10)
+                else:
+                    label += f"  ({delta} pp)"
+            ax.text(value + 1.2, y, label, va="center",
                     color=BLUE if key == "dyad" else INK,
                     fontsize=11 if mobile else 12)
     ax.set_yticks(range(4), ["ALFWorld", "WebShop", "τ²-bench", "SWE-bench\nVerified"],
@@ -110,44 +121,43 @@ def transfer_chart(mobile):
                ncol=2 if mobile else 3, frameon=False, fontsize=11 if mobile else 12,
                handlelength=1.1, columnspacing=1.4)
     save(fig, "codegym-transfer", mobile,
-         "Figure 2. Agent performance beyond the training environment. Qwen3.5-9B "
+         "Figure 1. Agent performance beyond the training environment. Qwen3.5-9B "
          "before training and after CodeGym training with GRPO or Dyad-GRPO. "
-         "Scores (%) on four other environments without further training.")
+         "Scores (%) on four other environments without further training. "
+         "Dyad-GRPO annotations are percentage-point gains over the original LLM.")
 
 
-def capabilities_chart(mobile):
+def capabilities_chart(mobile, training):
     row = model_from(DATA["general_capabilities"]["models"])
-    fig, axes = plt.subplots(2, 1, figsize=(4, 6.2)) if mobile else plt.subplots(1, 2, figsize=(9.6, 3.9))
-    fig.subplots_adjust(left=.37 if mobile else .19, right=.94 if mobile else .97,
-                        bottom=.16 if mobile else .24, top=.84 if mobile else .76,
-                        hspace=.86, wspace=.85)
-    for ax, training in zip(axes, CAPABILITY_SOURCES):
-        baseline = [difference(v, b) for b, v in zip(row["original"], row[training]["GRPO"])]
-        dyad = [difference(v, b) for b, v in zip(row["original"], row[training]["Dyad-GRPO"])]
-        for i, (b, d) in enumerate(zip(baseline, dyad)):
-            ax.plot([b, d], [i, i], color="#cbd5e1", linewidth=2.5, zorder=2)
-            ax.scatter([b], [i], s=55, facecolor="white", edgecolor="#64748b", linewidth=1.4, zorder=4)
-            ax.scatter([d], [i], s=45, color=BLUE, zorder=5)
-            ax.annotate(signed(d), (d, i), xytext=(0, 10), textcoords="offset points",
-                        ha="center", va="bottom", color=BLUE, fontsize=11)
-            ax.annotate(signed(b), (b, i), xytext=(0, -10), textcoords="offset points",
-                        ha="center", va="top", color="#64748b", fontsize=10.5 if mobile else 10)
-        ax.set_yticks(range(3), ["Knowledge", "Mathematical\nReasoning", "Coding"], fontsize=11 if mobile else 12)
-        ax.set_ylim(2.5, -.55)
-        ax.set_xlim(-2.4, 7.1)
-        ax.set_xticks([-2, 0, 2, 4, 6])
-        ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:+.0f}" if x else "0"))
-        ax.axvline(0, color="#64748b", linewidth=1, linestyle=(0, (4, 3)))
-        ax.set_title(f"Trained on {training}", loc="left", fontsize=12 if mobile else 14, pad=20)
-        ax.set_xlabel("Change vs. original LLM\n(percentage points)", fontsize=10 if mobile else 11, labelpad=11)
-        style_axis(ax)
+    fig, ax = plt.subplots(figsize=(4.2, 4.6) if mobile else (9.6, 3.5))
+    fig.subplots_adjust(left=.37 if mobile else .23, right=.94, bottom=.25, top=.78)
+    assert training in CAPABILITY_SOURCES
+    baseline = [difference(v, b) for b, v in zip(row["original"], row[training]["GRPO"])]
+    dyad = [difference(v, b) for b, v in zip(row["original"], row[training]["Dyad-GRPO"])]
+    for i, (b, d) in enumerate(zip(baseline, dyad)):
+        ax.plot([b, d], [i, i], color="#cbd5e1", linewidth=2.5, zorder=2)
+        ax.scatter([b], [i], s=55, facecolor="white", edgecolor="#64748b", linewidth=1.4, zorder=4)
+        ax.scatter([d], [i], s=45, color=BLUE, zorder=5)
+        ax.annotate(signed(d), (d, i), xytext=(0, 10), textcoords="offset points",
+                    ha="center", va="bottom", color=BLUE, fontsize=11)
+        ax.annotate(signed(b), (b, i), xytext=(0, -10), textcoords="offset points",
+                    ha="center", va="top", color="#64748b", fontsize=10.5 if mobile else 10)
+    ax.set_yticks(range(3), ["Knowledge", "Mathematical\nReasoning", "Coding"], fontsize=11 if mobile else 12)
+    ax.set_ylim(2.5, -.55)
+    ax.set_xlim(-2.4, 7.1)
+    ax.set_xticks([-2, 0, 2, 4, 6])
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:+.0f}" if x else "0"))
+    ax.axvline(0, color="#64748b", linewidth=1, linestyle=(0, (4, 3)))
+    ax.set_title(f"Trained on {training}", loc="left", fontsize=12 if mobile else 14, pad=22)
+    ax.set_xlabel("Change vs. original LLM\n(percentage points)", fontsize=10 if mobile else 11, labelpad=11)
+    style_axis(ax)
     fig.legend(handles=[
         Line2D([], [], marker="o", linestyle="none", markerfacecolor="white", markeredgecolor="#64748b", label="GRPO"),
         Line2D([], [], marker="o", linestyle="none", color=BLUE, label="Dyad-GRPO"),
     ], loc="upper center", bbox_to_anchor=(.56, .995), ncol=2, frameon=False,
        fontsize=11 if mobile else 12, columnspacing=1.5, handletextpad=.3)
-    save(fig, "capabilities", mobile,
-         "Figure 3. General capabilities after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
+    save(fig, f"capabilities-{training.lower()}", mobile,
+         f"Figure 2. General capabilities after agentic training on {training}. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
          "same original model for Knowledge (MMLU-Pro), Mathematical Reasoning (HMMT February 2026), "
          "and Coding (LiveCodeBench v6). Values are changes in percentage points.")
 
@@ -155,8 +165,8 @@ def capabilities_chart(mobile):
 def frozen_table():
     row = model_from(DATA["frozen_adaptation"]["models"])
     output = [
-        '<table id="table2" class="results-table">',
-        '<caption id="frozen-caption"><strong>Table 2. Improving decisions with a frozen LLM.</strong> '
+        '<table id="table1" class="results-table">',
+        '<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> '
         '<strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. '
         'The LLM stays frozen. Scores are percentages; changes are percentage points.</caption>',
         '<colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>',
@@ -174,15 +184,15 @@ def frozen_table():
 
 def jevbench_table():
     output = [
-        '<table id="table1" class="results-table jevbench-table">',
-        '<caption id="jevbench-caption"><strong>Table 1. Direct decisions on JevBench.</strong> '
+        '<table id="table2" class="results-table jevbench-table">',
+        '<caption id="jevbench-caption"><strong>Table 2. Direct decisions on JevBench.</strong> '
         'Accuracy (%) on the public subset. The original LLM and Dyad use '
-        '<strong>Qwen3.5-4B</strong>; Dyad is trained on CodeGym with GRPO.</caption>',
-        '<colgroup><col style="width:32%"><col style="width:28%"><col style="width:20%"><col style="width:20%"></colgroup>',
-        '<thead><tr><th scope="col">Method</th><th scope="col">Reasoning</th>'
+        '<strong>Qwen3.5-4B</strong> with reasoning; Dyad is trained on CodeGym with GRPO.</caption>',
+        '<colgroup><col style="width:50%"><col style="width:25%"><col style="width:25%"></colgroup>',
+        '<thead><tr><th scope="col">Method</th>'
         '<th scope="col">Overall</th><th scope="col">Hard</th></tr></thead><tbody>',
     ]
-    rows = DATA["jevbench"]["rows"]
+    rows = [row for row in DATA["jevbench"]["rows"] if row["reasoning"] != "Off"]
     best = {key: max(row[key] for row in rows) for key in ("overall", "hard")}
     for row in rows:
         cells = []
@@ -192,8 +202,7 @@ def jevbench_table():
                 text = f'<strong>{text}</strong>'
             css = ' class="dyad-score"' if row["method"] == "Dyad" else ''
             cells.append(f'<td{css}>{text}</td>')
-        output.append(f'<tr><th scope="row">{escape(row["method"])}</th>'
-                      f'<td>{escape(row["reasoning"])}</td>{"".join(cells)}</tr>')
+        output.append(f'<tr><th scope="row">{escape(row["method"])}</th>{"".join(cells)}</tr>')
     return "\n".join(output + ['</tbody></table>'])
 
 
@@ -240,10 +249,11 @@ def main():
             raise ValueError(f"Expected one {name} results block, found {count}")
     for mobile in (False, True):
         transfer_chart(mobile)
-        capabilities_chart(mobile)
+        for training in CAPABILITY_SOURCES:
+            capabilities_chart(mobile, training)
     concept_mobile()
     page.write_text(markup)
-    print("Updated visible Tables 1–2 and desktop/mobile result SVGs for Figures 2–3.")
+    print("Updated visible Tables 1–2 and desktop/mobile result SVGs for Figures 1–2.")
 
 
 if __name__ == "__main__":

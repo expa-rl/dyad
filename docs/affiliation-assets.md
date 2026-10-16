@@ -1,37 +1,39 @@
 # Affiliation logo sources and credits
 
-Retrieved and visually checked on 2026-10-16. These marks identify the authors’ affiliations; they do not indicate institutional endorsement. All institution names and marks remain the property of their respective owners. The website-template license does not relicense institutional marks.
+Retrieved and visually checked on 2026-10-16. Marks identify author affiliations and retain their respective ownership; the website-template license does not relicense them.
+
+The header uses a compact three-column, two-row layout with complete identity artwork. Institution names are contained in the image files themselves. No HTML abbreviations, replacement fonts, cropped subtitles or newly assembled wordmarks are used. Full names also appear in accessible link labels and hover titles.
 
 ## 1. Zhejiang University
 
-- Web asset: `static/images/affiliations/zhejiang-university.png`
-- Reference: [Zhejiang University](https://www.zju.edu.cn/514/listm.htm)
-- Download/source: https://www.zju.edu.cn/_upload/article/images/c3/98/1fb1d281492eb477a098ef7a2901/05966b26-ab45-470d-94c1-99b1e02d12f4.png
-- Handling and credit: Official seal (PNG); the adjacent university name is live HTML, not a newly drawn wordmark.
-- Asset SHA-256: `dc914cc634bdcd9b871c84686817c12287c6bafd309f083a1054040aee806fca`
+- Web asset: `static/images/affiliations/zhejiang-university-complete.jpg`
+- Reference: [Zhejiang University](https://bis.zju.edu.cn/cakordb/tools/)
+- Download/source: https://bis.zju.edu.cn/cakordb/static/images/home/ZJU.jpg
+- Handling and credit: Complete seal, Chinese calligraphic name and English wordmark from a Zhejiang University-hosted research website. Retrieved through the weserv image proxy after a direct-host timeout. Lettering, proportions and colours are displayed as supplied.
+- Asset SHA-256: `783e62726b959af3fb5ecf22c3ea71236c62437bc22a28304b195d352d9f12ff`
 
 ## 2. SAP
 
 - Web asset: `static/images/affiliations/sap.svg`
 - Reference: [SAP](https://www.sap.com/design-system/digital/foundations/identity/logo/)
 - Download/source: https://commons.wikimedia.org/wiki/File:SAP_2011_logo.svg
-- Handling and credit: SVG supplied by Wikimedia Commons, credited there to SAP SE and sourced from the official SAP Digital Design System. The gradient anvil mark was checked against the official primary-logo example.
+- Handling and credit: Original SVG credited to SAP SE and sourced from the SAP Digital Design System. The SAP lettering is part of the artwork.
 - Asset SHA-256: `50173e125aaa607467d0888d2ca9763742e27a86a07f6697eaab2db6bac35f34`
 
 ## 3. Central South University
 
-- Web asset: `static/images/affiliations/central-south-university.png`
-- Reference: [Central South University](https://www.csu.edu.cn/zjzn/xxbs/xh.htm)
-- Download/source: https://www.csu.edu.cn/__local/5/85/66/A8DA6D0E8DD76C7FDDB81792C28_F0410DE8_8BDF4.png
-- Handling and credit: Official seal (PNG); the adjacent university name is live HTML. Downloaded through the weserv image proxy because the university host closed direct connections. The open PNG was used without attempting the verification-code-protected VIS archive.
-- Asset SHA-256: `765ac787fa918486d4d8cd92d8f865291fad8c32b1d636ba16ad402191bb32a4`
+- Web asset: `static/images/affiliations/central-south-university-complete.png`
+- Reference: [Central South University](https://tactip.org/)
+- Download/source: https://tactip.org/Partner/%E4%B8%AD%E5%8D%97%E5%A4%A7%E5%AD%A6.png
+- Handling and credit: Complete university identity artwork published in the TacTip partner list, retrieved through the weserv image proxy. This is a partner-hosted copy, not a direct university download. The seal was cross-checked against https://www.csu.edu.cn/info/1417/8070.htm and the combination against a second published copy at https://www.iecube.com.cn/tmp/uploads/20221013/a38096e783767e9399d19e2ec712b510.jpg . No lettering was recreated, removed or substituted.
+- Asset SHA-256: `370da224268018ceea0ad21fa14d5f0d25a0bc61acc8d4da040a0ecdd3fb8329`
 
 ## 4. HKUST (Guangzhou)
 
 - Web asset: `static/images/affiliations/hkust-guangzhou.svg`
 - Reference: [HKUST (Guangzhou)](https://brand.hkust.edu.hk/)
 - Download/source: https://brand.hkust.edu.hk/sites/default/files/bm_folder/HKUST_Brand_guideline.pdf
-- Handling and credit: Unmodified English combination mark extracted from PDF page 69 of the official HKUST Brand Guidelines (revision 20261006). A cropped vector PDF is retained as hkust-guangzhou.pdf; the website uses its vector SVG rendering.
+- Handling and credit: Unmodified English combination mark extracted from PDF page 69 of the official brand guidelines (revision 20261006). The complete emblem and wordmark are displayed; hkust-guangzhou.pdf remains the vector source.
 - Asset SHA-256: `dc520c88650f8c013e845a9fde387c06c4f889126a43c687efbd4e4b9f897edb`
 
 ## 5. Chalmers University of Technology
@@ -39,7 +41,7 @@ Retrieved and visually checked on 2026-10-16. These marks identify the authors�
 - Web asset: `static/images/affiliations/chalmers.svg`
 - Reference: [Chalmers University of Technology](https://www.chalmers.se/en/)
 - Download/source: https://www.chalmers.se/en/
-- Handling and credit: Official inline SVG from the university homepage, with its inherited currentColor resolved to the homepage text-purple-700 value rgb(71 45 190). Paths and proportions are unchanged.
+- Handling and credit: Official complete university wordmark from the homepage inline SVG. Its inherited currentColor was resolved to the homepage text-purple-700 value rgb(71 45 190). All paths and both lines of lettering are retained. The institution introduced this new visual identity in 2026: https://www.chalmers.se/aktuellt/nyheter/ett-chalmers-ny-gemensam-identitet-for-hela-koncernen/ . No extra emblem or text is invented.
 - Asset SHA-256: `869b77c818e4536edd7e1d4f99b79122090bb811d3e97dd08e2150e8fadef4d1`
 
 ## 6. Microsoft Research
@@ -47,7 +49,7 @@ Retrieved and visually checked on 2026-10-16. These marks identify the authors�
 - Web asset: `static/images/affiliations/microsoft-research.png`
 - Reference: [Microsoft Research](https://commons.wikimedia.org/wiki/File:Segoe_msr_logo.png)
 - Download/source: https://upload.wikimedia.org/wikipedia/commons/7/7b/Segoe_msr_logo.png
-- Handling and credit: Established research wordmark from Wikimedia Commons (PNG), not an official Microsoft download. Credit: V-gthom; current blue edition uploaded by LsnIg334. Licensed CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/ . Image unchanged.
+- Handling and credit: Established research wordmark from Wikimedia Commons, not an official Microsoft download. Credit: V-gthom; blue edition by LsnIg334. CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/ . The complete original artwork is displayed unchanged.
 - Asset SHA-256: `1b1b38d84d9a732b344090fda28bb5ea67f0f590501dcd1134834ea33419c6e7`
 
 ## PDF extraction
@@ -59,13 +61,5 @@ The HKUST(GZ) mark comes from the unaltered logo shown on the “4.3.2 Combinati
 
 The original Zhejiang University identity archives were also inspected. Their AI files show a PDF-compatibility placeholder in ordinary PDF readers, so those files were not presented as usable PDF logos. No raster logo has been described as a vector or converted to PDF to imply higher resolution.
 
-## Compact header presentation (2026-10-16)
 
-All six affiliations now share one row. The original source files above and their hashes are unchanged; CSS viewports remove unused canvas space without raster resampling or redrawing marks. Full institution names remain in link titles and accessible labels. ZJU, CSU and HKUST(GZ) are live-text affiliation abbreviations, not newly designed official wordmarks.
-
-- Zhejiang: display the seal within source bounds `(66, 43, 243, 220)` instead of the full 318 × 253 white canvas.
-- CSU and SAP: retain the existing artwork and reduce its display size.
-- HKUST(GZ): show the original emblem within `(9, 8, 45, 67)` of the 304 × 77 vector canvas beside the campus abbreviation. The complete official combination logo and PDF remain retained as source assets.
-- Chalmers: show the primary CHALMERS lettering (top 21.4 of 37 source units); the long university subtitle is outside the display viewport.
-- Microsoft Research: remove outer padding using source bounds `(13, 6, 1271, 358)`. Existing CC BY-SA 3.0 credit remains applicable to this cropped presentation.
-- Narrow screens retain all six institutions in one row, with compact labels underneath the marks.
+The previously downloaded standalone Zhejiang and CSU seals remain source assets; the current header uses the complete combinations above.

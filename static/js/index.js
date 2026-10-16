@@ -9,6 +9,32 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let resetCopy;
 
+  const carousel = document.querySelector('[data-capability-carousel]');
+  if (carousel) {
+    const slides = [...carousel.querySelectorAll('.capability-slide')];
+    const selection = carousel.querySelector('[data-selection]');
+    let selected = 0;
+    const showSlide = (index) => {
+      selected = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => { slide.hidden = i !== selected; });
+      selection.replaceChildren(
+        document.createTextNode(`Trained on ${slides[selected].dataset.environment} `),
+        Object.assign(document.createElement('span'), {
+          className: 'figure-count', textContent: `${selected + 1} / ${slides.length}`,
+        }),
+      );
+    };
+    carousel.querySelector('[data-previous]').addEventListener('click', () => showSlide(selected - 1));
+    carousel.querySelector('[data-next]').addEventListener('click', () => showSlide(selected + 1));
+    carousel.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      showSlide(selected + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    carousel.querySelector('.figure-controls').hidden = false;
+    showSlide(0);
+  }
+
   const video = document.getElementById('approach-video');
   const videoSource = document.getElementById('approach-video-source');
   const videoFallback = document.getElementById('approach-video-fallback');

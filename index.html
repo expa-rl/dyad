@@ -29,8 +29,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
-  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-compact-logos">
-  <script defer src="static/js/index.js"></script>
+  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-page-revision">
+  <script defer src="static/js/index.js?v=20261016-page-revision"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -61,22 +61,22 @@
 
               <div class="affiliation-list" aria-label="Author affiliations">
                 <a class="affiliation-logo affiliation-zju" href="https://www.zju.edu.cn/english/" target="_blank" rel="noopener noreferrer" aria-label="1 Zhejiang University" title="Zhejiang University">
-                  <sup aria-hidden="true">1</sup><span class="affiliation-emblem"><img src="static/images/affiliations/zhejiang-university.png" width="318" height="253" alt=""></span><span class="institution-name" aria-hidden="true">ZJU</span>
+                  <sup aria-hidden="true">1</sup><img src="static/images/affiliations/zhejiang-university-complete.jpg" width="1520" height="472" alt="Zhejiang University">
                 </a>
                 <a class="affiliation-logo affiliation-sap" href="https://www.sap.com/" target="_blank" rel="noopener noreferrer" aria-label="2 SAP" title="SAP">
                   <sup aria-hidden="true">2</sup><img src="static/images/affiliations/sap.svg" width="412" height="204" alt="SAP">
                 </a>
                 <a class="affiliation-logo affiliation-csu" href="https://www.csu.edu.cn/" target="_blank" rel="noopener noreferrer" aria-label="3 Central South University" title="Central South University">
-                  <sup aria-hidden="true">3</sup><span class="affiliation-emblem"><img src="static/images/affiliations/central-south-university.png" width="378" height="378" alt=""></span><span class="institution-name" aria-hidden="true">CSU</span>
+                  <sup aria-hidden="true">3</sup><img src="static/images/affiliations/central-south-university-complete.png" width="2516" height="686" alt="Central South University">
                 </a>
                 <a class="affiliation-logo affiliation-hkust" href="https://www.hkust-gz.edu.cn/" target="_blank" rel="noopener noreferrer" aria-label="4 The Hong Kong University of Science and Technology (Guangzhou)" title="The Hong Kong University of Science and Technology (Guangzhou)">
-                  <sup aria-hidden="true">4</sup><span class="affiliation-emblem"><img src="static/images/affiliations/hkust-guangzhou.svg" width="304" height="77" alt=""></span><span class="institution-name" aria-hidden="true">HKUST(GZ)</span>
+                  <sup aria-hidden="true">4</sup><img src="static/images/affiliations/hkust-guangzhou.svg" width="304" height="77" alt="The Hong Kong University of Science and Technology (Guangzhou)">
                 </a>
                 <a class="affiliation-logo affiliation-chalmers" href="https://www.chalmers.se/en/" target="_blank" rel="noopener noreferrer" aria-label="5 Chalmers University of Technology" title="Chalmers University of Technology">
-                  <sup aria-hidden="true">5</sup><span class="affiliation-wordmark"><img src="static/images/affiliations/chalmers.svg" width="162" height="37" alt="Chalmers University of Technology"></span><span class="compact-label" aria-hidden="true">Chalmers</span>
+                  <sup aria-hidden="true">5</sup><img src="static/images/affiliations/chalmers.svg" width="162" height="37" alt="Chalmers University of Technology">
                 </a>
                 <a class="affiliation-logo affiliation-msr" href="https://www.microsoft.com/en-us/research/" target="_blank" rel="noopener noreferrer" aria-label="6 Microsoft Research" title="Microsoft Research">
-                  <sup aria-hidden="true">6</sup><span class="affiliation-wordmark"><img src="static/images/affiliations/microsoft-research.png" width="1289" height="368" alt="Microsoft Research"></span><span class="compact-label" aria-hidden="true">MSR</span>
+                  <sup aria-hidden="true">6</sup><img src="static/images/affiliations/microsoft-research.png" width="1289" height="368" alt="Microsoft Research">
                 </a>
               </div>
               <p class="corresponding-author"><sup>*</sup>Corresponding author</p>
@@ -111,44 +111,15 @@
       </div>
     </section>
 
-    <section id="direct-decisions" class="section content-section" aria-labelledby="decisions-title">
-      <div class="container is-max-desktop">
-        <h2 id="decisions-title" class="title is-3">1. Language Reasoning Meets Direct Decisions</h2>
-        <p class="section-copy">An agent must reason about a goal and choose what to do next. <strong>Typed decision-making</strong> means assigning probabilities directly to the operations an environment provides, such as clicking, typing, or scrolling. A dedicated decision model such as <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Jev</a> takes this “System 1” route, while conventional LLM agents generate both reasoning and action text. Dyad brings these complementary modes together: the LLM reasons in language, then selects an available action directly (<a href="#figure1" class="ref-link">Figure 1</a>).</p>
-        <figure id="figure1" class="result-figure concept-figure" aria-labelledby="concept-caption">
-          <picture>
-            <source media="(max-width: 640px)" srcset="static/images/dyad-concept.mobile.svg">
-            <img src="static/images/dyad-concept.svg" width="1056" height="322" alt="Three ways to reason and act. System 1 models such as Jev output probabilities over available actions for direct execution. Conventional LLM agents generate reasoning and action text that must be parsed. Dyad combines language reasoning with probabilities over available actions." loading="lazy">
-          </picture>
-          <figcaption id="concept-caption"><strong>Figure 1. Reasoning and acting in one architecture.</strong> Dyad combines direct action selection with an LLM’s language reasoning.</figcaption>
-        </figure>
-        <p class="section-copy">Choosing directly should also leave room to reason when a decision is difficult. <a href="https://github.com/fstandhartinger/jevbench" target="_blank" rel="noopener noreferrer">JevBench</a> tests standalone decisions: given a state, instructions, criteria, and candidate answers, a model selects a category, makes a yes/no judgment, or assigns a rating. Dyad improves over the original LLM both with and without reasoning, and <strong>slightly exceeds Jev when reasoning is enabled</strong> (<a href="#table1" class="ref-link">Table 1</a>). This tests the decision interface itself, alongside the multi-step agent tasks below.</p>
-        <div class="result-table-wrapper">
-          <!-- results:jevbench:start -->
-<table id="table1" class="results-table jevbench-table">
-<caption id="jevbench-caption"><strong>Table 1. Direct decisions on JevBench.</strong> Accuracy (%) on the public subset. The original LLM and Dyad use <strong>Qwen3.5-4B</strong>; Dyad is trained on CodeGym with GRPO.</caption>
-<colgroup><col style="width:32%"><col style="width:28%"><col style="width:20%"><col style="width:20%"></colgroup>
-<thead><tr><th scope="col">Method</th><th scope="col">Reasoning</th><th scope="col">Overall</th><th scope="col">Hard</th></tr></thead><tbody>
-<tr><th scope="row">Jev 1.13</th><td>—</td><td>85.01</td><td>70.88</td></tr>
-<tr><th scope="row">Original LLM</th><td>Off</td><td>77.89</td><td>56.32</td></tr>
-<tr><th scope="row">Original LLM</th><td>On</td><td>79.10</td><td>59.88</td></tr>
-<tr><th scope="row">Dyad</th><td>Off</td><td class="dyad-score">83.52</td><td class="dyad-score">67.07</td></tr>
-<tr><th scope="row">Dyad</th><td>On</td><td class="dyad-score"><strong>86.18</strong></td><td class="dyad-score"><strong>72.08</strong></td></tr>
-</tbody></table>
-<!-- results:jevbench:end -->
-        </div>
-      </div>
-    </section>
-
     <section id="frozen-adaptation" class="section content-section" aria-labelledby="frozen-title">
       <div class="container is-max-desktop">
-        <h2 id="frozen-title" class="title is-3">2. Modular Adaptation with a Frozen LLM</h2>
+        <h2 id="frozen-title" class="title is-3">1. Modular Adaptation with a Frozen LLM</h2>
         <p class="section-copy">Pretrained LLMs already contain knowledge and reasoning skills that are useful for acting in an environment. Connecting these capabilities to executable decisions need not require changing the LLM itself. Dyad provides a separate action encoder that learns how the model’s internal state relates to the available operations, allowing environment rewards to improve decision-making <strong>without updating any LLM parameters</strong>.</p>
-        <p class="section-copy">Training only this encoder improves agent performance on four unseen environments (<a href="#table2" class="ref-link">Table 2</a>). The LLM continues to supply the interaction-state representation, while the added component learns to ground it in actions. These results demonstrate a modular way to adapt existing agents: decision-making can improve beyond the training environment while the pretrained LLM and its language head remain fixed.</p>
+        <p class="section-copy">Training only this encoder improves agent performance on four unseen environments (<a href="#table1" class="ref-link">Table 1</a>). The LLM continues to supply the interaction-state representation, while the added component learns to ground it in actions. These results demonstrate a modular way to adapt existing agents: decision-making can improve beyond the training environment while the pretrained LLM and its language head remain fixed.</p>
         <div class="result-table-wrapper">
           <!-- results:frozen:start -->
-<table id="table2" class="results-table">
-<caption id="frozen-caption"><strong>Table 2. Improving decisions with a frozen LLM.</strong> <strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. The LLM stays frozen. Scores are percentages; changes are percentage points.</caption>
+<table id="table1" class="results-table">
+<caption id="frozen-caption"><strong>Table 1. Improving decisions with a frozen LLM.</strong> <strong>Qwen3.5-9B</strong> before and after action-encoder training on DIVE with GRPO. The LLM stays frozen. Scores are percentages; changes are percentage points.</caption>
 <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
 <thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th><th scope="col">Frozen Dyad</th><th scope="col">Change (pp)</th></tr></thead><tbody>
 <tr><th scope="row">ALFWorld</th><td>45.66</td><td class="dyad-score"><strong>48.82</strong></td><td>+3.16</td></tr>
@@ -163,29 +134,52 @@
 
     <section id="joint-optimization" class="section content-section" aria-labelledby="joint-title">
       <div class="container is-max-desktop">
-        <h2 id="joint-title" class="title is-3">3. Stronger Agents with Preserved General Capabilities</h2>
-        <p class="section-copy">Joint training asks whether learning language reasoning and direct decisions together produces more capable agents. We train on CodeGym, then evaluate in four other environments <strong>without further training</strong>. Dyad improves over both the original LLM and conventional RL across household interaction, web shopping, tool use, and software engineering (<a href="#figure2" class="ref-link">Figure 2</a>). Because the decision head is built from action descriptions, the agent can use the choices supplied by each new environment.</p>
-        <figure id="figure2" class="result-figure" aria-labelledby="transfer-caption">
+        <h2 id="joint-title" class="title is-3">2. Stronger Agents with Preserved General Capabilities</h2>
+        <p class="section-copy">Joint training asks whether learning language reasoning and direct decisions together produces more capable agents. We train on CodeGym, then evaluate in four other environments <strong>without further training</strong>. Dyad improves over both the original LLM and conventional RL across household interaction, web shopping, tool use, and software engineering (<a href="#figure1" class="ref-link">Figure 1</a>). Because the decision head is built from action descriptions, the agent can use the choices supplied by each new environment.</p>
+        <figure id="figure1" class="result-figure" aria-labelledby="transfer-caption">
           <picture>
-            <source media="(max-width: 640px)" srcset="static/images/results-codegym-transfer.mobile.svg?v=original-baseline">
-            <img src="static/images/results-codegym-transfer.svg?v=original-baseline" width="960" height="460" alt="Qwen3.5-9B scores, original LLM / GRPO / Dyad-GRPO: ALFWorld 45.66 / 51.55 / 55.13; WebShop 33.43 / 36.23 / 38.07; τ²-bench 62.17 / 61.31 / 63.02; SWE-bench Verified 44.56 / 49.40 / 50.62. GRPO and Dyad-GRPO are trained on CodeGym." loading="lazy">
+            <source media="(max-width: 640px)" srcset="static/images/results-codegym-transfer.mobile.svg?v=original-deltas">
+            <img src="static/images/results-codegym-transfer.svg?v=original-deltas" width="960" height="460" alt="Qwen3.5-9B scores, original LLM / GRPO / Dyad-GRPO: ALFWorld 45.66 / 51.55 / 55.13; WebShop 33.43 / 36.23 / 38.07; τ²-bench 62.17 / 61.31 / 63.02; SWE-bench Verified 44.56 / 49.40 / 50.62. Dyad-GRPO gains over the original LLM are +9.47, +4.64, +0.85 and +6.06 percentage points, respectively. GRPO and Dyad-GRPO are trained on CodeGym." loading="lazy">
           </picture>
-          <figcaption id="transfer-caption"><strong>Figure 2. Agent performance beyond the training environment.</strong> <strong>Qwen3.5-9B</strong> before training and after CodeGym training with GRPO or Dyad-GRPO. Scores (%) are measured in four other environments.</figcaption>
+          <figcaption id="transfer-caption"><strong>Figure 1. Agent performance beyond the training environment.</strong> <strong>Qwen3.5-9B</strong> before training and after CodeGym training with GRPO or Dyad-GRPO. Scores (%) in four unseen environments; Dyad-GRPO gains are relative to the original LLM, in percentage points.</figcaption>
         </figure>
-        <p class="section-copy">Better interaction should preserve the knowledge and reasoning that make a pretrained LLM useful. We therefore also examine knowledge, mathematical reasoning, and coding after agentic training (<a href="#figure3" class="ref-link">Figure 3</a>). Dyad recovers the knowledge and mathematics losses seen after DIVE training, while increasing the gains from CodeGym training. For the CodeGym-trained agent, <strong>all three capabilities improve over the original LLM</strong>. Together, these results suggest that a separate decision interface can strengthen agent behavior while retaining its language capabilities.</p>
-        <figure id="figure3" class="result-figure" aria-labelledby="capabilities-caption">
-          <picture>
-            <source media="(max-width: 640px)" srcset="static/images/results-capabilities.mobile.svg?v=decision-evidence">
-            <img src="static/images/results-capabilities.svg?v=decision-evidence" width="960" height="390" alt="Qwen3.5-9B capability changes, GRPO to Dyad-GRPO, in percentage points. DIVE: Knowledge −1.32 to +0.09; Mathematical Reasoning −0.23 to +0.69; Coding +0.59 to +2.48. CodeGym: Knowledge +0.15 to +0.75; Mathematical Reasoning +2.27 to +5.66; Coding +3.58 to +3.66." loading="lazy">
-          </picture>
-          <figcaption id="capabilities-caption"><strong>Figure 3. General capabilities after agentic training.</strong> Changes from the original <strong>Qwen3.5-9B</strong>, in percentage points. Knowledge, mathematical reasoning, and coding use MMLU-Pro, HMMT February 2026, and LiveCodeBench v6, respectively.</figcaption>
+        <p class="section-copy">Better interaction should preserve the knowledge and reasoning that make a pretrained LLM useful. We therefore also examine knowledge, mathematical reasoning, and coding after agentic training (<a href="#figure2" class="ref-link">Figure 2</a>). Dyad recovers the knowledge and mathematics losses seen after DIVE training, while increasing the gains from CodeGym training. For the CodeGym-trained agent, <strong>all three capabilities improve over the original LLM</strong>. Together, these results suggest that a separate decision interface can strengthen agent behavior while retaining its language capabilities.</p>
+        <figure id="figure2" class="result-figure" aria-labelledby="capabilities-caption">
+          <div class="capability-carousel" data-capability-carousel role="group" aria-roledescription="carousel" aria-label="General capabilities by training environment" tabindex="0">
+            <div class="figure-controls" hidden>
+              <button class="figure-arrow" type="button" data-previous aria-label="Previous training environment"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+              <span class="figure-selection" data-selection role="status" aria-live="polite">Trained on CodeGym <span class="figure-count">1 / 2</span></span>
+              <button class="figure-arrow" type="button" data-next aria-label="Next training environment"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+            </div>
+            <div class="capability-slide" data-environment="CodeGym">
+              <picture>
+                <source media="(max-width: 640px)" srcset="static/images/results-capabilities-codegym.mobile.svg?v=environment-switcher">
+                <img src="static/images/results-capabilities-codegym.svg?v=environment-switcher" width="960" height="350" alt="Trained on CodeGym: GRPO / Dyad-GRPO changes relative to the original Qwen3.5-9B, in percentage points. Knowledge +0.15 / +0.75; Mathematical Reasoning +2.27 / +5.66; Coding +3.58 / +3.66." loading="lazy">
+              </picture>
+            </div>
+            <div class="capability-slide" data-environment="DIVE">
+              <picture>
+                <source media="(max-width: 640px)" srcset="static/images/results-capabilities-dive.mobile.svg?v=environment-switcher">
+                <img src="static/images/results-capabilities-dive.svg?v=environment-switcher" width="960" height="350" alt="Trained on DIVE: GRPO / Dyad-GRPO changes relative to the original Qwen3.5-9B, in percentage points. Knowledge −1.32 / +0.09; Mathematical Reasoning −0.23 / +0.69; Coding +0.59 / +2.48." loading="lazy">
+              </picture>
+            </div>
+          </div>
+          <figcaption id="capabilities-caption"><strong>Figure 2. General capabilities after agentic training.</strong> Changes from the original <strong>Qwen3.5-9B</strong>, in percentage points. Knowledge, mathematical reasoning, and coding use MMLU-Pro, HMMT February 2026, and LiveCodeBench v6, respectively.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section id="approach" class="section hero is-light content-section approach-section" aria-labelledby="approach-title">
+    <section id="approach" class="section content-section approach-section" aria-labelledby="approach-title">
       <div class="container is-max-desktop">
         <h2 id="approach-title" class="title is-3">Approach</h2>
+        <p class="section-copy">An agent must reason about a goal and choose what to do next. <strong>Typed decision-making</strong> means assigning probabilities directly to the operations an environment provides, such as clicking, typing, or scrolling. A dedicated decision model such as <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Jev</a> takes this “System 1” route, while conventional LLM agents generate both reasoning and action text. Dyad brings these complementary modes together: the LLM reasons in language, then selects an available action directly (<a href="#figure3" class="ref-link">Figure 3</a>).</p>
+        <figure id="figure3" class="result-figure concept-figure" aria-labelledby="concept-caption">
+          <picture>
+            <source media="(max-width: 640px)" srcset="static/images/dyad-concept.mobile.svg">
+            <img src="static/images/dyad-concept.svg" width="1056" height="322" alt="Three ways to reason and act. System 1 models such as Jev output probabilities over available actions for direct execution. Conventional LLM agents generate reasoning and action text that must be parsed. Dyad combines language reasoning with probabilities over available actions." loading="lazy">
+          </picture>
+          <figcaption id="concept-caption"><strong>Figure 3. Reasoning and acting in one architecture.</strong> Dyad combines direct action selection with an LLM’s language reasoning.</figcaption>
+        </figure>
         <p class="section-copy">Dyad separates the evolving interaction state from the meaning of an available action. The pretrained LLM encodes the interaction history, while an <strong>environment-conditioned action encoder</strong> maps each candidate description into a compatible representation. These action representations are computed independently and in parallel, enabling the decision head to accommodate changing action sets (<a href="#figure4" class="ref-link">Figure 4</a>).</p>
         <figure id="figure4" class="approach-media" aria-labelledby="approach-video-caption">
           <!-- When the MP4 is ready, set data-video-src="static/videos/dyad-approach.mp4". -->
@@ -203,6 +197,19 @@
         </figure>
         <p class="section-copy">During reasoning, the language head generates vocabulary tokens as usual. When the model emits an interaction token, its current state is scored against the candidate action representations to produce a typed action distribution. The selected operation executes in the environment, and its observation returns to the history. Action representations can be reused while their descriptions and environment context stay unchanged; new actions are encoded when encountered.</p>
         <p class="section-copy">Training begins with supervised alignment of the action projector, keeping both transformer backbones fixed. Reinforcement learning then learns from environment rewards. Frozen-LLM adaptation updates only the action encoder; joint optimization updates both the LLM and action encoder. The two training settings use the same decision architecture.</p>
+        <p class="section-copy">Choosing directly should also leave room to reason when a decision is difficult. <a href="https://github.com/fstandhartinger/jevbench" target="_blank" rel="noopener noreferrer">JevBench</a> tests standalone decisions: given a state, instructions, criteria, and candidate answers, a model selects a category, makes a yes/no judgment, or assigns a rating. Combining reasoning with direct action selection improves over the original LLM and <strong>slightly exceeds Jev</strong> (<a href="#table2" class="ref-link">Table 2</a>). These standalone decisions complement the multi-step agent evaluations above.</p>
+        <div class="result-table-wrapper">
+          <!-- results:jevbench:start -->
+<table id="table2" class="results-table jevbench-table">
+<caption id="jevbench-caption"><strong>Table 2. Direct decisions on JevBench.</strong> Accuracy (%) on the public subset. The original LLM and Dyad use <strong>Qwen3.5-4B</strong> with reasoning; Dyad is trained on CodeGym with GRPO.</caption>
+<colgroup><col style="width:50%"><col style="width:25%"><col style="width:25%"></colgroup>
+<thead><tr><th scope="col">Method</th><th scope="col">Overall</th><th scope="col">Hard</th></tr></thead><tbody>
+<tr><th scope="row">Jev 1.13</th><td>85.01</td><td>70.88</td></tr>
+<tr><th scope="row">Original LLM</th><td>79.10</td><td>59.88</td></tr>
+<tr><th scope="row">Dyad</th><td class="dyad-score"><strong>86.18</strong></td><td class="dyad-score"><strong>72.08</strong></td></tr>
+</tbody></table>
+<!-- results:jevbench:end -->
+        </div>
       </div>
     </section>
 
@@ -232,7 +239,7 @@
   <footer class="footer">
     <div class="container is-max-desktop">
       <div class="content has-text-centered">
-        <p>This website is adapted from <a href="https://expa-rl.github.io/" target="_blank" rel="noopener noreferrer">ExpA / EARL</a> and the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>, originally based on <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a>.</p>
+        <p>This website is adapted from the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>, originally based on <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a>.</p>
         <p>Website template: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</p>
         <p><a href="https://github.com/expa-rl/dyad/blob/main/docs/affiliation-assets.md" target="_blank" rel="noopener noreferrer">Institution logo sources and credits</a></p>
       </div>

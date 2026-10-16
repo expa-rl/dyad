@@ -29,17 +29,17 @@ Open <http://127.0.0.1:8000/>.
 
 1. Paper title, authors, affiliations and resource links.
 2. A one-sentence TL;DR followed by an explanatory paragraph.
-3. **Language Reasoning Meets Direct Decisions**: Figure 1 explains Jev-style
-   direct decisions, conventional LLM agents, and Dyad. Visible Table 1 reports
-   overall and hard-subset JevBench accuracy with and without reasoning.
-4. **Modular Adaptation with a Frozen LLM**: visible Table 2 compares the
-   original model and frozen-LLM adaptation in four environments.
-5. **Stronger Agents with Preserved General Capabilities**: Figure 2 compares
-   the original LLM, GRPO, and Dyad-GRPO beyond CodeGym; Figure 3 connects those
-   agent improvements to knowledge, mathematical reasoning, and coding retention.
-6. **Approach**: Figure 4 reserves the MP4 location, with architecture fallback
-   and paragraphs describing inference and training.
-7. Copyable BibTeX and template / institution-logo attribution.
+3. **Modular Adaptation with a Frozen LLM**: visible Table 1 compares the original
+   model and frozen-LLM adaptation in four environments.
+4. **Stronger Agents with Preserved General Capabilities**: Figure 1 compares
+   the original LLM, GRPO, and Dyad-GRPO beyond CodeGym, including Dyad gains
+   relative to the original LLM. Figure 2 shows capability changes in a manual
+   carousel, defaulting to CodeGym with DIVE available through either arrow.
+5. **Approach**: Figure 3 explains Jev-style direct decisions, conventional LLM
+   agents, and Dyad. Figure 4 reserves the MP4 location with architecture fallback.
+   Visible Table 2 compares Jev, the original LLM and Dyad on JevBench; LLM-based
+   methods use reasoning, specified once in the caption.
+6. Copyable BibTeX, upstream-template credit and institution-logo sources.
 
 EARL's 960px desktop container is reused for both text and evidence. Each numbered
 section has one heading followed directly by paragraphs. Dense full-result panels,
@@ -47,9 +47,13 @@ duplicated category labels, and expandable experiment sections are removed.
 Each result chart has a separate mobile SVG with all selected values labelled directly.
 The concept figure stacks its three original vector panels on narrow screens.
 Both tables are visible HTML. Every exhibit has its own page number, name and caption;
-there are no hidden data tables or expandable results. Model specifications are
+there are no hidden data tables or expandable results. The requested capability
+carousel switches between two fully labelled charts; it has no autoplay, supports
+keyboard arrows and shows both charts when JavaScript is unavailable or when printed. Model specifications are
 kept in concise captions, while prose explains the research problems and capability gains.
-Captions omit seed counts and evaluation-procedure detail.
+Captions omit seed counts and evaluation-procedure detail. Sections alternate white
+and pale grey. The header displays six complete institutional identity images in
+a compact two-row layout, without hand-typeset institution names.
 
 ## Add the Approach MP4
 
@@ -77,7 +81,7 @@ accuracy values, with source-file hashes. Main agent / capability exhibits use
 Captions identify these settings. JevBench values are manuscript results, not
 measurements copied from the current benchmark leaderboard.
 
-To regenerate both visible tables, the four desktop/mobile result SVGs,
+To regenerate both visible tables, the six desktop/mobile result SVGs,
 and the stacked mobile concept figure:
 
 ```sh
@@ -94,8 +98,8 @@ unreported uncertainty intervals are drawn.
 - `index.html`: page narrative, selected evidence and MP4 configuration.
 - `static/css/expa.css`: unchanged EARL base stylesheet.
 - `static/css/dyad.css`: responsive additions to the flat reference layout.
-- `static/js/index.js`: video fallback, citation copy and back-to-top controls.
-- `static/images/results-*.svg`: generated desktop and mobile versions of Figures 2 and 3.
+- `static/js/index.js`: video fallback, capability carousel, citation copy and back-to-top controls.
+- `static/images/results-*.svg`: generated desktop and mobile versions of Figures 1 and 2.
 - `static/images/dyad-concept*.svg`: original vector concept art and its stacked mobile layout.
 - `static/pdfs/dyad-concept.pdf`: unaltered concept figure from the arXiv source.
   Its desktop SVG was rendered with Poppler `pdftocairo -svg`.

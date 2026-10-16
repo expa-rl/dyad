@@ -5,25 +5,17 @@
 .publication-authors .author-block { line-height: 1.85; }
 .publication-authors .author-block a, .publication-authors .author-block > span { white-space: nowrap; }
 .publication-authors sup { margin-left: 0.12em; font-size: 0.65em; }
-.affiliation-list { --emblem-size: 30px; display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; gap: clamp(1rem, 2.4vw, 1.8rem); max-width: 900px; margin: 1.4rem auto 0.6rem; }
-.affiliation-logo { position: relative; display: flex; flex: 0 1 auto; align-items: center; justify-content: center; min-width: 0; height: 36px; gap: 0.35rem; color: var(--text-primary); }
-.affiliation-logo sup { align-self: flex-start; margin: 0; font-size: 0.625rem; line-height: 1; color: var(--text-secondary); }
-.affiliation-logo img { display: block; width: auto; height: auto; max-width: 100%; }
-.affiliation-logo .institution-name { color: #073f7e; font-size: 0.9rem; font-weight: 600; line-height: 1.1; white-space: nowrap; }
-.affiliation-emblem { position: relative; display: block; flex: 0 0 auto; width: var(--emblem-size); height: var(--emblem-size); overflow: hidden; }
-/* Crop only the source canvas; the seal pixels and proportions stay intact. */
-.affiliation-zju .affiliation-emblem img { position: absolute; width: calc(var(--emblem-size) * 318 / 177); max-width: none; left: calc(var(--emblem-size) * -66 / 177); top: calc(var(--emblem-size) * -43 / 177); }
-.affiliation-csu .institution-name { color: #0872a3; }
-.affiliation-sap > img { width: 60px; }
-/* Show the original HKUST emblem beside an affiliation abbreviation. */
-.affiliation-hkust .affiliation-emblem { width: calc(var(--emblem-size) * 36 / 59); }
-.affiliation-hkust .affiliation-emblem img { position: absolute; width: calc(var(--emblem-size) * 304 / 59); max-width: none; left: calc(var(--emblem-size) * -9 / 59); top: calc(var(--emblem-size) * -8 / 59); }
-.affiliation-wordmark { position: relative; display: block; flex: 0 1 auto; overflow: hidden; }
-.affiliation-chalmers .affiliation-wordmark { width: 108px; aspect-ratio: 162 / 21.4; }
-.affiliation-chalmers .affiliation-wordmark img { width: 100%; max-width: none; }
-.affiliation-msr .affiliation-wordmark { width: 112px; aspect-ratio: 1258 / 352; }
-.affiliation-msr .affiliation-wordmark img { position: absolute; width: 102.4642%; max-width: none; left: -1.0334%; top: -1.7045%; }
-.compact-label { display: none; }
+/* Complete institutional artwork; lettering is never recreated in HTML. */
+.affiliation-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 1rem 1.8rem; max-width: 660px; margin: 1.5rem auto 0.8rem; }
+.affiliation-logo { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; height: 48px; gap: 0.4rem; }
+.affiliation-logo sup { align-self: flex-start; font-size: 0.625rem; line-height: 1; color: var(--text-secondary); }
+.affiliation-logo img { display: block; width: auto; height: auto; max-width: calc(100% - 14px); max-height: 48px; object-fit: contain; }
+.affiliation-zju img { width: 164px; }
+.affiliation-sap img { width: 70px; }
+.affiliation-csu img { width: 180px; }
+.affiliation-hkust img { width: 194px; }
+.affiliation-chalmers img { width: 154px; }
+.affiliation-msr img { width: 166px; }
 .corresponding-author { color: var(--text-secondary); font-size: 0.75rem; margin-bottom: 0.75rem; }
 .corresponding-author sup { margin-right: 0.2em; }
 .affiliation-logo:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 5px; border-radius: 3px; }
@@ -32,6 +24,8 @@
 .publication-links .button { margin: 0 !important; font-size: 0.925rem; }
 .icon svg { width: 1.1rem; height: 1.1rem; }
 .arxiv-icon { font-family: Georgia, serif; font-size: 1.5rem; }
+
+main > section:nth-of-type(even) { background: #f5f7fa; }
 
 .section-copy { font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem; color: var(--text-primary); }
 .section-copy:last-child { margin-bottom: 0; }
@@ -52,6 +46,15 @@
 .results-table tbody th { font-weight: 500; }
 .results-table .dyad-score { color: var(--primary-hover); background: #eff6ff; }
 .results-table .dyad-score strong { color: inherit; }
+
+.figure-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.5rem; }
+.figure-controls[hidden], .capability-slide[hidden] { display: none; }
+.figure-arrow { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid #cbd5e1; border-radius: 50%; background: #fff; color: var(--text-primary); cursor: pointer; }
+.figure-arrow:hover { background: #eff6ff; border-color: var(--primary-color); color: var(--primary-color); }
+.figure-arrow svg { width: 21px; height: 21px; }
+.figure-selection { min-width: 225px; text-align: center; font-size: 0.95rem; font-weight: 600; }
+.figure-count { margin-left: 0.6rem; color: var(--text-secondary); font-size: 0.8rem; font-weight: 400; }
+.capability-carousel:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 5px; }
 
 .approach-media { margin: 1.8rem 0; }
 #approach-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: white; }
@@ -81,25 +84,17 @@ section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
   .page-hero .hero-body { padding: 2.5rem 1.1rem 1.5rem; }
   .page-hero .publication-title { font-size: 2.15rem !important; }
   .page-hero .publication-authors { font-size: 0.95rem !important; }
-  .affiliation-list { --emblem-size: 26px; gap: 0.8rem; }
-  .affiliation-logo { gap: 0.25rem; }
-  .affiliation-logo .institution-name { font-size: 0.8rem; }
-  .affiliation-sap > img { width: 50px; }
-  .affiliation-chalmers .affiliation-wordmark { width: 92px; }
-  .affiliation-msr .affiliation-wordmark { width: 96px; }
+  .affiliation-list { max-width: 610px; gap: 1rem; }
   .section-copy { font-size: 1.1rem; }
   .content-section .title.is-3 { font-size: 1.75rem; }
   .scroll-to-top { bottom: 1rem; right: 1rem; width: 44px; height: 44px; }
 }
 @media screen and (max-width: 640px) {
-  .affiliation-list { --emblem-size: 25px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.3rem; margin-top: 1.5rem; }
-  .affiliation-logo { display: grid; grid-template-rows: 28px 12px; justify-items: center; align-items: center; height: 43px; gap: 3px; }
-  .affiliation-logo sup { position: absolute; top: -9px; left: 0; font-size: 0.55rem; }
-  .affiliation-emblem, .affiliation-wordmark, .affiliation-sap > img { grid-row: 1; }
-  .affiliation-logo .institution-name, .compact-label { display: block; grid-row: 2; font-size: 0.575rem; font-weight: 500; line-height: 1; white-space: nowrap; }
-  .affiliation-hkust .institution-name { font-size: 0.5rem; }
-  .affiliation-sap > img { width: 44px; }
-  .affiliation-chalmers .affiliation-wordmark, .affiliation-msr .affiliation-wordmark { width: clamp(40px, 13vw, 58px); }
+  .affiliation-list { gap: 0.8rem 0.6rem; }
+  .affiliation-logo { height: 36px; gap: 0.2rem; }
+  .affiliation-logo sup { font-size: 0.55rem; }
+  .affiliation-logo img { max-height: 36px; max-width: calc(100% - 10px); }
+  .affiliation-sap img { width: 52px; }
 }
 @media screen and (max-width: 480px) {
   .page-hero .hero-body { padding-top: 1.75rem; }
@@ -112,6 +107,8 @@ section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
   .results-table { font-size: 0.85rem; }
   .results-table th, .results-table td { padding: 0.7rem 0.45rem; }
   .jevbench-table th, .jevbench-table td { padding-right: 0.3rem; padding-left: 0.3rem; }
+  .figure-controls { gap: 0.5rem; }
+  .figure-selection { min-width: 210px; font-size: 0.875rem; }
   .approach-poster { padding: 0.6rem; }
   .video-status { font-size: 0.8rem; }
   pre { padding: 0.9rem !important; font-size: 0.75rem !important; }
@@ -121,7 +118,8 @@ section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 @media print {
-  .scroll-to-top, .copy-bibtex-btn, .copy-status { display: none; }
+  .scroll-to-top, .copy-bibtex-btn, .copy-status, .figure-controls { display: none; }
+  .capability-slide[hidden] { display: block; }
   .page-hero .hero-body { padding-top: 0; }
   .section { padding-top: 1.5rem; padding-bottom: 1.5rem; }
   .result-figure, .results-table, .approach-media { break-inside: avoid; }
