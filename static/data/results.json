@@ -1,17 +1,55 @@
 {
   "source": "https://arxiv.org/pdf/2609.36116v1",
   "evaluation_seeds": 3,
-  "environments": ["ALFWorld", "WebShop", "τ²-bench", "SWE-bench Verified"],
+  "environments": [
+    "ALFWorld",
+    "WebShop",
+    "τ²-bench",
+    "SWE-bench Verified"
+  ],
   "in_domain": {
     "paper_table": 2,
     "model": "Qwen3.5-9B",
-    "environments": ["ALFWorld", "WebShop"],
+    "environments": [
+      "ALFWorld",
+      "WebShop"
+    ],
     "rows": [
-      {"method": "Base model", "scores": [45.66, 33.43]},
-      {"method": "+ GRPO", "scores": [85.01, 73.44]},
-      {"method": "+ Dyad-GRPO", "scores": [90.90, 75.17]},
-      {"method": "+ GiGPO", "scores": [89.32, 81.52]},
-      {"method": "+ Dyad-GiGPO", "scores": [91.02, 83.65]}
+      {
+        "method": "Base model",
+        "scores": [
+          45.66,
+          33.43
+        ]
+      },
+      {
+        "method": "+ GRPO",
+        "scores": [
+          85.01,
+          73.44
+        ]
+      },
+      {
+        "method": "+ Dyad-GRPO",
+        "scores": [
+          90.9,
+          75.17
+        ]
+      },
+      {
+        "method": "+ GiGPO",
+        "scores": [
+          89.32,
+          81.52
+        ]
+      },
+      {
+        "method": "+ Dyad-GiGPO",
+        "scores": [
+          91.02,
+          83.65
+        ]
+      }
     ]
   },
   "frozen_adaptation": {
@@ -19,21 +57,457 @@
     "training_environment": "DIVE",
     "algorithm": "GRPO",
     "models": [
-      {"model": "Qwen3.5-4B", "base": [23.45, 28.54, 61.05, 43.21], "frozen": [27.75, 31.47, 63.88, 43.78], "joint": [31.52, 31.22, 64.54, 44.28]},
-      {"model": "Qwen3.5-9B", "base": [45.66, 33.43, 62.17, 44.56], "frozen": [48.82, 35.00, 64.23, 45.50], "joint": [53.82, 36.31, 64.88, 46.20]},
-      {"model": "Llama-3.2-3B-Instruct", "base": [16.98, 8.41, 18.72, 24.32], "frozen": [18.32, 10.09, 18.44, 24.80], "joint": [21.03, 12.94, 20.10, 25.12]},
-      {"model": "Gemma-4-E2B-it", "base": [24.24, 17.11, 31.23, 28.66], "frozen": [27.73, 19.30, 33.94, 28.15], "joint": [29.95, 21.48, 34.01, 30.56]}
+      {
+        "model": "Qwen3.5-4B",
+        "base": [
+          23.45,
+          28.54,
+          61.05,
+          43.21
+        ],
+        "frozen": [
+          27.75,
+          31.47,
+          63.88,
+          43.78
+        ],
+        "joint": [
+          31.52,
+          31.22,
+          64.54,
+          44.28
+        ]
+      },
+      {
+        "model": "Qwen3.5-9B",
+        "base": [
+          45.66,
+          33.43,
+          62.17,
+          44.56
+        ],
+        "frozen": [
+          48.82,
+          35.0,
+          64.23,
+          45.5
+        ],
+        "joint": [
+          53.82,
+          36.31,
+          64.88,
+          46.2
+        ]
+      },
+      {
+        "model": "Llama-3.2-3B-Instruct",
+        "base": [
+          16.98,
+          8.41,
+          18.72,
+          24.32
+        ],
+        "frozen": [
+          18.32,
+          10.09,
+          18.44,
+          24.8
+        ],
+        "joint": [
+          21.03,
+          12.94,
+          20.1,
+          25.12
+        ]
+      },
+      {
+        "model": "Gemma-4-E2B-it",
+        "base": [
+          24.24,
+          17.11,
+          31.23,
+          28.66
+        ],
+        "frozen": [
+          27.73,
+          19.3,
+          33.94,
+          28.15
+        ],
+        "joint": [
+          29.95,
+          21.48,
+          34.01,
+          30.56
+        ]
+      }
     ]
   },
   "cross_environment": {
     "paper_table": 3,
     "rows": [
-      {"model": "Qwen3.5-4B", "algorithm": "GRPO", "DIVE": {"baseline": [29.71, 30.42, 60.52, 45.67], "dyad": [31.52, 31.22, 64.54, 44.28]}, "CodeGym": {"baseline": [32.18, 33.65, 64.10, 47.98], "dyad": [33.65, 35.71, 65.26, 45.02]}},
-      {"model": "Qwen3.5-4B", "algorithm": "GiGPO", "DIVE": {"baseline": [28.22, 29.54, 61.84, 45.02], "dyad": [33.07, 32.45, 61.86, 47.10]}, "CodeGym": {"baseline": [31.09, 27.97, 63.48, 46.64], "dyad": [31.72, 31.21, 64.78, 49.61]}},
-      {"model": "Qwen3.5-9B", "algorithm": "GRPO", "DIVE": {"baseline": [52.67, 34.52, 62.06, 47.22], "dyad": [53.82, 36.31, 64.88, 46.20]}, "CodeGym": {"baseline": [51.55, 36.23, 61.31, 49.40], "dyad": [55.13, 38.07, 63.02, 50.62]}},
-      {"model": "Qwen3.5-9B", "algorithm": "GiGPO", "DIVE": {"baseline": [50.98, 36.23, 63.52, 48.83], "dyad": [52.06, 37.02, 61.90, 50.42]}, "CodeGym": {"baseline": [52.08, 36.58, 64.21, 49.78], "dyad": [55.01, 35.10, 65.85, 51.25]}},
-      {"model": "Qwen3.5-27B", "algorithm": "GRPO", "DIVE": {"baseline": [69.25, 46.68, 69.82, 68.92], "dyad": [71.42, 48.81, 71.46, 70.24]}, "CodeGym": {"baseline": [71.89, 42.13, 69.29, 67.91], "dyad": [71.11, 48.29, 70.10, 68.34]}},
-      {"model": "Qwen3.5-27B", "algorithm": "GiGPO", "DIVE": {"baseline": [69.84, 47.20, 69.56, 68.02], "dyad": [72.30, 45.44, 71.87, 71.53]}, "CodeGym": {"baseline": [70.79, 45.91, 69.51, 67.90], "dyad": [73.21, 47.72, 72.30, 68.98]}}
+      {
+        "model": "Qwen3.5-4B",
+        "algorithm": "GRPO",
+        "DIVE": {
+          "baseline": [
+            29.71,
+            30.42,
+            60.52,
+            45.67
+          ],
+          "dyad": [
+            31.52,
+            31.22,
+            64.54,
+            44.28
+          ]
+        },
+        "CodeGym": {
+          "baseline": [
+            32.18,
+            33.65,
+            64.1,
+            47.98
+          ],
+          "dyad": [
+            33.65,
+            35.71,
+            65.26,
+            45.02
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-4B",
+        "algorithm": "GiGPO",
+        "DIVE": {
+          "baseline": [
+            28.22,
+            29.54,
+            61.84,
+            45.02
+          ],
+          "dyad": [
+            33.07,
+            32.45,
+            61.86,
+            47.1
+          ]
+        },
+        "CodeGym": {
+          "baseline": [
+            31.09,
+            27.97,
+            63.48,
+            46.64
+          ],
+          "dyad": [
+            31.72,
+            31.21,
+            64.78,
+            49.61
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-9B",
+        "algorithm": "GRPO",
+        "DIVE": {
+          "baseline": [
+            52.67,
+            34.52,
+            62.06,
+            47.22
+          ],
+          "dyad": [
+            53.82,
+            36.31,
+            64.88,
+            46.2
+          ]
+        },
+        "CodeGym": {
+          "baseline": [
+            51.55,
+            36.23,
+            61.31,
+            49.4
+          ],
+          "dyad": [
+            55.13,
+            38.07,
+            63.02,
+            50.62
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-9B",
+        "algorithm": "GiGPO",
+        "DIVE": {
+          "baseline": [
+            50.98,
+            36.23,
+            63.52,
+            48.83
+          ],
+          "dyad": [
+            52.06,
+            37.02,
+            61.9,
+            50.42
+          ]
+        },
+        "CodeGym": {
+          "baseline": [
+            52.08,
+            36.58,
+            64.21,
+            49.78
+          ],
+          "dyad": [
+            55.01,
+            35.1,
+            65.85,
+            51.25
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-27B",
+        "algorithm": "GRPO",
+        "DIVE": {
+          "baseline": [
+            69.25,
+            46.68,
+            69.82,
+            68.92
+          ],
+          "dyad": [
+            71.42,
+            48.81,
+            71.46,
+            70.24
+          ]
+        },
+        "CodeGym": {
+          "baseline": [
+            71.89,
+            42.13,
+            69.29,
+            67.91
+          ],
+          "dyad": [
+            71.11,
+            48.29,
+            70.1,
+            68.34
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-27B",
+        "algorithm": "GiGPO",
+        "DIVE": {
+          "baseline": [
+            69.84,
+            47.2,
+            69.56,
+            68.02
+          ],
+          "dyad": [
+            72.3,
+            45.44,
+            71.87,
+            71.53
+          ]
+        },
+        "CodeGym": {
+          "baseline": [
+            70.79,
+            45.91,
+            69.51,
+            67.9
+          ],
+          "dyad": [
+            73.21,
+            47.72,
+            72.3,
+            68.98
+          ]
+        }
+      }
+    ]
+  },
+  "general_capabilities": {
+    "paper_figure": 3,
+    "source_archive": "https://arxiv.org/src/2609.36116v1",
+    "source_file": "resources/figures/figure_general_capabilities.tex",
+    "source_file_sha256": "9097f1e7aa482b8bad4f95f78e0aa3195882c6422d8067153fd6d40bd191a14a",
+    "source_kind": "Author-provided manuscript score backup, not raw run logs",
+    "benchmarks": [
+      "MMLU-Pro",
+      "HMMT February 2026",
+      "LiveCodeBench v6"
+    ],
+    "models": [
+      {
+        "model": "Qwen3.5-4B",
+        "original": [
+          69.34,
+          36.26,
+          47.39
+        ],
+        "DIVE": {
+          "GRPO": [
+            68.32,
+            38.76,
+            46.42
+          ],
+          "Dyad-GRPO": [
+            69.22,
+            38.42,
+            47.02
+          ],
+          "GiGPO": [
+            68.05,
+            35.32,
+            45.89
+          ],
+          "Dyad-GiGPO": [
+            70.21,
+            39.83,
+            46.78
+          ]
+        },
+        "CodeGym": {
+          "GRPO": [
+            67.93,
+            38.49,
+            50.23
+          ],
+          "Dyad-GRPO": [
+            71.09,
+            39.8,
+            50.91
+          ],
+          "GiGPO": [
+            67.32,
+            42.48,
+            50.09
+          ],
+          "Dyad-GiGPO": [
+            70.88,
+            45.65,
+            51.52
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-9B",
+        "original": [
+          71.88,
+          39.75,
+          59.62
+        ],
+        "DIVE": {
+          "GRPO": [
+            70.56,
+            39.52,
+            60.21
+          ],
+          "Dyad-GRPO": [
+            71.97,
+            40.44,
+            62.1
+          ],
+          "GiGPO": [
+            71.25,
+            38.64,
+            59.98
+          ],
+          "Dyad-GiGPO": [
+            72.74,
+            41.01,
+            62.92
+          ]
+        },
+        "CodeGym": {
+          "GRPO": [
+            72.03,
+            42.02,
+            63.2
+          ],
+          "Dyad-GRPO": [
+            72.63,
+            45.41,
+            63.28
+          ],
+          "GiGPO": [
+            71.04,
+            44.48,
+            63.29
+          ],
+          "Dyad-GiGPO": [
+            72.9,
+            46.52,
+            64.4
+          ]
+        }
+      },
+      {
+        "model": "Qwen3.5-27B",
+        "original": [
+          77.69,
+          49.08,
+          75.36
+        ],
+        "DIVE": {
+          "GRPO": [
+            78.63,
+            48.43,
+            73.98
+          ],
+          "Dyad-GRPO": [
+            77.89,
+            49.54,
+            75.89
+          ],
+          "GiGPO": [
+            77.09,
+            49.42,
+            74.32
+          ],
+          "Dyad-GiGPO": [
+            78.12,
+            52.21,
+            76.64
+          ]
+        },
+        "CodeGym": {
+          "GRPO": [
+            77.91,
+            53.15,
+            76.72
+          ],
+          "Dyad-GRPO": [
+            79.31,
+            56.55,
+            77.41
+          ],
+          "GiGPO": [
+            78.01,
+            52.58,
+            75.01
+          ],
+          "Dyad-GiGPO": [
+            79.02,
+            51.68,
+            78.5
+          ]
+        }
+      }
     ]
   }
 }

@@ -5,7 +5,15 @@ Decision-Making** ([paper](https://arxiv.org/abs/2609.36116)).
 
 Adapted from [ExpA / EARL](https://expa-rl.github.io/) and its upstream
 [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template).
-The page is plain HTML, CSS and JavaScript, with no installation or build step.
+The website is plain HTML, CSS and JavaScript. It has no installation or build
+step and is published at <https://expa-rl.github.io/dyad/>.
+
+## Editorial research
+
+[EARL page and paper analysis](docs/earl-project-page-analysis.md) records which
+results the reference page presents, omits or explains through animation.
+[Dyad restructuring plan](docs/dyad-project-page-plan.md) documents the resulting
+content choices, exact source values and English copy used in this revision.
 
 ## Local preview
 
@@ -18,17 +26,21 @@ Open <http://127.0.0.1:8000/>.
 ## Content and layout
 
 1. Paper title, authors, affiliations and resource links.
-2. TL;DR and the paper's conceptual comparison.
-3. Frozen-LLM adaptation, with a compact Qwen3.5-9B comparison and expandable results for all four models.
-4. Joint optimization: in-domain scores and all 48 cross-environment comparisons.
-5. General knowledge, mathematical reasoning and coding results.
-6. Approach video, the two training settings and expandable further analysis.
+2. TL;DR and motivation in one light-background introduction.
+3. **Modular Adaptation with a Frozen LLM**: Qwen3.5-9B before and after
+   frozen-LLM adaptation, evaluated in four environments.
+4. **Cross-environment Generalization**: eight paired 9B/GRPO comparisons,
+   including the negative result; text explains the full 41/48 result.
+5. **Preserving General Capabilities**: six 9B/GRPO comparisons, retaining both
+   DIVE and CodeGym and all three capability benchmarks.
+6. **Approach**: one MP4 location and paragraphs describing architecture and training.
 7. Copyable BibTeX and template attribution.
 
-The reading column is 740px wide and figures can use 1040px. Desktop layouts
-place frozen-adaptation text beside its table and the two joint-training results
-beside each other. At smaller widths, these sections stack; wide tables scroll
-inside their own containers.
+EARL's 960px desktop container is reused for both text and evidence. Each numbered
+section has one heading followed directly by paragraphs. Dense full-result panels,
+duplicated category labels, and expandable experiment sections are removed.
+Each chart has a separate mobile SVG and an accessible HTML data table; visitors
+can read the result without JavaScript.
 
 ## Add the Approach MP4
 
@@ -36,7 +48,7 @@ The final video has not been supplied. Until configured, this section shows
 the architecture figure with a "Video walkthrough coming soon" label.
 
 1. Save the video as `static/videos/dyad-approach.mp4`.
-2. In `index.html`, set the `data-video-src` attribute on `#approach-video`:
+2. In `index.html`, set `data-video-src` on `#approach-video`:
 
    ```html
    data-video-src="static/videos/dyad-approach.mp4"
@@ -44,43 +56,48 @@ the architecture figure with a "Video walkthrough coming soon" label.
 
 A hosted MP4 URL also works. Playback uses native controls, supports inline
 mobile playback and does not autoplay. A load error restores the architecture
-fallback. See `static/videos/README.md` for the poster and captions setup.
+fallback. See `static/videos/README.md` for captions setup.
 
-## Update results
+## Update result figures
 
-`static/data/results.json` contains the scores transcribed from Tables 2, 3 and 4
-of arXiv:2609.36116v1. To regenerate the four static HTML tables after updating it:
+`static/data/results.json` retains Tables 2, 3 and 4 and the general-capability
+scores supplied in the paper's arXiv v1 source. Its metadata records the source
+file and hash. The page consistently selects **Qwen3.5-9B with GRPO** as its main
+example; full-study claims are stated separately in the text.
+
+To regenerate the six SVG assets and the three accessible data tables:
 
 ```sh
-python3 scripts/update_results.py
+uv run scripts/update_results.py
 ```
 
-The cross-environment heatmap shows **percentage-point changes from the paired
-RL baseline**, including all seven regressions. Each cell also identifies the
-underlying baseline and Dyad scores. Site visitors do not need JavaScript to
-read these tables.
+The script declares its Matplotlib dependency through PEP 723. This is an authoring
+dependency only; serving the website requires no packages or build. Values come
+from the paper and the author's manuscript-score backup, not raw seed logs. No
+unreported uncertainty intervals are drawn.
 
 ## Files and sources
 
-- `index.html`: page content and the MP4 configuration.
+- `index.html`: page narrative, selected evidence and MP4 configuration.
 - `static/css/expa.css`: unchanged EARL base stylesheet.
-- `static/css/dyad.css`: layout, typography and responsive adaptations.
+- `static/css/dyad.css`: responsive additions to the flat reference layout.
 - `static/js/index.js`: video fallback, citation copy and back-to-top controls.
-- `static/images/`: original paper figures and the favicon.
-- `static/pdfs/dyad.pdf`: the arXiv paper.
-- `research/template-provenance.json`: template versions, source hashes and figure locations.
+- `static/images/results-*.svg`: generated desktop and mobile result figures.
+- `static/images/dyad-*.png`: original paper figures, including the video fallback.
+- `static/pdfs/dyad.pdf`: the original arXiv paper.
+- `research/template-provenance.json`: template versions, hashes and result provenance.
+- `docs/`: EARL analysis and Dyad editorial decisions.
 
-Paper information and experimental values come from the original PDF. The
-public implementation repository is not linked until a verified URL is supplied.
-This repository contains the project website.
+The public implementation repository is not linked until a verified URL is
+supplied. This repository contains the project website.
 
 ## Validation
 
-The results JSON was checked against the original PDF, including the 48 signed
-cross-environment differences. HTML structure, local resources, JavaScript syntax
-and the unchanged EARL stylesheet hash were checked. Desktop and mobile layouts,
-the expanded results and citation feedback were inspected in the browser.
-Final MP4 playback remains to be checked after the actual video is added.
+Scores and signed differences are checked against the paper and its source.
+Validation covers flat headings, absence of paper-number references in public
+copy, generated figures, local assets, and desktop/mobile rendering. The video
+fallback and citation controls remain available. Final MP4 playback must be
+checked after the actual video is added.
 
 ## Attribution
 
@@ -89,5 +106,4 @@ The upstream template is pinned to
 [Nerfies](https://nerfies.github.io/). The visible footer preserves attribution.
 See [THIRD_PARTY.md](THIRD_PARTY.md) for licenses and figure provenance.
 
-Local presentation exports, intermediate build files and raw reference-page
-captures are excluded from Git. Template provenance remains included.
+Local exports, preview environments and raw reference captures are excluded from Git.

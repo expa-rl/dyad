@@ -92,207 +92,92 @@
       </div>
     </section>
 
-    <section class="section tldr-section" aria-label="Overview">
-      <div class="reading-column">
-        <p class="section-copy"><strong>TL;DR:</strong> Dyad extends pretrained LLMs with native typed decision-making over dynamic action spaces, alongside language reasoning. It supports both <strong>frozen-LLM adaptation</strong> and <strong>joint optimization</strong> to build more capable agents.</p>
-      </div>
-    </section>
-
-    <section id="native-decisions" class="section concept-section" aria-label="Language reasoning and native decisions">
-      <div class="page-column">
-        <div class="reading-column narrative-intro">
-          <p class="section-copy">An agent needs to reason about its goals and choose how to act. A shopping agent, for example, may compare products in language before selecting an operation on the current page. Most LLM agents express both computations through token-by-token generation, including the text that specifies an action. The model therefore predicts vocabulary tokens even when the decision is over a concrete set of available operations.</p>
-          <p class="section-copy">Dyad gives a pretrained LLM a native interface for these decisions. An action encoder maps each candidate description into a representation that the LLM can score directly, while its language head continues to support reasoning. Because the candidates are supplied through descriptions, the decision head can accommodate changing action sets in unfamiliar environments.</p>
-        </div>
-        <figure class="paper-figure">
-          <a href="static/images/dyad-concept.png" target="_blank" rel="noopener noreferrer" aria-label="Open the conceptual comparison at full resolution">
-            <img src="static/images/dyad-concept.png" width="1654" height="516" alt="System 1 selects typed actions directly; System 2 generates reasoning and action text; Dyad combines language reasoning with direct typed action probabilities." fetchpriority="high">
-          </a>
-          <figcaption>Dedicated decision models select typed actions; language agents generate action text. Dyad combines language reasoning with direct probabilities over the available actions.</figcaption>
-        </figure>
+    <section class="section hero is-light tldr-section" aria-label="Overview">
+      <div class="container is-max-desktop">
+        <p class="section-copy"><strong>TL;DR:</strong> Dyad is an architecture that extends pretrained LLMs with <strong>native typed decision-making over dynamic action spaces</strong>. It supports adaptation with a frozen LLM and joint training, improving agent performance across environments while generally better preserving knowledge, reasoning, and coding capabilities.</p>
+        <p class="section-copy">An agent must reason about its goals and decide how to act. Yet most LLM agents use the same token-generation interface for both: even a decision among available operations is expressed as text. Dyad adds an environment-conditioned action encoder that represents candidate actions independently, letting the LLM assign probabilities directly to the current choices while retaining its language reasoning. The actions are supplied through descriptions rather than a fixed set of learned identifiers. We study what this architecture enables in three complementary ways.</p>
       </div>
     </section>
 
     <section id="frozen-adaptation" class="section content-section" aria-labelledby="frozen-title">
-      <div class="page-column">
-        <div class="frozen-layout">
-          <div class="frozen-copy">
-            <p class="section-label">1. Modular adaptation</p>
-            <h2 id="frozen-title" class="title is-3">Improve existing LLMs without updating them</h2>
-            <p class="section-copy">Frozen-LLM adaptation asks whether an existing LLM can become a better agent while its parameters stay fixed. Dyad’s action encoder learns to interpret the LLM’s state and connect it to executable choices. We train this encoder through environment rewards while freezing both the pretrained backbone and its language head.</p>
-            <p class="supporting-copy">Evaluated across Qwen, Llama and Gemma, after GRPO training on DIVE.</p>
-          </div>
-          <div class="frozen-evidence">
-            <div class="table-scroll" role="region" aria-label="Frozen adaptation, Qwen3.5-9B" tabindex="0">
-              <!-- results:frozen-preview:start -->
-<table class="results-table frozen-table"><caption>Qwen3.5-9B · GRPO on DIVE · 3 evaluation seeds</caption><thead><tr><th scope="col">Method</th><th scope="col"><abbr title="ALFWorld">ALF</abbr></th><th scope="col"><abbr title="WebShop">Web</abbr></th><th scope="col"><abbr title="τ²-bench">τ²</abbr></th><th scope="col"><abbr title="SWE-bench Verified">SWE</abbr></th></tr></thead><tbody>
-<tr><th scope="row">Base model</th><td class="num" data-score="45.66">45.66</td><td class="num" data-score="33.43">33.43</td><td class="num" data-score="62.17">62.17</td><td class="num" data-score="44.56">44.56</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad · frozen LLM</th><td class="num" data-score="48.82">48.82</td><td class="num" data-score="35.00">35.00</td><td class="num" data-score="64.23">64.23</td><td class="num" data-score="45.50">45.50</td></tr>
-<tr><th scope="row">+ Dyad · joint training</th><td class="num" data-score="53.82">53.82</td><td class="num" data-score="36.31">36.31</td><td class="num" data-score="64.88">64.88</td><td class="num" data-score="46.20">46.20</td></tr>
-</tbody></table>
-<!-- results:frozen-preview:end -->
-            </div>
-            <p class="figure-note">Scores (%) on ALFWorld, WebShop, τ²-bench and SWE-bench Verified, with no further training on these evaluation environments.</p>
-          </div>
-        </div>
-        <div class="reading-column section-discussion">
-          <p class="section-copy">After training on DIVE, frozen-LLM adaptation improves both Qwen models on all four unseen environments. The benefits also extend to Llama and Gemma, with gains in most evaluated settings. Joint training generally reaches higher scores, although the gap varies by model and environment. The frozen results demonstrate a modular route to better decisions: learning the added action interface can improve agent performance without updating the LLM itself.</p>
-        </div>
-        <details class="supplementary full-results">
-          <summary>View all four models and training settings</summary>
-          <div class="table-scroll" role="region" aria-label="Complete frozen adaptation results" tabindex="0">
-            <!-- results:frozen-full:start -->
-<table class="results-table frozen-table"><caption>GRPO on DIVE · 3 evaluation seeds</caption><thead><tr><th scope="col">Method</th><th scope="col"><abbr title="ALFWorld">ALF</abbr></th><th scope="col"><abbr title="WebShop">Web</abbr></th><th scope="col"><abbr title="τ²-bench">τ²</abbr></th><th scope="col"><abbr title="SWE-bench Verified">SWE</abbr></th></tr></thead><tbody>
-<tr class="model-row"><th colspan="5" scope="rowgroup">Qwen3.5-4B</th></tr>
-<tr><th scope="row">Base model</th><td class="num" data-score="23.45">23.45</td><td class="num" data-score="28.54">28.54</td><td class="num" data-score="61.05">61.05</td><td class="num" data-score="43.21">43.21</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad · frozen LLM</th><td class="num" data-score="27.75">27.75</td><td class="num" data-score="31.47">31.47</td><td class="num" data-score="63.88">63.88</td><td class="num" data-score="43.78">43.78</td></tr>
-<tr><th scope="row">+ Dyad · joint training</th><td class="num" data-score="31.52">31.52</td><td class="num" data-score="31.22">31.22</td><td class="num" data-score="64.54">64.54</td><td class="num" data-score="44.28">44.28</td></tr>
-<tr class="model-row"><th colspan="5" scope="rowgroup">Qwen3.5-9B</th></tr>
-<tr><th scope="row">Base model</th><td class="num" data-score="45.66">45.66</td><td class="num" data-score="33.43">33.43</td><td class="num" data-score="62.17">62.17</td><td class="num" data-score="44.56">44.56</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad · frozen LLM</th><td class="num" data-score="48.82">48.82</td><td class="num" data-score="35.00">35.00</td><td class="num" data-score="64.23">64.23</td><td class="num" data-score="45.50">45.50</td></tr>
-<tr><th scope="row">+ Dyad · joint training</th><td class="num" data-score="53.82">53.82</td><td class="num" data-score="36.31">36.31</td><td class="num" data-score="64.88">64.88</td><td class="num" data-score="46.20">46.20</td></tr>
-<tr class="model-row"><th colspan="5" scope="rowgroup">Llama-3.2-3B-Instruct</th></tr>
-<tr><th scope="row">Base model</th><td class="num" data-score="16.98">16.98</td><td class="num" data-score="8.41">8.41</td><td class="num" data-score="18.72">18.72</td><td class="num" data-score="24.32">24.32</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad · frozen LLM</th><td class="num" data-score="18.32">18.32</td><td class="num" data-score="10.09">10.09</td><td class="num" data-score="18.44">18.44</td><td class="num" data-score="24.80">24.80</td></tr>
-<tr><th scope="row">+ Dyad · joint training</th><td class="num" data-score="21.03">21.03</td><td class="num" data-score="12.94">12.94</td><td class="num" data-score="20.10">20.10</td><td class="num" data-score="25.12">25.12</td></tr>
-<tr class="model-row"><th colspan="5" scope="rowgroup">Gemma-4-E2B-it</th></tr>
-<tr><th scope="row">Base model</th><td class="num" data-score="24.24">24.24</td><td class="num" data-score="17.11">17.11</td><td class="num" data-score="31.23">31.23</td><td class="num" data-score="28.66">28.66</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad · frozen LLM</th><td class="num" data-score="27.73">27.73</td><td class="num" data-score="19.30">19.30</td><td class="num" data-score="33.94">33.94</td><td class="num" data-score="28.15">28.15</td></tr>
-<tr><th scope="row">+ Dyad · joint training</th><td class="num" data-score="29.95">29.95</td><td class="num" data-score="21.48">21.48</td><td class="num" data-score="34.01">34.01</td><td class="num" data-score="30.56">30.56</td></tr>
-</tbody></table>
-<!-- results:frozen-full:end -->
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section id="joint-optimization" class="section content-section" aria-labelledby="joint-title">
-      <div class="page-column">
-        <div class="section-heading reading-column">
-          <p class="section-label">2. Joint optimization</p>
-          <h2 id="joint-title" class="title is-3">Stronger agents through joint optimization</h2>
-          <p class="section-copy">Dyad also allows reasoning and decision-making to improve together. We jointly optimize the LLM and action encoder with GRPO or GiGPO, comparing each configuration against conventional RL with the same pretrained model and training environment.</p>
-          <p class="section-copy">With Qwen3.5-9B, Dyad improves both algorithms in all four in-domain comparisons on ALFWorld and WebShop. The largest gain is <strong class="inline-highlight">5.89 percentage points</strong> on ALFWorld with GRPO. Dyad also improves the stronger GiGPO baseline, showing that its benefits extend across the two optimization methods.</p>
-        </div>
-        <div class="joint-results-layout">
-          <figure class="result-panel">
-            <h3 class="title is-5">In-domain performance</h3>
-            <div class="table-scroll" role="region" aria-label="In-domain performance" tabindex="0">
-              <!-- results:in-domain:start -->
-<table class="results-table in-domain-table"><caption>Qwen3.5-9B · 3 evaluation seeds</caption><thead><tr><th scope="col">Method</th><th scope="col">ALFWorld</th><th scope="col">WebShop</th></tr></thead><tbody>
-<tr><th scope="row">Base model</th><td class="num" data-score="45.66">45.66</td><td class="num" data-score="33.43">33.43</td></tr>
-<tr><th scope="row">+ GRPO</th><td class="num" data-score="85.01">85.01</td><td class="num" data-score="73.44">73.44</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad-GRPO</th><td class="num" data-score="90.90">90.90</td><td class="num" data-score="75.17">75.17</td></tr>
-<tr><th scope="row">+ GiGPO</th><td class="num" data-score="89.32">89.32</td><td class="num" data-score="81.52">81.52</td></tr>
-<tr class="dyad-result"><th scope="row">+ Dyad-GiGPO</th><td class="num" data-score="91.02">91.02</td><td class="num" data-score="83.65">83.65</td></tr>
-</tbody></table>
-<!-- results:in-domain:end -->
-            </div>
-            <figcaption class="figure-note">Scores (%) after training and evaluation in the same environment.</figcaption>
-          </figure>
-          <figure class="result-panel">
-            <h3 class="title is-5">Cross-environment performance</h3>
-            <div class="table-scroll heatmap-scroll" role="region" aria-label="Cross-environment performance changes across all 48 comparisons" tabindex="0">
-              <!-- results:cross-environment:start -->
-<table class="heatmap-table"><caption>Change from the corresponding RL baseline (percentage points)</caption><thead><tr><th scope="col" rowspan="2">Qwen3.5<br>+ Dyad</th><th scope="colgroup" colspan="4">Trained on DIVE</th><th scope="colgroup" colspan="4">Trained on CodeGym</th></tr>
-<tr><th scope="col"><abbr title="ALFWorld">ALF</abbr></th><th scope="col"><abbr title="WebShop">Web</abbr></th><th scope="col"><abbr title="τ²-bench">τ²</abbr></th><th scope="col"><abbr title="SWE-bench Verified">SWE</abbr></th><th scope="col"><abbr title="ALFWorld">ALF</abbr></th><th scope="col"><abbr title="WebShop">Web</abbr></th><th scope="col"><abbr title="τ²-bench">τ²</abbr></th><th scope="col"><abbr title="SWE-bench Verified">SWE</abbr></th></tr></thead><tbody>
-<tr><th scope="row">4B<span>GRPO</span></th>
-<td class="gain" style="--cell-alpha:0.162" data-delta="+1.81" aria-label="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on ALFWorld: 29.71 to 31.52, +1.81 percentage points" title="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on ALFWorld: 29.71 to 31.52, +1.81 percentage points">+1.81</td>
-<td class="gain" style="--cell-alpha:0.116" data-delta="+0.80" aria-label="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on WebShop: 30.42 to 31.22, +0.80 percentage points" title="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on WebShop: 30.42 to 31.22, +0.80 percentage points">+0.80</td>
-<td class="gain" style="--cell-alpha:0.263" data-delta="+4.02" aria-label="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on τ²-bench: 60.52 to 64.54, +4.02 percentage points" title="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on τ²-bench: 60.52 to 64.54, +4.02 percentage points">+4.02</td>
-<td class="loss" style="--cell-alpha:0.143" data-delta="-1.39" aria-label="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on SWE-bench Verified: 45.67 to 44.28, -1.39 percentage points" title="Qwen3.5-4B, GRPO, trained on DIVE, evaluated on SWE-bench Verified: 45.67 to 44.28, -1.39 percentage points">-1.39</td>
-<td class="gain" style="--cell-alpha:0.147" data-delta="+1.47" aria-label="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on ALFWorld: 32.18 to 33.65, +1.47 percentage points" title="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on ALFWorld: 32.18 to 33.65, +1.47 percentage points">+1.47</td>
-<td class="gain" style="--cell-alpha:0.174" data-delta="+2.06" aria-label="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on WebShop: 33.65 to 35.71, +2.06 percentage points" title="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on WebShop: 33.65 to 35.71, +2.06 percentage points">+2.06</td>
-<td class="gain" style="--cell-alpha:0.133" data-delta="+1.16" aria-label="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on τ²-bench: 64.10 to 65.26, +1.16 percentage points" title="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on τ²-bench: 64.10 to 65.26, +1.16 percentage points">+1.16</td>
-<td class="loss" style="--cell-alpha:0.215" data-delta="-2.96" aria-label="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on SWE-bench Verified: 47.98 to 45.02, -2.96 percentage points" title="Qwen3.5-4B, GRPO, trained on CodeGym, evaluated on SWE-bench Verified: 47.98 to 45.02, -2.96 percentage points">-2.96</td>
-</tr>
-<tr><th scope="row">4B<span>GiGPO</span></th>
-<td class="gain" style="--cell-alpha:0.300" data-delta="+4.85" aria-label="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on ALFWorld: 28.22 to 33.07, +4.85 percentage points" title="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on ALFWorld: 28.22 to 33.07, +4.85 percentage points">+4.85</td>
-<td class="gain" style="--cell-alpha:0.212" data-delta="+2.91" aria-label="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on WebShop: 29.54 to 32.45, +2.91 percentage points" title="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on WebShop: 29.54 to 32.45, +2.91 percentage points">+2.91</td>
-<td class="gain" style="--cell-alpha:0.081" data-delta="+0.02" aria-label="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on τ²-bench: 61.84 to 61.86, +0.02 percentage points" title="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on τ²-bench: 61.84 to 61.86, +0.02 percentage points">+0.02</td>
-<td class="gain" style="--cell-alpha:0.175" data-delta="+2.08" aria-label="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on SWE-bench Verified: 45.02 to 47.10, +2.08 percentage points" title="Qwen3.5-4B, GiGPO, trained on DIVE, evaluated on SWE-bench Verified: 45.02 to 47.10, +2.08 percentage points">+2.08</td>
-<td class="gain" style="--cell-alpha:0.109" data-delta="+0.63" aria-label="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on ALFWorld: 31.09 to 31.72, +0.63 percentage points" title="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on ALFWorld: 31.09 to 31.72, +0.63 percentage points">+0.63</td>
-<td class="gain" style="--cell-alpha:0.227" data-delta="+3.24" aria-label="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on WebShop: 27.97 to 31.21, +3.24 percentage points" title="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on WebShop: 27.97 to 31.21, +3.24 percentage points">+3.24</td>
-<td class="gain" style="--cell-alpha:0.139" data-delta="+1.30" aria-label="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on τ²-bench: 63.48 to 64.78, +1.30 percentage points" title="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on τ²-bench: 63.48 to 64.78, +1.30 percentage points">+1.30</td>
-<td class="gain" style="--cell-alpha:0.215" data-delta="+2.97" aria-label="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on SWE-bench Verified: 46.64 to 49.61, +2.97 percentage points" title="Qwen3.5-4B, GiGPO, trained on CodeGym, evaluated on SWE-bench Verified: 46.64 to 49.61, +2.97 percentage points">+2.97</td>
-</tr>
-<tr><th scope="row">9B<span>GRPO</span></th>
-<td class="gain" style="--cell-alpha:0.132" data-delta="+1.15" aria-label="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on ALFWorld: 52.67 to 53.82, +1.15 percentage points" title="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on ALFWorld: 52.67 to 53.82, +1.15 percentage points">+1.15</td>
-<td class="gain" style="--cell-alpha:0.161" data-delta="+1.79" aria-label="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on WebShop: 34.52 to 36.31, +1.79 percentage points" title="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on WebShop: 34.52 to 36.31, +1.79 percentage points">+1.79</td>
-<td class="gain" style="--cell-alpha:0.208" data-delta="+2.82" aria-label="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on τ²-bench: 62.06 to 64.88, +2.82 percentage points" title="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on τ²-bench: 62.06 to 64.88, +2.82 percentage points">+2.82</td>
-<td class="loss" style="--cell-alpha:0.126" data-delta="-1.02" aria-label="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on SWE-bench Verified: 47.22 to 46.20, -1.02 percentage points" title="Qwen3.5-9B, GRPO, trained on DIVE, evaluated on SWE-bench Verified: 47.22 to 46.20, -1.02 percentage points">-1.02</td>
-<td class="gain" style="--cell-alpha:0.243" data-delta="+3.58" aria-label="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on ALFWorld: 51.55 to 55.13, +3.58 percentage points" title="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on ALFWorld: 51.55 to 55.13, +3.58 percentage points">+3.58</td>
-<td class="gain" style="--cell-alpha:0.164" data-delta="+1.84" aria-label="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on WebShop: 36.23 to 38.07, +1.84 percentage points" title="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on WebShop: 36.23 to 38.07, +1.84 percentage points">+1.84</td>
-<td class="gain" style="--cell-alpha:0.158" data-delta="+1.71" aria-label="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on τ²-bench: 61.31 to 63.02, +1.71 percentage points" title="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on τ²-bench: 61.31 to 63.02, +1.71 percentage points">+1.71</td>
-<td class="gain" style="--cell-alpha:0.135" data-delta="+1.22" aria-label="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on SWE-bench Verified: 49.40 to 50.62, +1.22 percentage points" title="Qwen3.5-9B, GRPO, trained on CodeGym, evaluated on SWE-bench Verified: 49.40 to 50.62, +1.22 percentage points">+1.22</td>
-</tr>
-<tr><th scope="row">9B<span>GiGPO</span></th>
-<td class="gain" style="--cell-alpha:0.129" data-delta="+1.08" aria-label="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on ALFWorld: 50.98 to 52.06, +1.08 percentage points" title="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on ALFWorld: 50.98 to 52.06, +1.08 percentage points">+1.08</td>
-<td class="gain" style="--cell-alpha:0.116" data-delta="+0.79" aria-label="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on WebShop: 36.23 to 37.02, +0.79 percentage points" title="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on WebShop: 36.23 to 37.02, +0.79 percentage points">+0.79</td>
-<td class="loss" style="--cell-alpha:0.154" data-delta="-1.62" aria-label="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on τ²-bench: 63.52 to 61.90, -1.62 percentage points" title="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on τ²-bench: 63.52 to 61.90, -1.62 percentage points">-1.62</td>
-<td class="gain" style="--cell-alpha:0.152" data-delta="+1.59" aria-label="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on SWE-bench Verified: 48.83 to 50.42, +1.59 percentage points" title="Qwen3.5-9B, GiGPO, trained on DIVE, evaluated on SWE-bench Verified: 48.83 to 50.42, +1.59 percentage points">+1.59</td>
-<td class="gain" style="--cell-alpha:0.213" data-delta="+2.93" aria-label="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on ALFWorld: 52.08 to 55.01, +2.93 percentage points" title="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on ALFWorld: 52.08 to 55.01, +2.93 percentage points">+2.93</td>
-<td class="loss" style="--cell-alpha:0.147" data-delta="-1.48" aria-label="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on WebShop: 36.58 to 35.10, -1.48 percentage points" title="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on WebShop: 36.58 to 35.10, -1.48 percentage points">-1.48</td>
-<td class="gain" style="--cell-alpha:0.155" data-delta="+1.64" aria-label="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on τ²-bench: 64.21 to 65.85, +1.64 percentage points" title="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on τ²-bench: 64.21 to 65.85, +1.64 percentage points">+1.64</td>
-<td class="gain" style="--cell-alpha:0.147" data-delta="+1.47" aria-label="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on SWE-bench Verified: 49.78 to 51.25, +1.47 percentage points" title="Qwen3.5-9B, GiGPO, trained on CodeGym, evaluated on SWE-bench Verified: 49.78 to 51.25, +1.47 percentage points">+1.47</td>
-</tr>
-<tr><th scope="row">27B<span>GRPO</span></th>
-<td class="gain" style="--cell-alpha:0.179" data-delta="+2.17" aria-label="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on ALFWorld: 69.25 to 71.42, +2.17 percentage points" title="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on ALFWorld: 69.25 to 71.42, +2.17 percentage points">+2.17</td>
-<td class="gain" style="--cell-alpha:0.177" data-delta="+2.13" aria-label="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on WebShop: 46.68 to 48.81, +2.13 percentage points" title="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on WebShop: 46.68 to 48.81, +2.13 percentage points">+2.13</td>
-<td class="gain" style="--cell-alpha:0.155" data-delta="+1.64" aria-label="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on τ²-bench: 69.82 to 71.46, +1.64 percentage points" title="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on τ²-bench: 69.82 to 71.46, +1.64 percentage points">+1.64</td>
-<td class="gain" style="--cell-alpha:0.140" data-delta="+1.32" aria-label="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on SWE-bench Verified: 68.92 to 70.24, +1.32 percentage points" title="Qwen3.5-27B, GRPO, trained on DIVE, evaluated on SWE-bench Verified: 68.92 to 70.24, +1.32 percentage points">+1.32</td>
-<td class="loss" style="--cell-alpha:0.115" data-delta="-0.78" aria-label="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on ALFWorld: 71.89 to 71.11, -0.78 percentage points" title="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on ALFWorld: 71.89 to 71.11, -0.78 percentage points">-0.78</td>
-<td class="gain" style="--cell-alpha:0.360" data-delta="+6.16" aria-label="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on WebShop: 42.13 to 48.29, +6.16 percentage points" title="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on WebShop: 42.13 to 48.29, +6.16 percentage points">+6.16</td>
-<td class="gain" style="--cell-alpha:0.117" data-delta="+0.81" aria-label="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on τ²-bench: 69.29 to 70.10, +0.81 percentage points" title="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on τ²-bench: 69.29 to 70.10, +0.81 percentage points">+0.81</td>
-<td class="gain" style="--cell-alpha:0.100" data-delta="+0.43" aria-label="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on SWE-bench Verified: 67.91 to 68.34, +0.43 percentage points" title="Qwen3.5-27B, GRPO, trained on CodeGym, evaluated on SWE-bench Verified: 67.91 to 68.34, +0.43 percentage points">+0.43</td>
-</tr>
-<tr><th scope="row">27B<span>GiGPO</span></th>
-<td class="gain" style="--cell-alpha:0.192" data-delta="+2.46" aria-label="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on ALFWorld: 69.84 to 72.30, +2.46 percentage points" title="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on ALFWorld: 69.84 to 72.30, +2.46 percentage points">+2.46</td>
-<td class="loss" style="--cell-alpha:0.160" data-delta="-1.76" aria-label="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on WebShop: 47.20 to 45.44, -1.76 percentage points" title="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on WebShop: 47.20 to 45.44, -1.76 percentage points">-1.76</td>
-<td class="gain" style="--cell-alpha:0.185" data-delta="+2.31" aria-label="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on τ²-bench: 69.56 to 71.87, +2.31 percentage points" title="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on τ²-bench: 69.56 to 71.87, +2.31 percentage points">+2.31</td>
-<td class="gain" style="--cell-alpha:0.240" data-delta="+3.51" aria-label="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on SWE-bench Verified: 68.02 to 71.53, +3.51 percentage points" title="Qwen3.5-27B, GiGPO, trained on DIVE, evaluated on SWE-bench Verified: 68.02 to 71.53, +3.51 percentage points">+3.51</td>
-<td class="gain" style="--cell-alpha:0.190" data-delta="+2.42" aria-label="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on ALFWorld: 70.79 to 73.21, +2.42 percentage points" title="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on ALFWorld: 70.79 to 73.21, +2.42 percentage points">+2.42</td>
-<td class="gain" style="--cell-alpha:0.162" data-delta="+1.81" aria-label="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on WebShop: 45.91 to 47.72, +1.81 percentage points" title="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on WebShop: 45.91 to 47.72, +1.81 percentage points">+1.81</td>
-<td class="gain" style="--cell-alpha:0.207" data-delta="+2.79" aria-label="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on τ²-bench: 69.51 to 72.30, +2.79 percentage points" title="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on τ²-bench: 69.51 to 72.30, +2.79 percentage points">+2.79</td>
-<td class="gain" style="--cell-alpha:0.129" data-delta="+1.08" aria-label="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on SWE-bench Verified: 67.90 to 68.98, +1.08 percentage points" title="Qwen3.5-27B, GiGPO, trained on CodeGym, evaluated on SWE-bench Verified: 67.90 to 68.98, +1.08 percentage points">+1.08</td>
-</tr>
-</tbody></table>
-<!-- results:cross-environment:end -->
-            </div>
-            <div class="heatmap-legend" aria-label="Heatmap legend"><span><i class="gain-swatch" aria-hidden="true"></i>Improvement</span><span><i class="loss-swatch" aria-hidden="true"></i>Regression</span></div>
-            <figcaption class="figure-note">All 48 comparisons, including regressions. ALF: ALFWorld; Web: WebShop; τ²: τ²-bench; SWE: SWE-bench Verified. Three evaluation seeds.</figcaption>
-          </figure>
-        </div>
-        <div class="reading-column section-discussion">
-          <p class="section-copy">To test transfer, we train on DIVE or CodeGym and evaluate on four other environments without further adaptation. These comparisons span Qwen3.5-4B, 9B and 27B. Dyad outperforms the paired RL baseline in <strong class="inline-highlight">41 of 48 comparisons</strong> and the original pretrained model in 47 of 48. The gains therefore extend beyond the environments used for training.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="general-capabilities" class="section content-section" aria-labelledby="capabilities-title">
-      <div class="page-column">
-        <div class="section-heading reading-column">
-          <p class="section-label">3. General capabilities</p>
-          <h2 id="capabilities-title" class="title is-3">Better retention of general capabilities</h2>
-          <p class="section-copy">Agentic post-training also needs to preserve the knowledge and reasoning skills that make pretrained LLMs useful across tasks. We evaluate knowledge with MMLU-Pro, mathematical reasoning with HMMT February 2026, and coding with LiveCodeBench v6, measuring changes from the original pretrained models.</p>
-          <p class="section-copy">Dyad generally retains more capability than the corresponding GRPO and GiGPO baselines: it recovers losses after DIVE training and amplifies gains after CodeGym training. Both Dyad variants exceed the original models on every CodeGym capability evaluation. These results suggest that a separate route for action adaptation can help reduce interference with pretrained language capabilities.</p>
-        </div>
-        <figure class="paper-figure">
-          <a href="static/images/dyad-general-capabilities.png" target="_blank" rel="noopener noreferrer" aria-label="Open the general-capability results at full resolution">
-            <img src="static/images/dyad-general-capabilities.png" width="1654" height="987" alt="Knowledge, mathematical reasoning and coding results across three model scales, GRPO and GiGPO, and DIVE and CodeGym training. Both gains and regressions relative to the pretrained models are shown." loading="lazy">
-          </a>
-          <figcaption>Dashed lines mark zero change from each original pretrained model. Open markers show conventional RL; filled markers show Dyad. Three evaluation seeds. Select the image to enlarge it.</figcaption>
+      <div class="container is-max-desktop">
+        <h2 id="frozen-title" class="title is-3">1. Modular Adaptation with a Frozen LLM</h2>
+        <p class="section-copy">Dyad offers a separate component that can learn from environment interaction while leaving an existing LLM fixed. We <strong>freeze the pretrained LLM and its language head</strong>, and train the action encoder using task rewards. This tests whether learning a decision interface can improve agent behavior without updating the pretrained model’s parameters.</p>
+        <p class="section-copy">After training on DIVE, frozen adaptation improves Qwen3.5-9B on all four evaluation environments, without further training on those environments. The same holds for Qwen3.5-4B. Results also extend to Llama and Gemma, although not in every setting: across the full evaluation, 14 of 16 model–environment comparisons improve. The takeaway is a modular route to adaptation, with benefits that do not require changes to the pretrained LLM.</p>
+        <figure class="result-figure" aria-labelledby="frozen-caption">
+          <picture>
+            <source media="(max-width: 640px)" srcset="static/images/results-frozen.mobile.svg">
+            <img src="static/images/results-frozen.svg" width="960" height="380" alt="Frozen Dyad improves Qwen3.5-9B from 45.66 to 48.82 on ALFWorld, 33.43 to 35.00 on WebShop, 62.17 to 64.23 on τ²-bench, and 44.56 to 45.50 on SWE-bench Verified." loading="lazy">
+          </picture>
+          <figcaption id="frozen-caption">Qwen3.5-9B, trained with GRPO on DIVE and evaluated on four other environments using three seeds. The original LLM is compared with Dyad after training only its action encoder. Scores are percentages.</figcaption>
+          <!-- results:frozen:start -->
+<div class="sr-only"><table><caption>Qwen3.5-9B, GRPO on DIVE; scores (%)</caption><thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th><th scope="col">Frozen Dyad</th></tr></thead><tbody>
+<tr><th scope="row">ALFWorld</th><td>45.66</td><td>48.82</td></tr>
+<tr><th scope="row">WebShop</th><td>33.43</td><td>35.00</td></tr>
+<tr><th scope="row">τ²-bench</th><td>62.17</td><td>64.23</td></tr>
+<tr><th scope="row">SWE-bench Verified</th><td>44.56</td><td>45.50</td></tr>
+</tbody></table></div>
+<!-- results:frozen:end -->
         </figure>
       </div>
     </section>
 
-    <section id="approach" class="section content-section approach-section" aria-labelledby="approach-title">
-      <div class="page-column">
-        <div class="section-heading reading-column">
-          <p class="section-label">Approach</p>
-          <h2 id="approach-title" class="title is-3">How Dyad works</h2>
-          <p class="section-copy">Dyad separates the evolving interaction state from the meaning of an action in its environment. The LLM computes the state representation; a separate encoder produces compatible action representations. Together, they support language generation and typed action selection within one policy.</p>
-        </div>
+    <section id="joint-optimization" class="section content-section" aria-labelledby="joint-title">
+      <div class="container is-max-desktop">
+        <h2 id="joint-title" class="title is-3">2. Cross-environment Generalization</h2>
+        <p class="section-copy">Dyad also supports joint optimization of the LLM and action encoder. To test whether the resulting gains extend beyond the training environment, we train on DIVE or CodeGym and evaluate on four other environments <strong>without further adaptation</strong>. Each comparison uses the same pretrained LLM, training environment, and RL algorithm as its conventional baseline.</p>
+        <p class="section-copy">The representative Qwen3.5-9B results below retain both training environments and all four evaluation tasks, including a regression on SWE-bench Verified after DIVE training. Across the complete study, spanning three model scales and both GRPO and GiGPO, Dyad outperforms its paired RL baseline in <strong>41 of 48 comparisons</strong>. The benefits therefore extend to unseen evaluation environments, while varying across training and evaluation settings.</p>
+        <figure class="result-figure" aria-labelledby="transfer-caption">
+          <picture>
+            <source media="(max-width: 640px)" srcset="static/images/results-transfer.mobile.svg">
+            <img src="static/images/results-transfer.svg" width="960" height="360" alt="Eight Qwen3.5-9B comparisons with GRPO: Dyad improves seven, with a minus 1.02 percentage-point change on SWE-bench Verified after DIVE training. Both training environments and all four evaluation tasks are included." loading="lazy">
+          </picture>
+          <figcaption id="transfer-caption">Representative subset: Qwen3.5-9B with joint GRPO training. Bars show changes from the paired GRPO baseline in percentage points, including the negative result. All evaluations use three seeds and no additional training on the evaluation environments.</figcaption>
+          <!-- results:transfer:start -->
+<div class="sr-only"><table><caption>Qwen3.5-9B, joint optimization with GRPO; scores (%)</caption><thead><tr><th scope="col">Training → evaluation</th><th scope="col">GRPO</th><th scope="col">Dyad-GRPO</th><th scope="col">Change (percentage points)</th></tr></thead><tbody>
+<tr><th scope="row">DIVE → ALFWorld</th><td>52.67</td><td>53.82</td><td>+1.15</td></tr>
+<tr><th scope="row">DIVE → WebShop</th><td>34.52</td><td>36.31</td><td>+1.79</td></tr>
+<tr><th scope="row">DIVE → τ²-bench</th><td>62.06</td><td>64.88</td><td>+2.82</td></tr>
+<tr><th scope="row">DIVE → SWE-bench Verified</th><td>47.22</td><td>46.20</td><td>−1.02</td></tr>
+<tr><th scope="row">CodeGym → ALFWorld</th><td>51.55</td><td>55.13</td><td>+3.58</td></tr>
+<tr><th scope="row">CodeGym → WebShop</th><td>36.23</td><td>38.07</td><td>+1.84</td></tr>
+<tr><th scope="row">CodeGym → τ²-bench</th><td>61.31</td><td>63.02</td><td>+1.71</td></tr>
+<tr><th scope="row">CodeGym → SWE-bench Verified</th><td>49.40</td><td>50.62</td><td>+1.22</td></tr>
+</tbody></table></div>
+<!-- results:transfer:end -->
+        </figure>
+      </div>
+    </section>
+
+    <section id="general-capabilities" class="section content-section" aria-labelledby="capabilities-title">
+      <div class="container is-max-desktop">
+        <h2 id="capabilities-title" class="title is-3">3. Preserving General Capabilities</h2>
+        <p class="section-copy">Better environment scores are only part of the picture. Agentic post-training may also change the knowledge and reasoning abilities of the pretrained LLM. We therefore evaluate general knowledge with MMLU-Pro, mathematical reasoning with HMMT February 2026, and coding with LiveCodeBench v6. The zero reference marks each original model before additional training; the paired markers compare conventional RL with Dyad.</p>
+        <p class="section-copy">Dyad generally retains more capability than the corresponding RL baselines, recovering losses in some settings and increasing gains in others. Across the full CodeGym evaluation, both Dyad variants remain above their original pretrained models on all three capability benchmarks; some DIVE settings still show declines. Together with the agent results, these observations suggest that an additional route for action adaptation can help limit interference with pretrained language capabilities.</p>
+        <figure class="result-figure" aria-labelledby="capabilities-caption">
+          <picture>
+            <source media="(max-width: 640px)" srcset="static/images/results-capabilities.mobile.svg">
+            <img src="static/images/results-capabilities.svg" width="960" height="390" alt="General-capability changes for Qwen3.5-9B after DIVE or CodeGym training. Hollow markers show GRPO and blue markers show Dyad-GRPO, relative to the original LLM. Dyad improves all six evaluations in this representative subset." loading="lazy">
+          </picture>
+          <figcaption id="capabilities-caption">Representative subset: Qwen3.5-9B with joint GRPO training, evaluated using three seeds. Changes are relative to the original LLM, in percentage points. Lines connect paired methods; they are not uncertainty intervals.</figcaption>
+          <!-- results:capabilities:start -->
+<div class="sr-only"><table><caption>Qwen3.5-9B, general-capability scores (%)</caption><thead><tr><th scope="col">Training → benchmark</th><th scope="col">Original LLM</th><th scope="col">GRPO</th><th scope="col">Dyad-GRPO</th><th scope="col">GRPO change</th><th scope="col">Dyad-GRPO change</th></tr></thead><tbody>
+<tr><th scope="row">DIVE → MMLU-Pro</th><td>71.88</td><td>70.56</td><td>71.97</td><td>−1.32</td><td>+0.09</td></tr>
+<tr><th scope="row">DIVE → HMMT February 2026</th><td>39.75</td><td>39.52</td><td>40.44</td><td>−0.23</td><td>+0.69</td></tr>
+<tr><th scope="row">DIVE → LiveCodeBench v6</th><td>59.62</td><td>60.21</td><td>62.10</td><td>+0.59</td><td>+2.48</td></tr>
+<tr><th scope="row">CodeGym → MMLU-Pro</th><td>71.88</td><td>72.03</td><td>72.63</td><td>+0.15</td><td>+0.75</td></tr>
+<tr><th scope="row">CodeGym → HMMT February 2026</th><td>39.75</td><td>42.02</td><td>45.41</td><td>+2.27</td><td>+5.66</td></tr>
+<tr><th scope="row">CodeGym → LiveCodeBench v6</th><td>59.62</td><td>63.20</td><td>63.28</td><td>+3.58</td><td>+3.66</td></tr>
+</tbody></table></div>
+<!-- results:capabilities:end -->
+        </figure>
+      </div>
+    </section>
+
+    <section id="approach" class="section hero is-light content-section approach-section" aria-labelledby="approach-title">
+      <div class="container is-max-desktop">
+        <h2 id="approach-title" class="title is-3">Approach</h2>
+        <p class="section-copy">Dyad factorizes a decision into the evolving interaction state and the meaning of each available action in its environment. The LLM represents the interaction history, while a separate encoder maps action descriptions into compatible representations. The walkthrough shows how these components support language reasoning and typed decisions within one policy.</p>
         <div class="approach-media">
           <!-- When the MP4 is ready, set data-video-src="static/videos/dyad-approach.mp4". -->
           <video id="approach-video" data-video-src="" controls playsinline preload="metadata" poster="static/images/dyad-architecture.png" aria-label="Dyad architecture video walkthrough" aria-describedby="approach-video-caption" hidden>
@@ -302,35 +187,18 @@
           <figure id="approach-video-fallback" class="approach-poster">
             <p id="approach-video-status" class="video-status" role="status">Video walkthrough coming soon</p>
             <a href="static/images/dyad-architecture.png" target="_blank" rel="noopener noreferrer" aria-label="Open the architecture overview at full resolution">
-              <img src="static/images/dyad-architecture.png" width="1666" height="650" alt="Dyad connects a pretrained LLM with an action encoder and projector. The LLM state supports either language generation or scoring typed actions, with environment feedback returned to the interaction history." loading="lazy">
+              <img src="static/images/dyad-architecture.png" width="1666" height="650" alt="Dyad connects a pretrained LLM with an action encoder and projector. The LLM state supports language generation or scoring typed actions, with environment feedback returned to the history." loading="lazy">
             </a>
           </figure>
         </div>
-        <p id="approach-video-caption" class="figure-note">The pretrained LLM and action encoder meet at the decision head. Environment feedback returns to the interaction history to inform the next reasoning or decision step.</p>
-        <div class="reading-column approach-explanation">
-          <h3 class="title is-5">Encode actions independently</h3>
-          <p class="section-copy">The encoder processes each candidate description together with its environment context, independently and in parallel. Unchanged descriptions and context allow these representations to be cached across decisions. When new actions appear, their descriptions can be encoded as needed, giving the decision head a dynamic set of choices.</p>
-          <h3 class="title is-5">Interleave reasoning and decisions</h3>
-          <p class="section-copy">The pretrained language head continues to generate reasoning tokens. When the LLM emits a dedicated interaction token, its current state is scored against the candidate action vectors to produce an action distribution. The selected operation is executed, and the resulting observation is added to the history.</p>
-          <h3 class="title is-5">Learn from environment interaction</h3>
-          <p class="section-copy">Supervised alignment first trains the action projector to connect the two representation spaces, keeping both transformer backbones fixed. Agentic RL then learns from task rewards with GRPO or GiGPO. The same architecture supports two complementary training settings:</p>
-        </div>
-        <dl class="training-settings reading-column">
-          <div><dt>Frozen-LLM adaptation</dt><dd>Train only the action encoder; keep the pretrained LLM and its language head fixed.</dd></div>
-          <div><dt>Joint optimization</dt><dd>Train the LLM and action encoder together through environment interaction.</dd></div>
-        </dl>
-        <details class="supplementary reading-column further-analysis">
-          <summary>Further analysis</summary>
-          <div class="analysis-copy">
-            <p><strong>Training dynamics.</strong> On CodeGym with Qwen3.5-9B, both Dyad variants reach higher final validation rewards than their RL baselines. Their responses become shorter while the number of environment interactions increases.</p>
-            <p><strong>Component studies.</strong> Alignment followed by RL outperforms either alignment alone or RL without alignment in the evaluated training budget. With the LLM trainable in every component-training variant, updating the full action encoder achieves the highest final validation reward.</p>
-          </div>
-        </details>
+        <p id="approach-video-caption" class="figure-note">The LLM state and environment-conditioned action representations meet at the decision head. The resulting interaction produces feedback for the next step.</p>
+        <p class="section-copy">The language head continues to generate tokens. When the model emits an interaction token, its state is scored against the available action representations to produce a typed action distribution. The chosen operation executes in the environment, and its observation returns to the history. Action representations can be reused while their descriptions and environment context stay unchanged; newly introduced actions can be encoded when encountered.</p>
+        <p class="section-copy">Training begins with supervised alignment of the action projector, keeping both transformer backbones fixed. Reinforcement learning then learns from environment rewards. In frozen adaptation, only the action encoder is updated; in joint optimization, both the LLM and action encoder are updated. These two settings use the same decision architecture.</p>
       </div>
     </section>
 
     <section id="bibtex" class="section content-section citation-section" aria-labelledby="bibtex-title">
-      <div class="reading-column">
+      <div class="container is-max-desktop">
         <div class="bibtex-header">
           <h2 id="bibtex-title" class="title is-3">BibTeX</h2>
           <button id="copy-bibtex" class="copy-bibtex-btn" type="button" aria-label="Copy BibTeX citation">
@@ -353,7 +221,7 @@
   </main>
 
   <footer class="footer">
-    <div class="reading-column">
+    <div class="container is-max-desktop">
       <div class="content has-text-centered">
         <p>This website is adapted from <a href="https://expa-rl.github.io/" target="_blank" rel="noopener noreferrer">ExpA / EARL</a> and the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>, originally based on <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a>.</p>
         <p>Website template: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</p>

@@ -70,25 +70,29 @@
   ],
   "table_sources": [
     {
-      "local_block": "frozen-preview / frozen-full",
+      "local_block": "frozen",
       "paper_table": 4,
       "paper_page": 8,
+      "model": "Qwen3.5-9B",
+      "selection": [
+        "base",
+        "frozen"
+      ],
       "training_environment": "DIVE",
       "algorithm": "GRPO",
       "evaluation_seeds": 3
     },
     {
-      "local_block": "in-domain",
-      "paper_table": 2,
-      "paper_page": 6,
-      "model": "Qwen3.5-9B",
-      "evaluation_seeds": 3
-    },
-    {
-      "local_block": "cross-environment",
+      "local_block": "transfer",
       "paper_table": 3,
       "paper_page": 6,
-      "presentation": "48 paired absolute changes in percentage points, including 7 regressions",
+      "model": "Qwen3.5-9B",
+      "algorithm": "GRPO",
+      "training_environments": [
+        "DIVE",
+        "CodeGym"
+      ],
+      "presentation": "Eight paired changes in percentage points, including the negative SWE result after DIVE training",
       "evaluation_seeds": 3
     }
   ],
@@ -99,5 +103,49 @@
     "configuration": "index.html #approach-video data-video-src",
     "suggested_path": "static/videos/dyad-approach.mp4",
     "poster": "static/images/dyad-architecture.png"
+  },
+  "general_capability_source": {
+    "paper_figure": 3,
+    "source_archive": "https://arxiv.org/src/2609.36116v1",
+    "source_file": "resources/figures/figure_general_capabilities.tex",
+    "source_file_sha256": "9097f1e7aa482b8bad4f95f78e0aa3195882c6422d8067153fd6d40bd191a14a",
+    "source_kind": "Author-provided manuscript score backup, not raw run logs",
+    "benchmarks": [
+      "MMLU-Pro",
+      "HMMT February 2026",
+      "LiveCodeBench v6"
+    ],
+    "selection": {
+      "model": "Qwen3.5-9B",
+      "methods": [
+        "GRPO",
+        "Dyad-GRPO"
+      ],
+      "training_environments": [
+        "DIVE",
+        "CodeGym"
+      ]
+    }
+  },
+  "generated_figures": {
+    "generator": "scripts/update_results.py",
+    "library": "Matplotlib 3.10.7",
+    "assets": [
+      "static/images/results-frozen.svg",
+      "static/images/results-frozen.mobile.svg",
+      "static/images/results-transfer.svg",
+      "static/images/results-transfer.mobile.svg",
+      "static/images/results-capabilities.svg",
+      "static/images/results-capabilities.mobile.svg"
+    ],
+    "data": "static/data/results.json",
+    "uncertainty": "No run-level variance supplied; paired connectors are not uncertainty intervals."
+  },
+  "editorial_research": {
+    "earl_analysis": "docs/earl-project-page-analysis.md",
+    "dyad_plan": "docs/dyad-project-page-plan.md",
+    "reviewed_on": "2026-10-16",
+    "earl_paper": "https://arxiv.org/pdf/2510.07581v2",
+    "earl_page_sha256": "adc322339f465f86e7f81372149d7351c3b8234b1d7b47dd60c41495c2477e2f"
   }
 }
