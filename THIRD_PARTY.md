@@ -13,3 +13,5 @@ The Dyad page uses the layout and styling of [ExpA / EARL](https://expa-rl.githu
 - `static/images/results-*.svg` are new Matplotlib presentations of selected Qwen3.5-9B/GRPO results: CodeGym-trained agent scores (page Figure 1), and paired general-capability changes (page Figure 2). `scripts/update_results.py` generates desktop/mobile SVGs and the directly visible frozen-adaptation table (page Table 1). Page Figure 3 uses the original architecture overview while awaiting the MP4. The result SVGs are not cropped paper figures.
 
 The original upstream README is saved in `research/template-upstream-readme.md`. Retrieval details and file hashes are in `research/template-provenance.json`.
+
+Institution marks used in the author-affiliation area are documented in [affiliation asset sources and credits](docs/affiliation-assets.md), including the Wikimedia Commons Microsoft Research wordmark attribution (V-gthom; blue edition by LsnIg334, CC BY-SA 3.0). Official marks retain their respective ownership; the template license does not apply to them.

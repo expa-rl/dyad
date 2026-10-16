@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
-  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-small-captions">
+  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-affiliation-logos">
   <script defer src="static/js/index.js"></script>
 </head>
 <body>
@@ -59,15 +59,27 @@
                 </span>
               </div>
 
-              <div class="publication-authors affiliation-list">
-                <span class="author-block"><sup>1</sup>Zhejiang University</span>
-                <span class="author-block"><sup>2</sup>SAP</span>
-                <span class="author-block"><sup>3</sup>Central South University</span>
-                <span class="author-block"><sup>4</sup>HKUST (Guangzhou)</span>
-                <span class="author-block"><sup>5</sup>Chalmers University of Technology</span>
-                <span class="author-block"><sup>6</sup>Microsoft Research</span>
-                <span class="eql-cntrb"><small><sup>*</sup>Corresponding author</small></span>
+              <div class="affiliation-list" aria-label="Author affiliations">
+                <a class="affiliation-logo affiliation-zju" href="https://www.zju.edu.cn/english/" target="_blank" rel="noopener noreferrer" aria-label="1 Zhejiang University">
+                  <sup aria-hidden="true">1</sup><img src="static/images/affiliations/zhejiang-university.png" width="318" height="253" alt=""><span class="institution-name">Zhejiang<br>University</span>
+                </a>
+                <a class="affiliation-logo affiliation-sap" href="https://www.sap.com/" target="_blank" rel="noopener noreferrer" aria-label="2 SAP">
+                  <sup aria-hidden="true">2</sup><img src="static/images/affiliations/sap.svg" width="412" height="204" alt="SAP">
+                </a>
+                <a class="affiliation-logo affiliation-csu" href="https://www.csu.edu.cn/" target="_blank" rel="noopener noreferrer" aria-label="3 Central South University">
+                  <sup aria-hidden="true">3</sup><img src="static/images/affiliations/central-south-university.png" width="378" height="378" alt=""><span class="institution-name">Central South<br>University</span>
+                </a>
+                <a class="affiliation-logo affiliation-hkust" href="https://www.hkust-gz.edu.cn/" target="_blank" rel="noopener noreferrer" aria-label="4 The Hong Kong University of Science and Technology (Guangzhou)">
+                  <sup aria-hidden="true">4</sup><span class="affiliation-mark"><img src="static/images/affiliations/hkust-guangzhou.svg" width="304" height="77" alt="The Hong Kong University of Science and Technology (Guangzhou)"><span class="affiliation-short-name" aria-hidden="true">HKUST (Guangzhou)</span></span>
+                </a>
+                <a class="affiliation-logo affiliation-chalmers" href="https://www.chalmers.se/en/" target="_blank" rel="noopener noreferrer" aria-label="5 Chalmers University of Technology">
+                  <sup aria-hidden="true">5</sup><img src="static/images/affiliations/chalmers.svg" width="162" height="37" alt="Chalmers University of Technology">
+                </a>
+                <a class="affiliation-logo affiliation-msr" href="https://www.microsoft.com/en-us/research/" target="_blank" rel="noopener noreferrer" aria-label="6 Microsoft Research">
+                  <sup aria-hidden="true">6</sup><img src="static/images/affiliations/microsoft-research.png" width="1289" height="368" alt="Microsoft Research">
+                </a>
               </div>
+              <p class="corresponding-author"><sup>*</sup>Corresponding author</p>
 
               <div class="column has-text-centered">
                 <div class="publication-links">
@@ -95,7 +107,7 @@
     <section class="section hero is-light tldr-section" aria-label="Overview">
       <div class="container is-max-desktop">
         <p class="section-copy"><strong>TL;DR:</strong> We introduce Dyad, an architecture that extends pretrained LLMs with native typed decision-making for more capable agents across environments.</p>
-        <p class="section-copy">LLM agents typically express both reasoning and actions as text. Dyad adds an <strong>action encoder</strong> for direct decisions over dynamic action spaces, while retaining language reasoning and supporting both frozen-LLM adaptation and joint training.</p>
+        <p class="section-copy">LLM agents typically express both reasoning and actions as text, even when an environment offers a concrete set of available operations. Dyad introduces an <strong>environment-conditioned action encoder</strong> that turns descriptions of those operations into a dynamic decision head. The LLM can then reason in language and select actions directly, supporting adaptation with a frozen LLM or joint training of both components.</p>
       </div>
     </section>
 
@@ -201,6 +213,7 @@
       <div class="content has-text-centered">
         <p>This website is adapted from <a href="https://expa-rl.github.io/" target="_blank" rel="noopener noreferrer">ExpA / EARL</a> and the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>, originally based on <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a>.</p>
         <p>Website template: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</p>
+        <p><a href="https://github.com/expa-rl/dyad/blob/main/docs/affiliation-assets.md" target="_blank" rel="noopener noreferrer">Institution logo sources and credits</a></p>
       </div>
     </div>
   </footer>
