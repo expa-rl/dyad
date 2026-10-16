@@ -68,7 +68,9 @@ a compact two-row layout, without hand-typeset institution names.
 Figure 4 uses the author-supplied screen recording, packaged as
 `static/videos/dyad-approach.mp4`. It contains only H.264 video, with no audio
 track. The video stream was copied without re-encoding; the MP4 is prepared for
-progressive playback. A frame at 16 seconds supplies its poster image,
+progressive playback. Its first and last frames each hold for an additional
+second, with the animation between them retaining its original timing. A frame
+at 17 seconds supplies its poster image,
 `static/images/dyad-approach-poster.jpg`.
 
 Playback uses native controls, starts muted, supports inline mobile playback,
