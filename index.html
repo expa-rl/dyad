@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
-  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-page-revision">
+  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-copy-emphasis">
   <script defer src="static/js/index.js?v=20261016-page-revision"></script>
 </head>
 <body>
@@ -48,7 +48,7 @@
 
               <div class="is-size-5 publication-authors">
                 <span class="author-block">
-                  <a href="https://pingchuanx.io/" target="_blank" rel="noopener noreferrer">Yundaichuan Zhan</a><sup>1</sup>,
+                  <a href="https://pingchuanx.github.io/" target="_blank" rel="noopener noreferrer">Yundaichuan Zhan</a><sup>1</sup>,
                   <a href="https://scholar.google.com/citations?user=P8TGNcoAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Weishi Wang</a><sup>2</sup>,
                   <span>Wenbiao Liu<sup>3</sup></span>,
                   <a href="https://scholar.google.com/citations?user=IrwwO8cAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Daniel Dahlmeier</a><sup>2</sup>,
@@ -106,15 +106,15 @@
 
     <section class="section hero is-light tldr-section" aria-label="Overview">
       <div class="container is-max-desktop">
-        <p class="section-copy"><strong>TL;DR:</strong> We introduce Dyad, an architecture that lets pretrained LLMs reason in language and directly select available actions, improving agents across environments.</p>
-        <p class="section-copy">LLM agents typically express both reasoning and actions as text, even when an environment offers a concrete set of available operations. Dyad introduces an <strong>environment-conditioned action encoder</strong> that turns descriptions of those operations into a dynamic decision head. The LLM can then reason in language and select actions directly, supporting adaptation with a frozen LLM or joint training of both components.</p>
+        <p class="section-copy"><strong>TL;DR:</strong> We introduce <strong class="dyad-name">Dyad</strong>, an architecture that lets pretrained LLMs reason in language and directly select available actions, improving agents across environments.</p>
+        <p class="section-copy">LLM agents typically express both reasoning and actions as text, even when an environment offers a concrete set of available operations. <strong class="dyad-name">Dyad</strong> introduces an <strong>environment-conditioned action encoder</strong> that turns descriptions of those operations into a dynamic decision head. The LLM can then reason in language and select actions directly, supporting adaptation with a frozen LLM or joint training of both components.</p>
       </div>
     </section>
 
     <section id="frozen-adaptation" class="section content-section" aria-labelledby="frozen-title">
       <div class="container is-max-desktop">
         <h2 id="frozen-title" class="title is-3">1. Modular Adaptation with a Frozen LLM</h2>
-        <p class="section-copy">Pretrained LLMs already contain knowledge and reasoning skills that are useful for acting in an environment. Connecting these capabilities to executable decisions need not require changing the LLM itself. Dyad provides a separate action encoder that learns how the model’s internal state relates to the available operations, allowing environment rewards to improve decision-making <strong>without updating any LLM parameters</strong>.</p>
+        <p class="section-copy">Pretrained LLMs already contain knowledge and reasoning skills that are useful for acting in an environment. Connecting these capabilities to executable decisions need not require changing the LLM itself. <strong class="dyad-name">Dyad</strong> provides a separate action encoder that learns how the model’s internal state relates to the available operations, allowing environment rewards to improve decision-making <strong class="key-emphasis">without updating any LLM parameters</strong>.</p>
         <p class="section-copy">Training only this encoder improves agent performance on four unseen environments (<a href="#table1" class="ref-link">Table 1</a>). The LLM continues to supply the interaction-state representation, while the added component learns to ground it in actions. These results demonstrate a modular way to adapt existing agents: decision-making can improve beyond the training environment while the pretrained LLM and its language head remain fixed.</p>
         <div class="result-table-wrapper">
           <!-- results:frozen:start -->
@@ -135,7 +135,7 @@
     <section id="joint-optimization" class="section content-section" aria-labelledby="joint-title">
       <div class="container is-max-desktop">
         <h2 id="joint-title" class="title is-3">2. Stronger Agents with Preserved General Capabilities</h2>
-        <p class="section-copy">Joint training asks whether learning language reasoning and direct decisions together produces more capable agents. We train on CodeGym, then evaluate in four other environments <strong>without further training</strong>. Dyad improves over both the original LLM and conventional RL across household interaction, web shopping, tool use, and software engineering (<a href="#figure1" class="ref-link">Figure 1</a>). Because the decision head is built from action descriptions, the agent can use the choices supplied by each new environment.</p>
+        <p class="section-copy">Joint training asks whether learning language reasoning and direct decisions together produces more capable agents. We train in a single environment, then evaluate in four unseen environments <strong class="key-emphasis">without further training</strong>. <strong class="dyad-name">Dyad</strong> improves over both the original LLM and conventional RL across household interaction, web shopping, tool use, and software engineering (<a href="#figure1" class="ref-link">Figure 1</a>). Because the decision head is built from action descriptions, the agent can use the choices supplied by each new environment.</p>
         <figure id="figure1" class="result-figure" aria-labelledby="transfer-caption">
           <picture>
             <source media="(max-width: 640px)" srcset="static/images/results-codegym-transfer.mobile.svg?v=original-deltas">
@@ -143,7 +143,7 @@
           </picture>
           <figcaption id="transfer-caption"><strong>Figure 1. Agent performance beyond the training environment.</strong> <strong>Qwen3.5-9B</strong> before training and after CodeGym training with GRPO or Dyad-GRPO. Scores (%) in four unseen environments; Dyad-GRPO gains are relative to the original LLM, in percentage points.</figcaption>
         </figure>
-        <p class="section-copy">Better interaction should preserve the knowledge and reasoning that make a pretrained LLM useful. We therefore also examine knowledge, mathematical reasoning, and coding after agentic training (<a href="#figure2" class="ref-link">Figure 2</a>). Dyad recovers the knowledge and mathematics losses seen after DIVE training, while increasing the gains from CodeGym training. For the CodeGym-trained agent, <strong>all three capabilities improve over the original LLM</strong>. Together, these results suggest that a separate decision interface can strengthen agent behavior while retaining its language capabilities.</p>
+        <p class="section-copy">Better interaction should preserve the knowledge and reasoning that make a pretrained LLM useful. We therefore also examine knowledge, mathematical reasoning, and coding after agentic training (<a href="#figure2" class="ref-link">Figure 2</a>). <strong class="dyad-name">Dyad</strong> recovers capability losses seen with conventional RL and <strong class="key-emphasis">improves all three capabilities over the original LLM</strong> across both training environments. These results suggest that a separate decision interface can strengthen agent behavior while retaining the LLM’s general capabilities.</p>
         <figure id="figure2" class="result-figure" aria-labelledby="capabilities-caption">
           <div class="capability-carousel" data-capability-carousel role="group" aria-roledescription="carousel" aria-label="General capabilities by training environment" tabindex="0">
             <div class="figure-controls" hidden>
@@ -172,7 +172,7 @@
     <section id="approach" class="section content-section approach-section" aria-labelledby="approach-title">
       <div class="container is-max-desktop">
         <h2 id="approach-title" class="title is-3">Approach</h2>
-        <p class="section-copy">An agent must reason about a goal and choose what to do next. <strong>Typed decision-making</strong> means assigning probabilities directly to the operations an environment provides, such as clicking, typing, or scrolling. A dedicated decision model such as <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Jev</a> takes this “System 1” route, while conventional LLM agents generate both reasoning and action text. Dyad brings these complementary modes together: the LLM reasons in language, then selects an available action directly (<a href="#figure3" class="ref-link">Figure 3</a>).</p>
+        <p class="section-copy">An agent must reason about a goal and choose what to do next. <strong>Typed decision-making</strong> means assigning probabilities directly to the operations an environment provides, such as clicking, typing, or scrolling. A dedicated decision model such as <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Jev</a> takes this “System 1” route, while conventional LLM agents generate both reasoning and action text. <strong class="dyad-name">Dyad</strong> brings these complementary modes together: the LLM reasons in language, then selects an available action directly (<a href="#figure3" class="ref-link">Figure 3</a>).</p>
         <figure id="figure3" class="result-figure concept-figure" aria-labelledby="concept-caption">
           <picture>
             <source media="(max-width: 640px)" srcset="static/images/dyad-concept.mobile.svg">
@@ -180,7 +180,7 @@
           </picture>
           <figcaption id="concept-caption"><strong>Figure 3. Reasoning and acting in one architecture.</strong> Dyad combines direct action selection with an LLM’s language reasoning.</figcaption>
         </figure>
-        <p class="section-copy">Dyad separates the evolving interaction state from the meaning of an available action. The pretrained LLM encodes the interaction history, while an <strong>environment-conditioned action encoder</strong> maps each candidate description into a compatible representation. These action representations are computed independently and in parallel, enabling the decision head to accommodate changing action sets (<a href="#figure4" class="ref-link">Figure 4</a>).</p>
+        <p class="section-copy"><strong class="dyad-name">Dyad</strong> separates the evolving interaction state from the meaning of an available action. The pretrained LLM encodes the interaction history, while an <strong>environment-conditioned action encoder</strong> maps each candidate description into a compatible representation. These action representations are computed independently and in parallel, enabling the decision head to accommodate changing action sets (<a href="#figure4" class="ref-link">Figure 4</a>).</p>
         <figure id="figure4" class="approach-media" aria-labelledby="approach-video-caption">
           <!-- When the MP4 is ready, set data-video-src="static/videos/dyad-approach.mp4". -->
           <video id="approach-video" data-video-src="" controls playsinline preload="metadata" poster="static/images/dyad-architecture.png" aria-label="Dyad architecture video walkthrough" aria-describedby="approach-video-caption" hidden>
