@@ -37,8 +37,10 @@ Open <http://127.0.0.1:8000/>.
    carousel, defaulting to CodeGym with DIVE available through either arrow.
 5. **Approach**: Figure 3 explains Jev-style direct decisions, conventional LLM
    agents, and Dyad. Figure 4 reserves the MP4 location with architecture fallback.
-   Visible Table 2 compares Jev, the original LLM and Dyad on JevBench; LLM-based
-   methods use reasoning, specified once in the caption.
+   Table 2 sits beside two analysis paragraphs on desktop and above them on narrow
+   screens. It compares Jev, the original LLM and Dyad on JevBench; LLM-based
+   methods use reasoning, specified once in the caption. The analysis highlights
+   overall and hard-case gains over the original LLM.
 6. Copyable BibTeX, upstream-template credit and institution-logo sources.
 
 EARL's 960px desktop container is reused for both text and evidence. Each numbered
@@ -86,14 +88,15 @@ accuracy values, with source-file hashes. Main agent / capability exhibits use
 Captions identify these settings. JevBench values are manuscript results, not
 measurements copied from the current benchmark leaderboard.
 
-To regenerate both visible tables, the six desktop/mobile result SVGs,
+To regenerate both visible tables, the adjacent JevBench analysis, the six desktop/mobile result SVGs,
 and the stacked mobile concept figure:
 
 ```sh
 uv run scripts/update_results.py
 ```
 
-The script declares its Matplotlib dependency through PEP 723. This is an authoring
+The JevBench analysis computes its percentage-point gains from the same selected
+rows as the table. The script declares its Matplotlib dependency through PEP 723. This is an authoring
 dependency only; serving the website requires no packages or build. Values come
 from the paper and the author's manuscript-score backup, not raw seed logs. No
 unreported uncertainty intervals are drawn.

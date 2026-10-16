@@ -27,6 +27,8 @@ JevBench 给定状态、指令、判断标准和候选答案，检验独立决�
 
 **Table 2. Direct decisions on JevBench.** 选用论文公开子集上的 Overall 与 Hard 准确率，保留 Jev、原始 LLM 和 Dyad 三行。LLM 和 Dyad 只展示启用推理的结果，caption 统一交代，不再设置 Reasoning 列或 Off/On 行。
 
+桌面端采用双栏：左侧是表格与 caption，右侧用两段说明基准的作用和结果。右栏不另设标题，强调相对原始 LLM 的整体 +7.08、困难样本 +12.20 个百分点，以及略高于 Jev 的结果。增量由表格同一数据源计算。900px 及以下恢复表格在上、分析在下的单栏，保留正常字号。
+
 | 方法 | Overall (%) | Hard (%) |
 |---|---:|---:|
 | Jev 1.13 | 85.01 | 70.88 |

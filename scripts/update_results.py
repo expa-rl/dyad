@@ -206,6 +206,26 @@ def jevbench_table():
     return "\n".join(output + ['</tbody></table>'])
 
 
+def jevbench_analysis():
+    rows = {row["method"]: row for row in DATA["jevbench"]["rows"]
+            if row["reasoning"] == "On"}
+    overall = difference(rows["Dyad"]["overall"], rows["Original LLM"]["overall"])
+    hard = difference(rows["Dyad"]["hard"], rows["Original LLM"]["hard"])
+    return (
+        '<p class="section-copy"><a href="https://github.com/fstandhartinger/jevbench" '
+        'target="_blank" rel="noopener noreferrer">JevBench</a> evaluates standalone '
+        'decisions through classification, yes/no judgments, and ratings. It complements '
+        'the multi-step agent tasks above.</p>\n'
+        '<p class="section-copy"><strong class="dyad-name">Dyad</strong> improves over '
+        'the original LLM by '
+        f'<strong class="key-emphasis">{overall:.2f} percentage points overall</strong> and '
+        f'<strong class="key-emphasis">{hard:.2f} points on hard cases</strong>. '
+        'It also slightly exceeds Jev on both metrics '
+        '(<a href="#table2" class="ref-link">Table 2</a>). These results support '
+        'combining language reasoning with direct action selection.</p>'
+    )
+
+
 def concept_mobile():
     """Stack the three original vector panels for a readable narrow-screen figure."""
     namespace = "http://www.w3.org/2000/svg"
@@ -242,7 +262,8 @@ def concept_mobile():
 def main():
     page = ROOT / "index.html"
     markup = page.read_text()
-    for name, render in [("jevbench", jevbench_table), ("frozen", frozen_table)]:
+    for name, render in [("jevbench", jevbench_table), ("jevbench-analysis", jevbench_analysis),
+                         ("frozen", frozen_table)]:
         pattern = re.compile(rf"(<!-- results:{name}:start -->).*?(<!-- results:{name}:end -->)", re.S)
         markup, count = pattern.subn(lambda m: f"{m[1]}\n{render()}\n{m[2]}", markup)
         if count != 1:
@@ -253,7 +274,7 @@ def main():
             capabilities_chart(mobile, training)
     concept_mobile()
     page.write_text(markup)
-    print("Updated visible Tables 1–2 and desktop/mobile result SVGs for Figures 1–2.")
+    print("Updated Tables 1–2, JevBench analysis and desktop/mobile result SVGs for Figures 1–2.")
 
 
 if __name__ == "__main__":

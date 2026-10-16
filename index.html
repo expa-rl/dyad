@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
-  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-side-controls">
+  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-jevbench-columns">
   <script defer src="static/js/index.js?v=20261016-page-revision"></script>
 </head>
 <body>
@@ -197,8 +197,8 @@
         </figure>
         <p class="section-copy">During reasoning, the language head generates vocabulary tokens as usual. When the model emits an interaction token, its current state is scored against the candidate action representations to produce a typed action distribution. The selected operation executes in the environment, and its observation returns to the history. Action representations can be reused while their descriptions and environment context stay unchanged; new actions are encoded when encountered.</p>
         <p class="section-copy">Training begins with supervised alignment of the action projector, keeping both transformer backbones fixed. Reinforcement learning then learns from environment rewards. Frozen-LLM adaptation updates only the action encoder; joint optimization updates both the LLM and action encoder. The two training settings use the same decision architecture.</p>
-        <p class="section-copy">Choosing directly should also leave room to reason when a decision is difficult. <a href="https://github.com/fstandhartinger/jevbench" target="_blank" rel="noopener noreferrer">JevBench</a> tests standalone decisions: given a state, instructions, criteria, and candidate answers, a model selects a category, makes a yes/no judgment, or assigns a rating. Combining reasoning with direct action selection improves over the original LLM and <strong>slightly exceeds Jev</strong> (<a href="#table2" class="ref-link">Table 2</a>). These standalone decisions complement the multi-step agent evaluations above.</p>
-        <div class="result-table-wrapper">
+        <div class="jevbench-layout">
+          <div class="result-table-wrapper">
           <!-- results:jevbench:start -->
 <table id="table2" class="results-table jevbench-table">
 <caption id="jevbench-caption"><strong>Table 2. Direct decisions on JevBench.</strong> Accuracy (%) on the public subset. The original LLM and Dyad use <strong>Qwen3.5-4B</strong> with reasoning; Dyad is trained on CodeGym with GRPO.</caption>
@@ -209,6 +209,13 @@
 <tr><th scope="row">Dyad</th><td class="dyad-score"><strong>86.18</strong></td><td class="dyad-score"><strong>72.08</strong></td></tr>
 </tbody></table>
 <!-- results:jevbench:end -->
+          </div>
+          <div class="jevbench-analysis">
+            <!-- results:jevbench-analysis:start -->
+<p class="section-copy"><a href="https://github.com/fstandhartinger/jevbench" target="_blank" rel="noopener noreferrer">JevBench</a> evaluates standalone decisions through classification, yes/no judgments, and ratings. It complements the multi-step agent tasks above.</p>
+<p class="section-copy"><strong class="dyad-name">Dyad</strong> improves over the original LLM by <strong class="key-emphasis">7.08 percentage points overall</strong> and <strong class="key-emphasis">12.20 points on hard cases</strong>. It also slightly exceeds Jev on both metrics (<a href="#table2" class="ref-link">Table 2</a>). These results support combining language reasoning with direct action selection.</p>
+<!-- results:jevbench-analysis:end -->
+          </div>
         </div>
       </div>
     </section>

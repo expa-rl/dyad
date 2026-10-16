@@ -53,6 +53,10 @@
 .results-table .dyad-score { color: var(--primary-hover); background: #eff6ff; }
 .results-table .dyad-score strong { color: inherit; }
 
+.jevbench-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; margin-top: 1.8rem; }
+.jevbench-layout .result-table-wrapper { min-width: 0; margin-top: 0; }
+.jevbench-analysis { min-width: 0; }
+
 .capability-carousel { position: relative; }
 .figure-controls { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .figure-controls[hidden], .capability-slide[hidden] { display: none; }
@@ -88,7 +92,11 @@ pre { padding: 1.25rem !important; text-align: left; font-size: 0.8rem !importan
 .skip-link { position: fixed; left: 1rem; top: -5rem; padding: 0.6rem 1rem; z-index: 1001; background: white; border: 2px solid var(--primary-color); border-radius: 0.5rem; }
 .skip-link:focus { top: 1rem; }
 button:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 4px; }
-section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
+section[id], figure[id], table[id], .jevbench-layout { scroll-margin-top: 1.5rem; }
+
+@media screen and (max-width: 900px) {
+  .jevbench-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+}
 
 @media screen and (max-width: 768px) {
   .page-hero .hero-body { padding: 2.5rem 1.1rem 1.5rem; }
