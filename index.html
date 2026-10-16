@@ -106,8 +106,8 @@
 
     <section class="section hero is-light tldr-section" aria-label="Overview">
       <div class="container is-max-desktop">
-        <p class="section-copy"><strong>TL;DR:</strong> We introduce <strong class="dyad-name">Dyad</strong>, an architecture that lets pretrained LLMs reason in language and directly select available actions, improving agents across environments.</p>
-        <p class="section-copy">LLM agents typically express both reasoning and actions as text, even when an environment offers a concrete set of available operations. <strong class="dyad-name">Dyad</strong> introduces an <strong>environment-conditioned action encoder</strong> that turns descriptions of those operations into a dynamic decision head. The LLM can then reason in language and select actions directly, supporting adaptation with a frozen LLM or joint training of both components.</p>
+        <p class="section-copy"><strong>TL;DR:</strong> We introduce <strong class="dyad-name">Dyad</strong>, an architecture that combines pretrained LLMs’ language reasoning with <strong>native typed decision-making over dynamic action spaces</strong> to build more capable general-purpose agents.</p>
+        <p class="section-copy">LLM agents typically use text generation for both reasoning and specifying actions, assigning probabilities to tokens rather than directly to available actions. <strong class="dyad-name">Dyad</strong> introduces an <strong>environment-conditioned action encoder</strong> that enables direct decisions over dynamic action spaces while retaining the LLM’s language reasoning capabilities. Training only the action encoder improves agent performance <strong class="key-emphasis">without updating any LLM parameters</strong>, while jointly optimizing both components improves agent performance as well as general knowledge, reasoning, and coding.</p>
       </div>
     </section>
 
