@@ -12,6 +12,8 @@ step and is published at <https://expa-rl.github.io/dyad/>.
 
 [EARL page and paper analysis](docs/earl-project-page-analysis.md) records which
 results the reference page presents, omits or explains through animation.
+[EARL writing and caption analysis](docs/earl-writing-and-captions.md) records the
+one-sentence TL;DR, paragraph structure, emphasis and independent evidence labels.
 [Dyad restructuring plan](docs/dyad-project-page-plan.md) documents the resulting
 content choices, exact source values and English copy used in this revision.
 
@@ -26,21 +28,24 @@ Open <http://127.0.0.1:8000/>.
 ## Content and layout
 
 1. Paper title, authors, affiliations and resource links.
-2. TL;DR and motivation in one light-background introduction.
-3. **Modular Adaptation with a Frozen LLM**: Qwen3.5-9B before and after
-   frozen-LLM adaptation, evaluated in four environments.
-4. **Cross-environment Generalization**: eight paired 9B/GRPO comparisons,
-   including the negative result; text explains the full 41/48 result.
-5. **Preserving General Capabilities**: six 9B/GRPO comparisons, retaining both
+2. A one-sentence TL;DR followed by an explanatory paragraph.
+3. **Modular Adaptation with a Frozen LLM**: visible Table 1 compares the
+   original model and frozen-LLM adaptation in four environments.
+4. **Cross-environment Generalization**: Figure 1 shows the CodeGym-trained
+   agent in four other environments, including scores and paired improvements.
+5. **Preserving General Capabilities**: Figure 2 shows six comparisons, retaining both
    DIVE and CodeGym and all three capability benchmarks.
-6. **Approach**: one MP4 location and paragraphs describing architecture and training.
+6. **Approach**: Figure 3 reserves the MP4 location, with architecture fallback
+   and paragraphs describing inference and training.
 7. Copyable BibTeX and template attribution.
 
 EARL's 960px desktop container is reused for both text and evidence. Each numbered
 section has one heading followed directly by paragraphs. Dense full-result panels,
 duplicated category labels, and expandable experiment sections are removed.
-Each chart has a separate mobile SVG and an accessible HTML data table; visitors
-can read the result without JavaScript.
+Each chart has a separate mobile SVG with all selected values labelled directly.
+Table 1 is visible HTML. Every exhibit has its own page number, name and caption;
+there are no hidden data tables or expandable results. Model specifications are
+kept in captions, while prose explains the research problems and capability gains.
 
 ## Add the Approach MP4
 
@@ -65,7 +70,7 @@ scores supplied in the paper's arXiv v1 source. Its metadata records the source
 file and hash. The page consistently selects **Qwen3.5-9B with GRPO** as its main
 example; full-study claims are stated separately in the text.
 
-To regenerate the six SVG assets and the three accessible data tables:
+To regenerate visible Table 1 and the four desktop/mobile SVG assets:
 
 ```sh
 uv run scripts/update_results.py
@@ -82,7 +87,7 @@ unreported uncertainty intervals are drawn.
 - `static/css/expa.css`: unchanged EARL base stylesheet.
 - `static/css/dyad.css`: responsive additions to the flat reference layout.
 - `static/js/index.js`: video fallback, citation copy and back-to-top controls.
-- `static/images/results-*.svg`: generated desktop and mobile result figures.
+- `static/images/results-*.svg`: generated desktop and mobile versions of Figures 1 and 2.
 - `static/images/dyad-*.png`: original paper figures, including the video fallback.
 - `static/pdfs/dyad.pdf`: the original arXiv paper.
 - `research/template-provenance.json`: template versions, hashes and result provenance.
@@ -94,8 +99,8 @@ supplied. This repository contains the project website.
 ## Validation
 
 Scores and signed differences are checked against the paper and its source.
-Validation covers flat headings, absence of paper-number references in public
-copy, generated figures, local assets, and desktop/mobile rendering. The video
+Validation covers flat headings, page-local Table/Figure numbering, a single-sentence TL;DR, visible results,
+CodeGym-only transfer evidence, generated figures, assets, and mobile rendering. The video
 fallback and citation controls remain available. Final MP4 playback must be
 checked after the actual video is added.
 

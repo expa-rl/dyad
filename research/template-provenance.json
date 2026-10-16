@@ -71,6 +71,7 @@
   "table_sources": [
     {
       "local_block": "frozen",
+      "page_label": "Table 1",
       "paper_table": 4,
       "paper_page": 8,
       "model": "Qwen3.5-9B",
@@ -80,20 +81,8 @@
       ],
       "training_environment": "DIVE",
       "algorithm": "GRPO",
-      "evaluation_seeds": 3
-    },
-    {
-      "local_block": "transfer",
-      "paper_table": 3,
-      "paper_page": 6,
-      "model": "Qwen3.5-9B",
-      "algorithm": "GRPO",
-      "training_environments": [
-        "DIVE",
-        "CodeGym"
-      ],
-      "presentation": "Eight paired changes in percentage points, including the negative SWE result after DIVE training",
-      "evaluation_seeds": 3
+      "evaluation_seeds": 3,
+      "presentation": "Visible native HTML table with all selected scores and changes"
     }
   ],
   "results_data": "static/data/results.json",
@@ -131,21 +120,63 @@
     "generator": "scripts/update_results.py",
     "library": "Matplotlib 3.10.7",
     "assets": [
-      "static/images/results-frozen.svg",
-      "static/images/results-frozen.mobile.svg",
-      "static/images/results-transfer.svg",
-      "static/images/results-transfer.mobile.svg",
+      "static/images/results-codegym-transfer.svg",
+      "static/images/results-codegym-transfer.mobile.svg",
       "static/images/results-capabilities.svg",
       "static/images/results-capabilities.mobile.svg"
     ],
     "data": "static/data/results.json",
-    "uncertainty": "No run-level variance supplied; paired connectors are not uncertainty intervals."
+    "uncertainty": "No run-level variance supplied; paired connectors are not uncertainty intervals.",
+    "visible_table": "index.html #table1"
   },
   "editorial_research": {
     "earl_analysis": "docs/earl-project-page-analysis.md",
     "dyad_plan": "docs/dyad-project-page-plan.md",
     "reviewed_on": "2026-10-16",
     "earl_paper": "https://arxiv.org/pdf/2510.07581v2",
-    "earl_page_sha256": "adc322339f465f86e7f81372149d7351c3b8234b1d7b47dd60c41495c2477e2f"
-  }
+    "earl_page_sha256": "adc322339f465f86e7f81372149d7351c3b8234b1d7b47dd60c41495c2477e2f",
+    "writing_analysis": "docs/earl-writing-and-captions.md",
+    "current_page_rules": [
+      "One-sentence TL;DR followed by an explanatory paragraph",
+      "Flat section headings",
+      "Page-local Table 1 and Figures 1–3 with names and captions",
+      "Model specifications in captions",
+      "No hidden result tables or expandable experiments",
+      "CodeGym-only transfer figure with explicit scope"
+    ]
+  },
+  "figure_sources": [
+    {
+      "page_label": "Figure 1",
+      "paper_table": 3,
+      "paper_page": 6,
+      "model": "Qwen3.5-9B",
+      "algorithm": "GRPO",
+      "training_environment": "CodeGym",
+      "presentation": "All four evaluation environments; baseline and Dyad scores plus paired changes; no hidden table",
+      "evaluation_seeds": 3
+    },
+    {
+      "page_label": "Figure 2",
+      "paper_figure": 3,
+      "paper_page": 7,
+      "model": "Qwen3.5-9B",
+      "methods": [
+        "GRPO",
+        "Dyad-GRPO"
+      ],
+      "training_environments": [
+        "DIVE",
+        "CodeGym"
+      ],
+      "presentation": "All six paired capability changes shown directly",
+      "evaluation_seeds": 3
+    },
+    {
+      "page_label": "Figure 3",
+      "paper_figure": 2,
+      "paper_page": 3,
+      "presentation": "Architecture figure as MP4 fallback"
+    }
+  ]
 }

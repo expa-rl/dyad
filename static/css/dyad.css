@@ -22,18 +22,25 @@
 .result-figure { margin: 1.8rem 0 0; }
 .result-figure picture, .result-figure img { display: block; width: 100%; }
 .result-figure img { height: auto; }
-.result-figure figcaption, .figure-note { font-size: 0.9rem; line-height: 1.65; color: var(--text-secondary); }
-.result-figure figcaption { margin-top: 0.75rem; text-align: center; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 1rem; line-height: 1.6; color: var(--text-primary); text-align: left; }
+.result-figure figcaption, .approach-media figcaption { margin-top: 0.8rem; }
+.result-table-wrapper { margin-top: 1.8rem; }
+.results-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 1rem; }
+.results-table caption { caption-side: top; padding-bottom: 1rem; }
+.results-table th, .results-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border-color); text-align: right; vertical-align: middle; font-variant-numeric: tabular-nums; }
+.results-table thead th { background: var(--background-secondary); font-weight: 600; }
+.results-table th:first-child { text-align: left; }
+.results-table tbody th { font-weight: 500; }
+.results-table .dyad-score { color: var(--primary-hover); background: #eff6ff; }
+.results-table .dyad-score strong { color: inherit; }
 
-.approach-media { margin: 1.8rem 0 0; }
+.approach-media { margin: 1.8rem 0; }
 #approach-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: white; }
 #approach-video[hidden], .approach-poster[hidden] { display: none; }
 .approach-poster { margin: 0; padding: 1rem; background: white; }
 .approach-poster > a { display: block; }
 .approach-poster img { display: block; width: 100%; height: auto; }
 .video-status { margin-bottom: 1rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; }
-.figure-note { text-align: center; margin: 0.8rem 0 1.8rem; }
 
 .citation-section { padding-bottom: 3rem; }
 .bibtex-header { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: 0.75rem; }
@@ -49,7 +56,7 @@ pre { padding: 1.25rem !important; text-align: left; font-size: 0.8rem !importan
 .skip-link { position: fixed; left: 1rem; top: -5rem; padding: 0.6rem 1rem; z-index: 1001; background: white; border: 2px solid var(--primary-color); border-radius: 0.5rem; }
 .skip-link:focus { top: 1rem; }
 button:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 4px; }
-section[id] { scroll-margin-top: 1.5rem; }
+section[id], figure[id], table[id] { scroll-margin-top: 1.5rem; }
 
 @media screen and (max-width: 768px) {
   .page-hero .hero-body { padding: 2.5rem 1.1rem 1.5rem; }
@@ -67,7 +74,9 @@ section[id] { scroll-margin-top: 1.5rem; }
   .page-hero .publication-links .button { width: auto; padding: 0.55rem 1rem !important; }
   .section { padding: 2.5rem 1.1rem; }
   .content-section .title.is-3 { font-size: 1.6rem; margin-bottom: 1.5rem !important; padding-bottom: 0; }
-  .result-figure figcaption, .figure-note { font-size: 0.85rem; }
+  .result-figure figcaption, .approach-media figcaption, .results-table caption { font-size: 0.95rem; }
+  .results-table { font-size: 0.85rem; }
+  .results-table th, .results-table td { padding: 0.7rem 0.45rem; }
   .approach-poster { padding: 0.6rem; }
   .video-status { font-size: 0.8rem; }
   pre { padding: 0.9rem !important; font-size: 0.75rem !important; }
@@ -80,5 +89,5 @@ section[id] { scroll-margin-top: 1.5rem; }
   .scroll-to-top, .copy-bibtex-btn, .copy-status { display: none; }
   .page-hero .hero-body { padding-top: 0; }
   .section { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-  .result-figure, .approach-media { break-inside: avoid; }
+  .result-figure, .results-table, .approach-media { break-inside: avoid; }
 }

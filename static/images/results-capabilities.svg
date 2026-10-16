@@ -8,7 +8,7 @@
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title>Qwen3.5-9B: capabilities</dc:title>
-    <dc:description>General-capability changes for Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the same original model on MMLU-Pro, HMMT February 2026 and LiveCodeBench v6. Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.</dc:description>
+    <dc:description>Figure 2. Retaining knowledge, reasoning and coding after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the same original model on MMLU-Pro, HMMT February 2026 and LiveCodeBench v6. Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.</dc:description>
     <dc:format>image/svg+xml</dc:format>
     <dc:source>https://arxiv.org/pdf/2609.36116v1</dc:source>
     <dc:creator>

@@ -2,7 +2,7 @@
 # requires-python = ">=3.10"
 # dependencies = ["matplotlib==3.10.7"]
 # ///
-"""Generate selected paper results as SVGs and accessible HTML. Run with uv."""
+"""Generate a visible results table and named result SVGs. Run with uv."""
 
 from decimal import Decimal
 from html import escape
@@ -22,8 +22,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = json.loads((ROOT / "static/data/results.json").read_text())
 MODEL = "Qwen3.5-9B"
 ENVIRONMENTS = DATA["environments"]
-SOURCES = ("DIVE", "CodeGym")
-BLUE, GRAY, AMBER, INK = "#2563eb", "#94a3b8", "#b45309", "#1e293b"
+CAPABILITY_SOURCES = ("DIVE", "CodeGym")
+BLUE, GRAY, INK = "#2563eb", "#94a3b8", "#1e293b"
 IMAGES = ROOT / "static/images"
 plt.rcParams.update({
     "font.family": ["DejaVu Sans", "Arial", "sans-serif"], "font.size": 12, "text.color": INK,
@@ -75,24 +75,29 @@ def save(fig, name, mobile, description):
     plt.close(fig)
 
 
-def frozen_chart(mobile):
-    row = model_from(DATA["frozen_adaptation"]["models"])
+def transfer_chart(mobile):
+    row = next(r for r in DATA["cross_environment"]["rows"]
+               if r["model"] == MODEL and r["algorithm"] == "GRPO")["CodeGym"]
     fig, ax = plt.subplots(figsize=(4, 4.5) if mobile else (9.6, 3.8))
-    fig.subplots_adjust(left=.35 if mobile else .23, right=.81 if mobile else .89,
+    fig.subplots_adjust(left=.34 if mobile else .23, right=.72 if mobile else .80,
                         bottom=.19 if mobile else .20, top=.83)
     for key, color, offset, label in [
-        ("base", GRAY, -.17, "Original LLM"),
-        ("frozen", BLUE, .17, "Frozen Dyad"),
+        ("baseline", GRAY, -.17, "GRPO"),
+        ("dyad", BLUE, .17, "Dyad-GRPO"),
     ]:
         ys = [i + offset for i in range(4)]
         ax.barh(ys, row[key], height=.25, color=color, label=label, zorder=3)
-        for y, value in zip(ys, row[key]):
-            ax.text(value + 1.0, y, f"{value:.2f}", va="center",
-                    color=INK if key == "base" else BLUE, fontsize=11 if mobile else 12)
-    labels = ["ALFWorld", "WebShop", "τ²-bench", "SWE-bench\nVerified"]
-    ax.set_yticks(range(4), labels, fontsize=11.5 if mobile else 13)
+        for i, (y, value) in enumerate(zip(ys, row[key])):
+            text = f"{value:.2f}"
+            if key == "dyad":
+                text += f" ({signed(difference(value, row['baseline'][i]))})"
+            ax.text(value + 1.0, y, text, va="center",
+                    color=INK if key == "baseline" else BLUE,
+                    fontsize=10.5 if mobile else 12)
+    ax.set_yticks(range(4), ["ALFWorld", "WebShop", "τ²-bench", "SWE-bench\nVerified"],
+                  fontsize=11.5 if mobile else 13)
     ax.invert_yaxis()
-    ax.set_xlim(0, 80)
+    ax.set_xlim(0, 85)
     ax.set_xticks([0, 40, 80] if mobile else [0, 20, 40, 60, 80])
     ax.set_xlabel("Score (%)", labelpad=12, fontsize=11 if mobile else 12)
     style_axis(ax)
@@ -100,38 +105,10 @@ def frozen_chart(mobile):
     fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(.55, .99),
                ncol=2, frameon=False, fontsize=11 if mobile else 12,
                handlelength=1.1, columnspacing=1.4)
-    save(fig, "frozen", mobile,
-         "Original versus frozen-LLM Dyad scores after GRPO training on DIVE. "
-         "Evaluation on four other environments with three seeds. LLM parameters remain fixed.")
-
-
-def transfer_chart(mobile):
-    row = next(r for r in DATA["cross_environment"]["rows"]
-               if r["model"] == MODEL and r["algorithm"] == "GRPO")
-    fig, axes = plt.subplots(2, 1, figsize=(4, 6.3)) if mobile else plt.subplots(1, 2, figsize=(9.6, 3.6))
-    fig.subplots_adjust(left=.35 if mobile else .19, right=.89 if mobile else .95,
-                        bottom=.15 if mobile else .26, top=.92 if mobile else .86,
-                        hspace=.7, wspace=.8)
-    for ax, training in zip(axes, SOURCES):
-        deltas = [difference(d, b) for b, d in zip(row[training]["baseline"], row[training]["dyad"])]
-        ax.barh(range(4), deltas, height=.46,
-                color=[BLUE if d >= 0 else AMBER for d in deltas], zorder=3)
-        for i, d in enumerate(deltas):
-            ax.text(d + (.12 if d >= 0 else -.12), i, signed(d),
-                    ha="left" if d >= 0 else "right", va="center",
-                    color=BLUE if d >= 0 else AMBER, fontsize=11)
-        ax.set_yticks(range(4), ["ALFWorld", "WebShop", "τ²-bench", "SWE-bench\nVerified"],
-                      fontsize=11.5 if mobile else 12)
-        ax.invert_yaxis()
-        ax.set_xlim(-2.1, 4.9)
-        ax.set_xticks([-2, 0, 2, 4])
-        ax.axvline(0, color="#64748b", linewidth=1)
-        ax.set_title(f"Trained on {training}", loc="left", fontsize=12 if mobile else 14, pad=17)
-        ax.set_xlabel("Change vs. GRPO\n(percentage points)", fontsize=10 if mobile else 11, labelpad=10)
-        style_axis(ax)
-    save(fig, "transfer", mobile,
-         "Eight paired comparisons for jointly trained Qwen3.5-9B, using GRPO on DIVE or CodeGym. "
-         "Change from conventional GRPO, including the -1.02 point SWE-bench Verified regression after DIVE.")
+    save(fig, "codegym-transfer", mobile,
+         "Figure 1. Generalization to unseen environments. Qwen3.5-9B trained on CodeGym: "
+         "GRPO versus Dyad-GRPO scores on four other environments. Parentheses show "
+         "percentage-point improvements. Three evaluation seeds, no further adaptation.")
 
 
 def capabilities_chart(mobile):
@@ -140,7 +117,7 @@ def capabilities_chart(mobile):
     fig.subplots_adjust(left=.37 if mobile else .19, right=.94 if mobile else .97,
                         bottom=.16 if mobile else .24, top=.84 if mobile else .76,
                         hspace=.86, wspace=.85)
-    for ax, training in zip(axes, SOURCES):
+    for ax, training in zip(axes, CAPABILITY_SOURCES):
         baseline = [difference(v, b) for b, v in zip(row["original"], row[training]["GRPO"])]
         dyad = [difference(v, b) for b, v in zip(row["original"], row[training]["Dyad-GRPO"])]
         for i, (b, d) in enumerate(zip(baseline, dyad)):
@@ -166,49 +143,44 @@ def capabilities_chart(mobile):
     ], loc="upper center", bbox_to_anchor=(.56, .995), ncol=2, frameon=False,
        fontsize=11 if mobile else 12, columnspacing=1.5, handletextpad=.3)
     save(fig, "capabilities", mobile,
-         "General-capability changes for Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
+         "Figure 2. Retaining knowledge, reasoning and coding after agentic training. Qwen3.5-9B. Both GRPO and Dyad-GRPO are compared with the "
          "same original model on MMLU-Pro, HMMT February 2026 and LiveCodeBench v6. "
          "Connecting lines are paired comparisons, not uncertainty intervals. Three evaluation seeds.")
 
 
-def accessible_table(caption, headings, rows):
-    heads = "".join(f'<th scope="col">{escape(h)}</th>' for h in headings)
-    output = [f'<div class="sr-only"><table><caption>{escape(caption)}</caption><thead><tr>{heads}</tr></thead><tbody>']
-    for row in rows:
-        cells = f'<th scope="row">{escape(str(row[0]))}</th>'
-        cells += "".join(f"<td>{escape(str(cell))}</td>" for cell in row[1:])
-        output.append(f"<tr>{cells}</tr>")
-    return "\n".join(output + ["</tbody></table></div>"])
+def frozen_table():
+    row = model_from(DATA["frozen_adaptation"]["models"])
+    output = [
+        '<table id="table1" class="results-table">',
+        '<caption id="frozen-caption"><strong>Table 1. Modular adaptation without updating the LLM.</strong> '
+        'Scores (%) for <strong>Qwen3.5-9B</strong> before and after training the action encoder with GRPO '
+        'on DIVE, while keeping the LLM and language head fixed. Evaluation uses three seeds in four '
+        'other environments, without further training. Changes are in percentage points.</caption>',
+        '<colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>',
+        '<thead><tr><th scope="col">Environment</th><th scope="col">Original LLM</th>'
+        '<th scope="col">Frozen Dyad</th><th scope="col">Change (pp)</th></tr></thead><tbody>',
+    ]
+    for name, base, frozen in zip(ENVIRONMENTS, row["base"], row["frozen"]):
+        output.append(
+            f'<tr><th scope="row">{escape(name)}</th><td>{base:.2f}</td>'
+            f'<td class="dyad-score"><strong>{frozen:.2f}</strong></td>'
+            f'<td>{signed(difference(frozen, base))}</td></tr>'
+        )
+    return "\n".join(output + ['</tbody></table>'])
 
 
 def main():
-    frozen = model_from(DATA["frozen_adaptation"]["models"])
-    transfer = next(r for r in DATA["cross_environment"]["rows"]
-                    if r["model"] == MODEL and r["algorithm"] == "GRPO")
-    capabilities = model_from(DATA["general_capabilities"]["models"])
-    frozen_rows = [(name, f"{a:.2f}", f"{b:.2f}") for name, a, b in zip(ENVIRONMENTS, frozen["base"], frozen["frozen"])]
-    transfer_rows = [(f"{training} → {name}", f"{a:.2f}", f"{b:.2f}", signed(difference(b, a)))
-                     for training in SOURCES for name, a, b in zip(ENVIRONMENTS, transfer[training]["baseline"], transfer[training]["dyad"])]
-    capability_rows = [(f"{training} → {name}", f"{base:.2f}", f"{a:.2f}", f"{b:.2f}",
-                        signed(difference(a, base)), signed(difference(b, base)))
-                       for training in SOURCES for name, base, a, b in zip(DATA["general_capabilities"]["benchmarks"], capabilities["original"], capabilities[training]["GRPO"], capabilities[training]["Dyad-GRPO"])]
-    blocks = {
-        "frozen": accessible_table(f"{MODEL}, GRPO on DIVE; scores (%)", ["Environment", "Original LLM", "Frozen Dyad"], frozen_rows),
-        "transfer": accessible_table(f"{MODEL}, joint optimization with GRPO; scores (%)", ["Training → evaluation", "GRPO", "Dyad-GRPO", "Change (percentage points)"], transfer_rows),
-        "capabilities": accessible_table(f"{MODEL}, general-capability scores (%)", ["Training → benchmark", "Original LLM", "GRPO", "Dyad-GRPO", "GRPO change", "Dyad-GRPO change"], capability_rows),
-    }
-    markup = (ROOT / "index.html").read_text()
-    for name, content in blocks.items():
-        pattern = re.compile(rf"(<!-- results:{name}:start -->).*?(<!-- results:{name}:end -->)", re.S)
-        markup, count = pattern.subn(lambda m: f"{m[1]}\n{content}\n{m[2]}", markup)
-        if count != 1:
-            raise ValueError(f"Expected one results block for {name}, found {count}")
+    page = ROOT / "index.html"
+    markup = page.read_text()
+    pattern = re.compile(r"(<!-- results:frozen:start -->).*?(<!-- results:frozen:end -->)", re.S)
+    markup, count = pattern.subn(lambda m: f"{m[1]}\n{frozen_table()}\n{m[2]}", markup)
+    if count != 1:
+        raise ValueError(f"Expected one frozen results block, found {count}")
     for mobile in (False, True):
-        frozen_chart(mobile)
         transfer_chart(mobile)
         capabilities_chart(mobile)
-    (ROOT / "index.html").write_text(markup)
-    print("Updated three selected results, six SVGs and accessible data tables.")
+    page.write_text(markup)
+    print("Updated visible Table 1 and four desktop/mobile SVGs for Figures 1 and 2.")
 
 
 if __name__ == "__main__":
