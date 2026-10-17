@@ -30,13 +30,25 @@
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
   <link rel="stylesheet" href="static/css/dyad.css?v=20261016-approach-video">
+  <link rel="stylesheet" href="static/css/project-nav.css?v=20261017">
   <script defer src="static/js/index.js?v=20261016-page-revision"></script>
+  <script defer src="static/js/project-nav.js?v=20261017"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <button id="scroll-to-top" class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
   </button>
+
+  <nav class="project-nav" aria-label="Research projects">
+    <details class="project-nav-switcher" data-project-switcher>
+      <summary>Projects<svg class="project-nav-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg></summary>
+      <div class="project-nav-menu">
+        <a href="https://expa-rl.github.io/dyad/" aria-current="page">Dyad</a>
+        <a href="https://expa-rl.github.io/">EARL / ExpA</a>
+      </div>
+    </details>
+  </nav>
 
   <main id="main-content">
     <section class="hero page-hero" aria-labelledby="paper-title">

@@ -1,0 +1,71 @@
+.project-nav, .project-nav * { box-sizing: border-box; }
+
+.project-nav {
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  max-width: 1008px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.project-nav-switcher { position: relative; }
+.project-nav-switcher > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 44px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #d3dfef;
+  border-radius: 10px;
+  background: #fff;
+  color: #334155;
+  font: 600 0.9rem/1.4 'Inter', sans-serif;
+  list-style: none;
+  cursor: pointer;
+}
+.project-nav-switcher > summary::-webkit-details-marker { display: none; }
+.project-nav-switcher > summary::marker { content: ''; }
+.project-nav-switcher > summary:hover,
+.project-nav-switcher[open] > summary { border-color: #91acd2; background: #f0f5fc; }
+.project-nav-arrow { width: 16px; height: 16px; transition: transform 160ms ease; }
+.project-nav-switcher[open] .project-nav-arrow { transform: rotate(180deg); }
+.project-nav-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 220px;
+  max-width: calc(100vw - 3rem);
+  padding: 0.4rem;
+  border: 1px solid #d3dfef;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(23, 63, 122, 0.12);
+}
+.project-nav-menu > a {
+  display: block;
+  padding: 0.7rem 0.85rem;
+  border-radius: 7px;
+  color: #334155;
+  font: 500 0.925rem/1.5 'Inter', sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.project-nav-menu > a:hover { color: #173f7a; background: #f0f5fc; }
+.project-nav-menu > a[aria-current='page'] { color: #173f7a; background: #eaf1fb; font-weight: 700; }
+.project-nav-switcher > summary:focus-visible,
+.project-nav-menu > a:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+
+@media (max-width: 480px) {
+  .project-nav { padding: 0.75rem 1.1rem 0; }
+  .project-nav-menu { max-width: calc(100vw - 2.2rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-nav-arrow { transition: none; }
+}
+@media print {
+  .project-nav { display: none; }
+}

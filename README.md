@@ -27,6 +27,12 @@ Open <http://127.0.0.1:8000/>.
 
 ## Content and layout
 
+The **Projects** dropdown at the top links this page with
+[EARL / ExpA](https://expa-rl.github.io/). Both websites use the same native
+disclosure navigation, highlight the current project, and support keyboard
+activation, Escape, and closing by clicking outside the menu. Its shared assets
+are `static/css/project-nav.css` and `static/js/project-nav.js`.
+
 1. Paper title, authors, affiliations and resource links.
 2. A one-sentence TL;DR followed by an explanatory paragraph.
 3. **Modular Adaptation with a Frozen LLM**: visible Table 1 compares the original
