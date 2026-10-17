@@ -9,6 +9,35 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let resetCopy;
 
+  const overviewVideo = document.getElementById('overview-video');
+  const overviewPlay = document.getElementById('overview-play');
+  const overviewStatus = document.getElementById('overview-video-status');
+  if (overviewVideo && overviewPlay && overviewStatus) {
+    const syncOverviewPlay = () => {
+      overviewPlay.hidden = !overviewVideo.paused || Boolean(overviewVideo.error);
+    };
+    const showOverviewError = () => {
+      overviewPlay.hidden = true;
+      overviewStatus.hidden = false;
+    };
+    overviewVideo.addEventListener('play', syncOverviewPlay);
+    overviewVideo.addEventListener('pause', syncOverviewPlay);
+    overviewVideo.addEventListener('ended', syncOverviewPlay);
+    overviewVideo.addEventListener('error', showOverviewError);
+    overviewVideo.querySelector('source')?.addEventListener('error', showOverviewError);
+    overviewPlay.addEventListener('click', async () => {
+      try {
+        await overviewVideo.play();
+        overviewVideo.focus({ preventScroll: true });
+      } catch (error) {
+        if (error.name === 'AbortError') syncOverviewPlay();
+        else showOverviewError();
+      }
+    });
+    if (overviewVideo.error) showOverviewError();
+    else syncOverviewPlay();
+  }
+
   const carousel = document.querySelector('[data-capability-carousel]');
   if (carousel) {
     const slides = [...carousel.querySelectorAll('.capability-slide')];

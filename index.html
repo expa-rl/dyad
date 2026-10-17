@@ -29,9 +29,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/expa.css">
-  <link rel="stylesheet" href="static/css/dyad.css?v=20261016-approach-video">
+  <link rel="stylesheet" href="static/css/dyad.css?v=20261017-overview-video">
   <link rel="stylesheet" href="static/css/project-nav.css?v=20261017">
-  <script defer src="static/js/index.js?v=20261016-page-revision"></script>
+  <script defer src="static/js/index.js?v=20261017-overview-video"></script>
   <script defer src="static/js/project-nav.js?v=20261017"></script>
 </head>
 <body>
@@ -120,6 +120,19 @@
       <div class="container is-max-desktop">
         <p class="section-copy"><strong>TL;DR:</strong> We introduce <strong class="dyad-name">Dyad</strong>, an architecture that combines pretrained LLMs’ language reasoning with <strong>native typed decision-making over dynamic action spaces</strong> to build more capable general-purpose agents.</p>
         <p class="section-copy">LLM agents typically use the same text-generation interface to reason about goals and specify actions. This assigns probabilities to vocabulary tokens rather than directly to the operations an environment provides. Some LLM extensions support direct actions, but restrict them to fixed, predefined choices. <strong class="dyad-name">Dyad</strong> introduces an <strong>environment-conditioned action encoder</strong> that builds the decision interface from action descriptions, allowing the available choices to change with the environment.</p>
+        <div id="overview" class="overview-media">
+          <p id="overview-video-title" class="overview-label"><strong class="dyad-name">Dyad</strong> in one minute</p>
+          <div class="overview-player">
+            <video id="overview-video" width="1280" height="720" controls muted playsinline preload="metadata" poster="static/images/dyad-overview-poster.jpg" aria-labelledby="overview-video-title" tabindex="0">
+              <source src="static/videos/dyad-overview.mp4" type="video/mp4">
+              <a href="static/videos/dyad-overview.mp4">Watch the Dyad overview video.</a>
+            </video>
+            <button id="overview-play" class="overview-play" type="button" aria-label="Play Dyad overview" hidden>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+            </button>
+          </div>
+          <p id="overview-video-status" class="video-status" role="status" hidden>Unable to play the video here. <a href="static/videos/dyad-overview.mp4">Open the overview MP4.</a></p>
+        </div>
       </div>
     </section>
 

@@ -1,4 +1,28 @@
-# Approach video
+# Project videos
+
+## Overview
+
+`dyad-overview.mp4` is the author-supplied overview animation added on
+2026-10-17. It appears after the TL;DR and opening paragraph, before the first
+numbered results section, under the small label **Dyad in one minute**.
+
+The original H.264 and AAC streams are copied without re-encoding. The MP4 is
+prepared for progressive playback with `faststart`, retaining the 1280 × 720
+resolution and approximately 62.37-second duration. Its poster,
+`static/images/dyad-overview-poster.jpg`, is taken at 60.5 seconds, before the
+closing logo and slogan fade out.
+
+The player is paused and muted by default, uses native controls, supports
+inline mobile playback and has no autoplay or loop. The audio track is retained
+and can be unmuted. JavaScript adds the overlay play button; the native controls
+remain usable without it. A playback error exposes a direct MP4 link.
+
+Replace the MP4, its poster, and the corresponding dimensions in `index.html`
+when updating this video. Version the source and poster URLs if replacing their
+contents at the same paths. Keep this overview separate from the detailed
+architecture walkthrough below.
+
+## Approach
 
 `dyad-approach.mp4` is the author-supplied architecture animation, taken from the
 2026-10-16 screen recording. It is connected to Figure 4 through the

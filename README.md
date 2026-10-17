@@ -34,7 +34,8 @@ activation, Escape, and closing by clicking outside the menu. Its shared assets
 are `static/css/project-nav.css` and `static/js/project-nav.js`.
 
 1. Paper title, authors, affiliations and resource links.
-2. A one-sentence TL;DR followed by an explanatory paragraph.
+2. A one-sentence TL;DR followed by an explanatory paragraph and the unnumbered
+   **Dyad in one minute** overview video.
 3. **Modular Adaptation with a Frozen LLM**: visible Table 1 compares the original
    model and frozen-LLM adaptation in four environments.
 4. **Stronger Agents with Preserved General Capabilities**: Figure 1 compares
@@ -55,7 +56,7 @@ section has one heading followed directly by paragraphs. Dense full-result panel
 duplicated category labels, and expandable experiment sections are removed.
 Each result chart has a separate mobile SVG with all selected values labelled directly.
 The concept figure stacks its three original vector panels on narrow screens.
-Both tables are visible HTML. Every exhibit has its own page number, name and caption;
+Both tables are visible HTML. Every result exhibit and approach figure has its own page number, name and caption;
 there are no hidden data tables or expandable results. The requested capability
 carousel switches between two fully labelled charts; it has no autoplay, supports
 keyboard arrows and shows both charts when JavaScript is unavailable or when printed.
@@ -68,6 +69,22 @@ and soft blue. Body paragraphs use general training-environment descriptions;
 exact names remain in the evidence captions and chart controls. Dyad is bold in
 prose, with selected key claims highlighted in dark blue at 110% of body size. The header displays six complete institutional identity images in
 a compact two-row layout, without hand-typeset institution names.
+
+## Overview video
+
+The author-supplied one-minute animation appears after the opening paragraph,
+before the first results section. `static/videos/dyad-overview.mp4` retains the
+original H.264 video and AAC audio without re-encoding, with MP4 metadata moved
+ahead of the media for progressive loading. It is 1280 × 720 and about 62 seconds
+long. The poster is the closing Dyad logo and slogan at 60.5 seconds, before the
+fade-out, saved as `static/images/dyad-overview-poster.jpg`.
+
+The full-width 16:9 player starts paused and muted, with an overlay play button above the logo,
+native playback controls, and inline mobile playback. Sound can be enabled
+through the native controls. The play button also accepts keyboard activation;
+the native player remains usable without JavaScript. This overview introduces
+the motivation, main idea and results, while the separate Approach video explains
+the architecture. It adds no numbered section or figure.
 
 ## Approach video
 
@@ -112,7 +129,7 @@ unreported uncertainty intervals are drawn.
 - `index.html`: page narrative, selected evidence and MP4 configuration.
 - `static/css/expa.css`: unchanged EARL base stylesheet.
 - `static/css/dyad.css`: responsive additions to the flat reference layout.
-- `static/js/index.js`: video fallback, capability carousel, citation copy and back-to-top controls.
+- `static/js/index.js`: overview play button, approach video fallback, capability carousel, citation copy and back-to-top controls.
 - `static/images/results-*.svg`: generated desktop and mobile versions of Figures 1 and 2.
 - `static/images/dyad-concept*.svg`: original vector concept art and its stacked mobile layout.
 - `static/pdfs/dyad-concept.pdf`: unaltered concept figure from the arXiv source.

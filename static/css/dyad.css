@@ -36,6 +36,16 @@
 .section-copy strong { font-weight: 600; }
 .section-copy .dyad-name { font-weight: 700; }
 .section-copy .key-emphasis { color: #173f7a; font-weight: 700; font-size: 1.1em; line-height: 1.45; }
+.overview-media { margin-top: 2rem; }
+.overview-label { margin-bottom: 0.75rem; color: #173f7a; font-size: 1rem; font-weight: 600; }
+.overview-player { position: relative; overflow: hidden; border-radius: 12px; background: #09131e; }
+.overview-player video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+.overview-play { position: absolute; top: 18%; left: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding: 0; border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 50%; background: rgba(255, 255, 255, 0.93); color: #173f7a; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25); cursor: pointer; }
+.overview-play:hover { background: white; }
+.overview-play svg { width: 28px; height: 28px; margin-left: 3px; }
+.overview-play[hidden], #overview-video-status[hidden] { display: none; }
+#overview-video:focus-visible { outline: 3px solid var(--primary-color); outline-offset: -3px; }
+#overview-video-status { margin: 0.75rem 0 0; }
 .content-section .title.is-3 { font-size: 2rem; line-height: 1.3; }
 .result-figure { margin: 1.8rem 0 0; }
 .result-figure + .section-copy { margin-top: 1.8rem; }
@@ -104,6 +114,8 @@ section[id], figure[id], table[id], .jevbench-layout { scroll-margin-top: 1.5rem
   .page-hero .publication-authors { font-size: 0.95rem !important; }
   .affiliation-list { max-width: 610px; gap: 1rem; }
   .section-copy { font-size: 1.1rem; }
+  .overview-play { width: 48px; height: 48px; }
+  .overview-play svg { width: 23px; height: 23px; }
   .content-section .title.is-3 { font-size: 1.75rem; }
   .scroll-to-top { bottom: 1rem; right: 1rem; width: 44px; height: 44px; }
 }
@@ -138,9 +150,9 @@ section[id], figure[id], table[id], .jevbench-layout { scroll-margin-top: 1.5rem
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 @media print {
-  .scroll-to-top, .copy-bibtex-btn, .copy-status, .figure-controls { display: none; }
+  .scroll-to-top, .copy-bibtex-btn, .copy-status, .figure-controls, .overview-play { display: none; }
   .capability-slide[hidden] { display: block; }
   .page-hero .hero-body { padding-top: 0; }
   .section { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-  .result-figure, .results-table, .approach-media { break-inside: avoid; }
+  .result-figure, .results-table, .approach-media, .overview-media { break-inside: avoid; }
 }
