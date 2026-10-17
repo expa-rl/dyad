@@ -139,8 +139,9 @@ unreported uncertainty intervals are drawn.
 - `research/template-provenance.json`: template versions, hashes and result provenance.
 - `docs/`: EARL analysis and Dyad editorial decisions.
 
-The public implementation repository is not linked until a verified URL is
-supplied. This repository contains the project website.
+The header's **Code** button links to the author-supplied public implementation
+repository, [Dynamic_ExpA](https://github.com/pingchuan-rookie/Dynamic_ExpA).
+This repository contains the project website.
 
 ## Validation
 
