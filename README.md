@@ -35,7 +35,7 @@ are `static/css/project-nav.css` and `static/js/project-nav.js`.
 
 1. Paper title, authors, affiliations and resource links.
 2. A one-sentence TL;DR followed by an explanatory paragraph and the unnumbered
-   **Dyad in one minute** overview video.
+   overview video, without a separate visible label or title.
 3. **Modular Adaptation with a Frozen LLM**: visible Table 1 compares the original
    model and frozen-LLM adaptation in four environments.
 4. **Stronger Agents with Preserved General Capabilities**: Figure 1 compares

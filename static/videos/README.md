@@ -3,8 +3,8 @@
 ## Overview
 
 `dyad-overview.mp4` is the author-supplied overview animation added on
-2026-10-17. It appears after the TL;DR and opening paragraph, before the first
-numbered results section, under the small label **Dyad in one minute**.
+2026-10-17. It appears directly after the TL;DR and opening paragraph, before the
+first numbered results section, without a separate visible label or title.
 
 The original H.264 and AAC streams are copied without re-encoding. The MP4 is
 prepared for progressive playback with `faststart`, retaining the 1280 × 720

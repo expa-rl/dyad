@@ -37,7 +37,6 @@
 .section-copy .dyad-name { font-weight: 700; }
 .section-copy .key-emphasis { color: #173f7a; font-weight: 700; font-size: 1.1em; line-height: 1.45; }
 .overview-media { margin-top: 2rem; }
-.overview-label { margin-bottom: 0.75rem; color: #173f7a; font-size: 1rem; font-weight: 600; }
 .overview-player { position: relative; overflow: hidden; border-radius: 12px; background: #09131e; }
 .overview-player video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
 .overview-play { position: absolute; top: 18%; left: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding: 0; border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 50%; background: rgba(255, 255, 255, 0.93); color: #173f7a; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25); cursor: pointer; }
